@@ -1,0 +1,24 @@
+{
+  "name": "issue-tracking-app",
+  "version": "1.0.0",
+  "description": "A simple issue tracking app built with MEAN stack.",
+  "main": "index.js",
+  "scripts": {
+    "install-dependencies": "npm i && cd frontend && npm i",
+    "start:front": "cd frontend && npm start",
+    "build:front": "cd frontend && npm run build",
+    "test:front": "cd frontend && npm run test",
+    "start": "npm run start:front",
+    "build": "npm run build:front"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uytruong/issue-tracking-app.git"
+  },
+  "author": "Uy Truong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uytruong/issue-tracking-app/issues"
+  },
+  "homepage": "https://github.com/uytruong/issue-tracking-app#readme"
+}
