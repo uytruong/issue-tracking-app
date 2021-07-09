@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  buttonTypes = ['primary', 'danger'];
-  buttonType = 'primary';
   title = 'frontend';
 }

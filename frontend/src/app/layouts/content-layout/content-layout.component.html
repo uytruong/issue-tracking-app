@@ -1,0 +1,17 @@
+<select class="p-2 rounded border border-black" [(ngModel)]="buttonType">
+    <option *ngFor="let type of buttonTypes" [value]="type">{{ type }}</option>
+  </select>
+  <button
+    type="button"
+    class="px-4, py-2 rounded text-white"
+    [class]="
+      buttonType === 'primary'
+        ? ['bg-gray-400', 'hover:bg-gray-600']
+        : ['bg-red-400', 'hover:bg-red-600']
+    "
+  >
+    Test Button
+  </button>
+
+  <router-outlet></router-outlet>
+  
