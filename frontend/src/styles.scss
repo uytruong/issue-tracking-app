@@ -1,4 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ng-zorro-antd/style/index.min.css';
+@import 'ng-zorro-antd/avatar/style/index.min.css';
+@import 'ng-zorro-antd/tooltip/style/index.min.css';
+@import 'ng-zorro-antd/popover/style/index.min.css';
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+// Fixing conflict between TailwindCSS base and ngzorro icon
+svg {
+    vertical-align: initial;
+}
+
+body {
+    overflow: hidden;
+}
