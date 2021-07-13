@@ -13,9 +13,23 @@ import { SharedModule } from './shared/shared.module';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { UserOutline, SearchOutline, PlusOutline, InfoCircleFill } from '@ant-design/icons-angular/icons';
+import {
+  UserOutline,
+  SearchOutline,
+  PlusOutline,
+  InfoCircleFill,
+  ProjectOutline,
+  SettingOutline
+} from '@ant-design/icons-angular/icons';
 
-const NZ_ICONS: IconDefinition[] = [UserOutline, SearchOutline, PlusOutline, InfoCircleFill];
+const NZ_ICONS: IconDefinition[] = [
+  UserOutline,
+  SearchOutline,
+  PlusOutline,
+  InfoCircleFill,
+  ProjectOutline,
+  SettingOutline
+];
 
 @NgModule({
   declarations: [
@@ -31,9 +45,9 @@ const NZ_ICONS: IconDefinition[] = [UserOutline, SearchOutline, PlusOutline, Inf
     AppRoutingModule,
     FormsModule,
     SharedModule,
-    NzIconModule.forRoot(NZ_ICONS)
+    NzIconModule.forRoot(NZ_ICONS),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

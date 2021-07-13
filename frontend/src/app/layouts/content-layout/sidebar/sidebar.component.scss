@@ -1,0 +1,22 @@
+$navbar-height: 56px;
+
+.sidebar-wrap {
+    width: 260px;
+    transition: width 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
+    height: calc(100% - #{$navbar-height});
+    @apply relative bg-secondaryLight;
+}
+
+.sidebar-content {
+    width: 260px;
+    overflow-x: hidden;
+    @apply absolute top-0 left-0 h-full w-full px-2;
+}
+
+.link {
+    @apply flex items-center px-3 py-2 hover:bg-secondary rounded-sm text-primaryDark;
+}
+
+.active {
+    @apply bg-secondary text-primary;
+}

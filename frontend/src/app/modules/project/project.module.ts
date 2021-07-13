@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardComponent } from './pages/board/board.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 @NgModule({
   declarations: [
-    BoardComponent
+    BoardComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

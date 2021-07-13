@@ -98,7 +98,9 @@ module.exports = {
         900: '#3c366b'
       },
       primary: '#3F72AF',
-      secondary: '#DBE2EF'
+      primaryDark: '#112D4E',
+      secondary: '#DBE2EF',
+      secondaryLight: '#F9F7F7'
     }
   },
   variants: {

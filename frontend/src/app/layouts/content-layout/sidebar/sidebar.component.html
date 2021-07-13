@@ -1,1 +1,28 @@
-<p>sidebar works!</p>
+<div class="sidebar-wrap">
+    <div class="sidebar-content">
+        <div class="flex px-2 py-8 space-x-4">
+            <div>
+                <nz-avatar [nzShape]="'square'" [nzSize]="'large'" nzIcon="project" nzSrc="https://i.pinimg.com/originals/24/70/08/2470083b72ec71f8a6727a70562bb7cc.jpg"></nz-avatar>
+            </div>
+            <div>
+                <p class="font-semibold">Project name</p>
+                <p>Project type</p>
+            </div>
+        </div>
+
+        <div>
+            <a class="link" routerLink="/project/board" routerLinkActive="active">
+                <div class="text-2xl mr-4">
+                    <i nz-icon nzType="project" nzTheme="outline"></i>
+                </div>
+                <p>Kanban board</p>
+            </a>
+            <a class="link" routerLink="/project/settings" routerLinkActive="active">
+                <div class="text-2xl mr-4">
+                    <i nz-icon nzType="setting" nzTheme="outline"></i>
+                </div>
+                <p>Settings</p>
+            </a>
+        </div>
+    </div>
+</div>
