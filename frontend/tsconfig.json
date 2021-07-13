@@ -30,6 +30,9 @@
       ],
       "@data/*": [
         "app/data/*"
+      ],
+      "@configs/*": [
+        "app/configs/*"
       ]
     },
     "lib": [

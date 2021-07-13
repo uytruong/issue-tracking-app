@@ -18,5 +18,5 @@ $navbar-height: 56px;
 }
 
 .active {
-    @apply bg-secondary text-primary;
+    @apply text-primary bg-secondary;
 }
