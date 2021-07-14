@@ -10,6 +10,8 @@ import { SharedModule } from '@app/shared/shared.module';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NZ_ICONS } from '@configs/icons';
 import { SidebarCollapseComponent } from './components/sidebar-collapse/sidebar-collapse.component';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +19,15 @@ import { SidebarCollapseComponent } from './components/sidebar-collapse/sidebar-
     SettingsComponent,
     ProjectComponent,
     SidebarComponent,
-    SidebarCollapseComponent
+    SidebarCollapseComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
     SharedModule,
     NzIconModule.forChild(NZ_ICONS),
+    NzBreadCrumbModule
   ]
 })
 export class ProjectModule { }

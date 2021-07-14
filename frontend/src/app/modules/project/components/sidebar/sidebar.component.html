@@ -16,17 +16,16 @@
     </div>
 
     <div>
-      <a class="link" routerLink="/project/board" routerLinkActive="active">
+      <a
+        *ngFor="let link of links"
+        class="link"
+        [routerLink]="link.url"
+        routerLinkActive="active"
+      >
         <div class="text-2xl mr-4">
-          <i nz-icon nzType="project" nzTheme="outline"></i>
+          <i nz-icon [nzType]="link.icon" nzTheme="outline"></i>
         </div>
-        <p>Kanban board</p>
-      </a>
-      <a class="link" routerLink="/project/settings" routerLinkActive="active">
-        <div class="text-2xl mr-4">
-          <i nz-icon nzType="setting" nzTheme="outline"></i>
-        </div>
-        <p>Settings</p>
+        <p>{{ link.title }}</p>
       </a>
     </div>
   </div>

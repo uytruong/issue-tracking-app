@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { sidebarLinks } from '@app/configs/sidebar';
+import { NavLink } from '@app/data/ui-model/nav-link';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   @Input() expanded: boolean;
+  links: NavLink[];
 
   get sidebarWidth(): number {
     return this.expanded ? 260 : 16;
@@ -16,6 +19,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.expanded = true;
+    this.links = [...sidebarLinks];
   }
 
 }
