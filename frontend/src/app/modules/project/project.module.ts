@@ -9,13 +9,15 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NZ_ICONS } from '@configs/icons';
+import { SidebarCollapseComponent } from './components/sidebar-collapse/sidebar-collapse.component';
 
 @NgModule({
   declarations: [
     BoardComponent,
     SettingsComponent,
     ProjectComponent,
-    SidebarComponent
+    SidebarComponent,
+    SidebarCollapseComponent
   ],
   imports: [
     CommonModule,

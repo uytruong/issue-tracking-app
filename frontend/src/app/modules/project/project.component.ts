@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
+  expanded: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.expanded = true;
+  }
+
+  manualToggle() {
+    this.expanded = !this.expanded;
   }
 
 }

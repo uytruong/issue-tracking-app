@@ -5,7 +5,9 @@ import {
   PlusOutline,
   InfoCircleFill,
   ProjectOutline,
-  SettingOutline
+  SettingOutline,
+  LeftOutline,
+  RightOutline
 } from '@ant-design/icons-angular/icons';
 
 export const NZ_ICONS: IconDefinition[] = [
@@ -15,4 +17,6 @@ export const NZ_ICONS: IconDefinition[] = [
   InfoCircleFill,
   ProjectOutline,
   SettingOutline,
+  LeftOutline,
+  RightOutline
 ];
