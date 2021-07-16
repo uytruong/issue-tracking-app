@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { sidebarLinks } from '@app/configs/sidebar';
+import { sidebarLinks } from '@app/core/configs/sidebar';
 import { NavLink } from '@app/data/ui-model/nav-link';
 
 @Component({

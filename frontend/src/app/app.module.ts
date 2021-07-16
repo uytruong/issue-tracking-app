@@ -11,7 +11,7 @@ import { NavbarComponent } from './layouts/content-layout/navbar/navbar.componen
 import { SharedModule } from './shared/shared.module';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NZ_ICONS } from './configs/icons';
+import { NZ_ICONS } from '@core/configs/icons';
 
 @NgModule({
   declarations: [

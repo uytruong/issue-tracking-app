@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: 'project', 
-    pathMatch: 'full' 
+  {
+    path: '',
+    redirectTo: 'projects',
+    pathMatch: 'full',
   },
   {
     path: '',
@@ -19,9 +19,15 @@ const routes: Routes = [
             (m) => m.ProjectModule
           ),
       },
+      {
+        path: 'projects',
+        loadChildren: () =>
+          import('@modules/projects/projects.module').then(
+            (m) => m.ProjectsModule
+          ),
+      },
     ],
   },
-  
 ];
 
 @NgModule({

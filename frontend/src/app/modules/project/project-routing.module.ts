@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProjectConst } from '@app/core/constant/project-const';
 import { BoardComponent } from './pages/board/board.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProjectComponent } from './project.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: `:${ProjectConst.ProjectKey}`,
     component: ProjectComponent,
     children: [
       {
