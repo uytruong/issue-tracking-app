@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectConst } from '@app/core/constant/project-const';
 import { RouteUtil } from '@app/core/utils/route';
-import { NavLink } from '@app/data/ui-model/nav-link';
+import { NavLink } from '@app/data/ui-model/nav-link.model';
 
 @Component({
   selector: 'app-settings',

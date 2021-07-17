@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { sidebarLinks } from '@app/core/configs/sidebar';
-import { NavLink } from '@app/data/ui-model/nav-link';
+import { NavLink } from '@app/data/ui-model/nav-link.model';
 
 @Component({
   selector: 'app-sidebar',

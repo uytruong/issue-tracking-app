@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavLink } from '@app/data/ui-model/nav-link';
+import { NavLink } from '@app/data/ui-model/nav-link.model';
 import {
   Router,
   ActivatedRoute,
