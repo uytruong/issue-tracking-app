@@ -1,0 +1,5 @@
+{
+  "HOST": "http://localhost",
+  "PORT": 8080,
+  "MONOGO_URI": "mongodb+srv://admin:5CAHwpg968yZIYxz@cluster0.bpqk8.mongodb.net/issue-tracking-app?retryWrites=true&w=majority"
+}
