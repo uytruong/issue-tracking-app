@@ -1,10 +1,7 @@
-$navbar-height: 56px;
-
 .sidebar-wrap {
     transition: width 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
-    height: calc(100% - #{$navbar-height});
     overflow: hidden;
-    @apply relative bg-secondaryLight;
+    @apply h-full relative bg-secondaryLight;
 }
 
 .sidebar-content {

@@ -13,6 +13,9 @@ import { SidebarCollapseComponent } from './components/sidebar-collapse/sidebar-
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
+import { BoardDndComponent } from './components/board/board-dnd/board-dnd.component';
+import { BoardDndColumnComponent } from './components/board/board-dnd-column/board-dnd-column.component';
+import { IssueCardComponent } from './components/issue/issue-card/issue-card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { ContentHeaderComponent } from './components/content-header/content-head
     SidebarComponent,
     SidebarCollapseComponent,
     BreadcrumbComponent,
-    ContentHeaderComponent
+    ContentHeaderComponent,
+    BoardDndComponent,
+    BoardDndColumnComponent,
+    IssueCardComponent
   ],
   imports: [
     CommonModule,

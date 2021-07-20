@@ -3,8 +3,8 @@
   top: 56px;
   bottom: 0;
   width: 24px;
-//   background: rgb(218, 214, 214);
   opacity: 1;
+  z-index: 1;
 }
 
 .strip {
@@ -29,7 +29,7 @@
   @apply transition-colors duration-200;
 }
 
-.btn:hover {
+button:hover {
     > span {
         color: white;
     }
