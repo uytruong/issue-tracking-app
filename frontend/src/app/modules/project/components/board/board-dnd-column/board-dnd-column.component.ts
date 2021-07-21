@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { issueStageDisplay } from '@app/core/configs/issue';
+import { Issue, IssueStage } from '@app/data/model/issue';
 
 @Component({
   selector: 'app-board-dnd-column',
@@ -6,7 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./board-dnd-column.component.scss']
 })
 export class BoardDndColumnComponent implements OnInit {
-  @Input() stageTitle: string;
+  @Input() stage: IssueStage;
+  @Input() issues: Issue[];
+  stageDisplay = issueStageDisplay;
 
   constructor() { }
 

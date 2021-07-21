@@ -1,0 +1,14 @@
+.card-wrap {
+    @apply w-full p-4 mb-2 bg-white rounded-sm shadow-sm;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: white;
+    border-radius: 10%;
+    font-size: 12px;
+}

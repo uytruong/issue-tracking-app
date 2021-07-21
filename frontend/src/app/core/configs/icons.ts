@@ -7,7 +7,12 @@ import {
   ProjectOutline,
   SettingOutline,
   LeftOutline,
-  RightOutline
+  RightOutline,
+  BugFill,
+  BookFill,
+  CheckOutline,
+  ExclamationOutline,
+  CaretUpFill
 } from '@ant-design/icons-angular/icons';
 
 export const NZ_ICONS: IconDefinition[] = [
@@ -18,5 +23,10 @@ export const NZ_ICONS: IconDefinition[] = [
   ProjectOutline,
   SettingOutline,
   LeftOutline,
-  RightOutline
+  RightOutline,
+  BugFill,
+  BookFill,
+  CheckOutline,
+  ExclamationOutline,
+  CaretUpFill
 ];

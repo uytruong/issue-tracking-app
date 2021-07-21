@@ -7,8 +7,6 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ProjectComponent } from './project.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NZ_ICONS } from '@app/core/configs/icons';
 import { SidebarCollapseComponent } from './components/sidebar-collapse/sidebar-collapse.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -34,7 +32,6 @@ import { IssueCardComponent } from './components/issue/issue-card/issue-card.com
     CommonModule,
     ProjectRoutingModule,
     SharedModule,
-    NzIconModule.forChild(NZ_ICONS),
     NzBreadCrumbModule
   ]
 })
