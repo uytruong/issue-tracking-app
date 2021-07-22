@@ -102,6 +102,6 @@ export class BoardDndComponent implements OnInit {
       .sort((a, b) => {
         return a.listPosition - b.listPosition;
       });
-    return sortedIssues;
+    return [...sortedIssues];
   }
 }

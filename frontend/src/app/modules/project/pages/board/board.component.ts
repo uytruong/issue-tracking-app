@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { NavLink } from '@app/data/ui-model/nav-link.model';
-import {
-  Router,
-  ActivatedRoute,
-  ParamMap,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
-import { ProjectConst } from '@app/core/constant/project-const';
-import { RouteUtil } from '@app/core/utils/route';
+import { Observable } from 'rxjs';
+import { Project } from '@app/data/model/project';
+import { ProjectStore } from '../../project.store';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
+  styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  breadcrumb: NavLink[] = [
-    new NavLink('Projects', null, '/projects')
-  ];
-  projectKey: string;
+  breadcrumb: NavLink[] = [new NavLink('Projects', null, '/projects')];
+  project$: Observable<Project>;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private projectStore: ProjectStore) {}
 
   ngOnInit(): void {
-    const params = RouteUtil.collectRouteParams(this.router);
-    this.projectKey = params[`${ProjectConst.ProjectKey}`];
-    this.breadcrumb = [
-      ...this.breadcrumb,
-      new NavLink(this.projectKey, null, '../'),
-      new NavLink('Kanban Board', null, './'),
-    ];
+    this.project$ = this.projectStore.project$.pipe(
+      tap((project) => {
+        this.breadcrumb = [
+          ...this.breadcrumb,
+          new NavLink(project.name, null, '../'),
+          new NavLink('Kanban Board', null, './')
+        ];
+      })
+    );
   }
 }

@@ -2,5 +2,5 @@ import { NavLink } from "@app/data/ui-model/nav-link.model";
 
 export const sidebarLinks = [
     new NavLink('Kanban Board', 'project', 'board'),
-    new NavLink('Settings', 'setting', 'settings')
+    new NavLink('Project Settings', 'setting', 'settings')
 ]

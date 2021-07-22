@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectConst } from '@app/core/constant/project-const';
-import { RouteUtil } from '@app/core/utils/route';
+import { Project } from '@app/data/model/project';
 import { NavLink } from '@app/data/ui-model/nav-link.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ProjectStore } from '../../project.store';
 
 @Component({
   selector: 'app-settings',
@@ -13,18 +14,20 @@ export class SettingsComponent implements OnInit {
   breadcrumb: NavLink[] = [
     new NavLink('Projects', null, '/projects')
   ];
-  projectKey: string;
+  project$: Observable<Project>;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private projectStore: ProjectStore) {}
 
   ngOnInit(): void {
-    const params = RouteUtil.collectRouteParams(this.router);
-    this.projectKey = params[`${ProjectConst.ProjectKey}`];
-    this.breadcrumb = [
-      ...this.breadcrumb,
-      new NavLink(this.projectKey, null, '../'),
-      new NavLink('Settings', null, './'),
-    ];
+    this.project$ = this.projectStore.project$.pipe(
+      tap((project) => {
+        this.breadcrumb = [
+          ...this.breadcrumb,
+          new NavLink(project.name, null, '../'),
+          new NavLink('Settings', null, './')
+        ];
+      })
+    );
   }
 
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardComponent } from './pages/board/board.component';
@@ -32,7 +33,8 @@ import { IssueCardComponent } from './components/issue/issue-card/issue-card.com
     CommonModule,
     ProjectRoutingModule,
     SharedModule,
-    NzBreadCrumbModule
+    NzBreadCrumbModule,
+    DragDropModule
   ]
 })
 export class ProjectModule { }

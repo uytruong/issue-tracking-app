@@ -1,32 +1,34 @@
-<div [style.width.px]="sidebarWidth" class="sidebar-wrap">
-  <div class="sidebar-content">
-    <div class="flex px-2 py-8 space-x-4">
-      <div>
-        <nz-avatar
-          [nzShape]="'square'"
-          [nzSize]="'large'"
-          nzIcon="project"
-          nzSrc="https://i.pinimg.com/originals/24/70/08/2470083b72ec71f8a6727a70562bb7cc.jpg"
-        ></nz-avatar>
-      </div>
-      <div>
-        <p class="font-semibold">Project name</p>
-        <p>Project type</p>
-      </div>
-    </div>
-
-    <div>
-      <a
-        *ngFor="let link of links"
-        class="link"
-        [routerLink]="link.url"
-        routerLinkActive="active"
-      >
-        <div class="text-2xl mr-4">
-          <i nz-icon [nzType]="link.icon" nzTheme="outline"></i>
+<ng-container *ngIf="project$ | async as project">
+  <div [style.width.px]="sidebarWidth" class="sidebar-wrap">
+    <div class="sidebar-content">
+      <div class="flex px-2 py-8 space-x-4">
+        <div>
+          <nz-avatar
+            [nzShape]="'square'"
+            [nzSize]="'large'"
+            nzIcon="project"
+            [nzSrc]="project.avatarUrl"
+          ></nz-avatar>
         </div>
-        <p>{{ link.title }}</p>
-      </a>
+        <div>
+          <p class="font-semibold">{{ project.name }}</p>
+          <p>{{ project.category }} Project</p>
+        </div>
+      </div>
+
+      <div>
+        <a
+          *ngFor="let link of links"
+          class="link"
+          [routerLink]="link.url"
+          routerLinkActive="active"
+        >
+          <div class="text-2xl mr-4">
+            <i nz-icon [nzType]="link.icon" nzTheme="outline"></i>
+          </div>
+          <p>{{ link.title }}</p>
+        </a>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

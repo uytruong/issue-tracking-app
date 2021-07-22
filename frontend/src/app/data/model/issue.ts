@@ -1,22 +1,3 @@
-export enum IssueStage {
-  BACKLOG = 'Backlog',
-  SELECTED = 'Selected',
-  IN_PROGRESS = 'InProgress',
-  DONE = 'Done'
-}
-
-export enum IssueType {
-  STORY = 'Story',
-  TASK = 'Task',
-  BUG = 'Bug'
-}
-
-export enum IssuePriority {
-  LOW = 'Low',
-  MEDIUM = 'Medium',
-  HIGH = 'High'
-}
-
 export interface Issue {
   id: string;
   title: string;
@@ -30,4 +11,23 @@ export interface Issue {
   projectId: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export const enum IssueStage {
+  BACKLOG = 'Backlog',
+  SELECTED = 'Selected',
+  IN_PROGRESS = 'InProgress',
+  DONE = 'Done'
+}
+
+export const enum IssueType {
+  STORY = 'Story',
+  TASK = 'Task',
+  BUG = 'Bug'
+}
+
+export const enum IssuePriority {
+  LOW = 'Low',
+  MEDIUM = 'Medium',
+  HIGH = 'High'
 }

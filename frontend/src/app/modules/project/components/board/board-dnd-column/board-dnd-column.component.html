@@ -1,7 +1,15 @@
 <div class="column-wrap">
   <p class="p-4">{{ stageDisplay[stage] }}</p>
-  <div class="m-2 mt-0 h-full">
-    <app-issue-card *ngFor="let issue of issues" [issue]="issue">
+  <div
+    class="m-2 mt-0 h-full issue-list"
+    cdkDropList
+    [cdkDropListData]="issues"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-issue-card
+      *ngFor="let issue of issues"
+      [issue]="issue"
+    >
     </app-issue-card>
   </div>
 </div>

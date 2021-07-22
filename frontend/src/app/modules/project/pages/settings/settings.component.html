@@ -1,4 +1,3 @@
-<app-content-header
-  [breadcrumb]="breadcrumb"
-  [projectName]="projectKey"
-></app-content-header>
+<ng-container *ngIf="project$ | async as project">
+  <app-content-header [breadcrumb]="breadcrumb" [projectName]="project.name"></app-content-header>
+</ng-container>

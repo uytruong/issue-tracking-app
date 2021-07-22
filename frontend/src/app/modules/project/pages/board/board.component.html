@@ -1,6 +1,8 @@
-<app-content-header
-  [breadcrumb]="breadcrumb"
-  [projectName]="projectKey"
-></app-content-header>
-<!-- Board Drag and Drop-->
-<app-board-dnd></app-board-dnd>
+<ng-container *ngIf="project$ | async as project">
+  <app-content-header
+    [breadcrumb]="breadcrumb"
+    [projectName]="project.name"
+  ></app-content-header>
+  <!-- Board Drag and Drop-->
+  <app-board-dnd></app-board-dnd>
+</ng-container>
