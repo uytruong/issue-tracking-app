@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Issue } from '@app/data/model/issue';
+import { Issue, IssueStage } from '@app/data/model/issue';
 import { Project } from '@app/data/model/project';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { ProjectService } from './project.service';
 
 export const enum StatusState {
@@ -36,6 +36,14 @@ export class ProjectStore extends ComponentStore<ProjectState> {
   // Selectors
   readonly project$: Observable<Project> = this.select((state) => state.project);
   readonly issues$: Observable<Issue[]> = this.select((state) => state.issues);
+  readonly issuesSortedByStage$ = (stage): Observable<Issue[]> =>
+    this.issues$.pipe(
+      map((issues: Issue[]) => {
+        return issues
+          .filter((issue) => issue.stage === stage)
+          .sort((a, b) => a.listPosition - b.listPosition);
+      })
+    );
   readonly loading$: Observable<boolean> = this.select(
     (state) => state.status === StatusState.LOADING
   );
@@ -69,6 +77,13 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     };
   });
 
+  readonly updateIssues = this.updater((state: ProjectState, issues: Issue[]) => {
+    return {
+      ...state,
+      issues: issues
+    };
+  });
+
   readonly updateError = this.updater((state: ProjectState, errorMsg: string) => {
     return {
       ...state,
@@ -86,6 +101,21 @@ export class ProjectStore extends ComponentStore<ProjectState> {
             (project) => {
               this.updateStatus(StatusState.LOADED);
               this.updateProject(project);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly getIssues = this.effect((projectId$: Observable<string>) => {
+    return projectId$.pipe(
+      switchMap((projectId) => {
+        return this.projectService.getIssuesByProjectId(projectId).pipe(
+          tapResponse(
+            (issues) => {
+              this.updateIssues(issues);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

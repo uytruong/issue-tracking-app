@@ -37,7 +37,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'abc',
+    projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   },
@@ -51,7 +51,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'abc',
+    projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   },
@@ -65,7 +65,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'abc',
+    projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   },
@@ -79,7 +79,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'abc',
+    projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   },
@@ -93,7 +93,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'abc',
+    projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   },
@@ -107,7 +107,7 @@ const dummyIssues: Issue[] = [
     description: '',
     reporterId: 'reporter1',
     assigneesId: ['assignee1', 'assignee2'],
-    projectId: 'xyz',
+    projectId: 'xyz-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021',
   }
@@ -117,12 +117,16 @@ const dummyIssues: Issue[] = [
   providedIn: 'root'
 })
 export class ProjectService {
-  private issues: Issue[] = [];
 
   constructor() { }
 
   getProjectByKey(key: string): Observable<Project> {
     const project = dummyProjects.find(proj => proj.key === key);
     return of(project);
+  }
+
+  getIssuesByProjectId(id: string): Observable<Issue[]> {
+    const issues = dummyIssues.filter(issue => issue.projectId === id);
+    return of(issues);
   }
 }

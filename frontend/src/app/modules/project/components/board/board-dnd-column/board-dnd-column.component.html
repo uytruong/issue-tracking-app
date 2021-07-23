@@ -1,15 +1,21 @@
-<div class="column-wrap">
-  <p class="p-4">{{ stageDisplay[stage] }}</p>
-  <div
-    class="m-2 mt-0 h-full issue-list"
-    cdkDropList
-    [cdkDropListData]="issues"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <app-issue-card
-      *ngFor="let issue of issues"
-      [issue]="issue"
+<ng-container *ngIf="issues$ | async as issues">
+  <div class="column-wrap">
+    <p class="p-4">{{ stageDisplay[stage] }}</p>
+    <!-- <p>{{ issues | json }}</p> -->
+    <div
+      class="m-2 mt-0 h-full issue-list"
+      cdkDropList
+      [cdkDropListData]="issues"
+      (cdkDropListDropped)="drop($event)"
     >
-    </app-issue-card>
+      <div
+        *ngFor="let issue of issues"
+        cdkDrag
+        appDragCursor
+        [cdkDragData]="issue"
+      >
+        <app-issue-card [issue]="issue"> </app-issue-card>
+      </div>
+    </div>
   </div>
-</div>
+</ng-container>
