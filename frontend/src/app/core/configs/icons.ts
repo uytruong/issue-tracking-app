@@ -12,7 +12,8 @@ import {
   BookFill,
   CheckOutline,
   ExclamationOutline,
-  CaretUpFill
+  CaretUpFill,
+  LoadingOutline
 } from '@ant-design/icons-angular/icons';
 
 export const NZ_ICONS: IconDefinition[] = [
@@ -28,5 +29,6 @@ export const NZ_ICONS: IconDefinition[] = [
   BookFill,
   CheckOutline,
   ExclamationOutline,
-  CaretUpFill
+  CaretUpFill,
+  LoadingOutline
 ];

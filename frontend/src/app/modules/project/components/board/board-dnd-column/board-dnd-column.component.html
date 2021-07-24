@@ -9,6 +9,7 @@
       (cdkDropListDropped)="drop($event)"
     >
       <div
+        class="issue-card"
         *ngFor="let issue of issues"
         cdkDrag
         appDragCursor

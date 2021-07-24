@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue';
 import { Project, ProjectCategory } from '@app/data/model/project';
+import { User } from '@app/data/model/user';
 import { Observable, of } from 'rxjs';
 
 const dummyProjects: Project[] = [
@@ -112,6 +113,19 @@ const dummyIssues: Issue[] = [
     updatedAt: '01/01/2021',
   }
 ]; 
+
+const dummyUsers: User[] = [
+  {
+    id: 'userId1',
+    username: 'uytruong',
+    fullname: 'Uy Truong',
+    email: 'uytruong97@gmail.com',
+    avatarUrl: 'abc.jpg',
+    projectIds: ['abc-projectId', 'xyz-projectId'],
+    createdAt: '01/01/2021',
+    updatedAt: '01/01/2021'
+  }
+]
 
 @Injectable({
   providedIn: 'root'

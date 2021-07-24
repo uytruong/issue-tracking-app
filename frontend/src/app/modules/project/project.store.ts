@@ -10,7 +10,8 @@ import { ProjectService } from './project.service';
 export const enum StatusState {
   INIT = 'INIT',
   LOADING = 'LOADING',
-  LOADED = 'LOADED'
+  LOADED = 'LOADED',
+  ERROR = 'ERROR'
 }
 
 export interface ProjectState {
@@ -87,6 +88,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
   readonly updateError = this.updater((state: ProjectState, errorMsg: string) => {
     return {
       ...state,
+      status: StatusState.ERROR,
       error: errorMsg
     };
   });

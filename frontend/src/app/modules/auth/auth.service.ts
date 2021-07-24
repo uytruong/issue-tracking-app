@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  dummyUsers = [
+    {
+      id: 'userId1',
+      username: 'uytruong',
+      password: '123456',
+      fullname: 'Uy Truong',
+      email: 'uytruong97@gmail.com',
+      avatarUrl: 'abc.jpg',
+      projectIds: ['abc-projectId', 'xyz-projectId'],
+      createdAt: '01/01/2021',
+      updatedAt: '01/01/2021'
+    }
+  ];
+
+  login(username: string, password: string) {
+    const authenticatedUser = this.dummyUsers.find(
+      (user) => user.username === username && user.password === password
+    );
+    delete authenticatedUser['password'];
+    if (authenticatedUser) {
+      return of(authenticatedUser).pipe(delay(2000));
+    } else {
+      throw new Error('Authenticate Failed');
+    }
+  }
+}
