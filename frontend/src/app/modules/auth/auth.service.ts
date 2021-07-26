@@ -11,7 +11,7 @@ export class AuthService {
       password: '123456',
       fullname: 'Uy Truong',
       email: 'uytruong97@gmail.com',
-      avatarUrl: 'abc.jpg',
+      avatarUrl: 'https://vcdn-vnexpress.vnecdn.net/2020/09/23/01-4451-1600828895.jpg',
       projectIds: ['abc-projectId', 'xyz-projectId'],
       createdAt: '01/01/2021',
       updatedAt: '01/01/2021'

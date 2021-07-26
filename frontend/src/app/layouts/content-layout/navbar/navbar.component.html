@@ -4,33 +4,13 @@
 
     <div class="nav-items">
       <div class="item">
-        <div
-          nz-tooltip
-          nzTooltipTitle="Create issue"
-          nzTooltipPlacement="bottom"
-          class="itemIcon"
-        >
-          <i
-            class="text-lg leading-none"
-            nz-icon
-            nzType="plus"
-            nzTheme="outline"
-          ></i>
+        <div nz-tooltip nzTooltipTitle="Create issue" nzTooltipPlacement="bottom" class="itemIcon">
+          <i class="text-lg leading-none" nz-icon nzType="plus" nzTheme="outline"></i>
         </div>
       </div>
       <div class="item">
-        <div
-          nz-tooltip
-          nzTooltipTitle="Search issue"
-          nzTooltipPlacement="bottom"
-          class="itemIcon"
-        >
-          <i
-            class="text-lg leading-none"
-            nz-icon
-            nzType="search"
-            nzTheme="outline"
-          ></i>
+        <div nz-tooltip nzTooltipTitle="Search issue" nzTooltipPlacement="bottom" class="itemIcon">
+          <i class="text-lg leading-none" nz-icon nzType="search" nzTheme="outline"></i>
         </div>
       </div>
       <div class="item">
@@ -41,24 +21,14 @@
           nzPopoverPlacement="bottomRight"
           nzPopoverTrigger="click"
         >
-          <div
-            nz-tooltip
-            nzTooltipTitle="About"
-            nzTooltipPlacement="bottom"
-            class="itemIcon"
-          >
-            <i
-              class="text-lg leading-none"
-              nz-icon
-              nzType="info-circle"
-              nzTheme="fill"
-            ></i>
+          <div nz-tooltip nzTooltipTitle="About" nzTooltipPlacement="bottom" class="itemIcon">
+            <i class="text-lg leading-none" nz-icon nzType="info-circle" nzTheme="fill"></i>
           </div>
         </div>
       </div>
       <div class="item">
         <div class="itemIcon">
-          <nz-avatar [nzSize]="26" nzIcon="user"></nz-avatar>
+          <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="(user$ | async)?.avatarUrl"></nz-avatar>
         </div>
       </div>
     </div>
@@ -67,15 +37,9 @@
         <p>This is a simple issue tracking app built with MEAN stack.</p>
         <p>
           My inspiration comes from
-          <a
-            class="font-semibold"
-            href="https://www.atlassian.com/software/jira/"
-            >Jira Software</a
-          >
+          <a class="font-semibold" href="https://www.atlassian.com/software/jira/">Jira Software</a>
           and
-          <a class="font-semibold" href="https://jira.trungk18.com/"
-            >Angular Jira Clone</a
-          >.
+          <a class="font-semibold" href="https://jira.trungk18.com/">Angular Jira Clone</a>.
         </p>
       </div>
     </ng-template>

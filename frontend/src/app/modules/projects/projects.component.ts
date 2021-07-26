@@ -12,16 +12,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  user$: Observable<User>;
-  loading$: Observable<boolean>;
+  constructor(private store: Store) {}
 
-  constructor(private store: Store) { }
-
-  ngOnInit(): void {
-    this.store.dispatch(login({username: 'uytruong', password: '123456'}));
-    this.user$ = this.store.pipe(select(userSelector));
-    this.loading$ = this.store.pipe(select(loadingSelector), tap(value => console.log(value)));
-    console.log(this.loading$);
-  }
-
+  ngOnInit(): void {}
 }

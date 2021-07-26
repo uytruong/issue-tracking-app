@@ -1,3 +1,4 @@
+import { Project } from "@app/data/model/project";
 import { User } from "@app/data/model/user";
 
 export const enum AuthStatus {
@@ -9,6 +10,7 @@ export const enum AuthStatus {
 
 export interface AuthState {
   user: User;
+  projects: Project[];
   status: AuthStatus,
   error?: string  
 }

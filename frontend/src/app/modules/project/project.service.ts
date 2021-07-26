@@ -19,9 +19,10 @@ const dummyProjects: Project[] = [
     id: 'xyz-projectId',
     category: ProjectCategory.BUSINESS,
     description: 'This is a business project',
-    avatarUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_sIyYS38uLOr8A3s3kPW5PbgPR8JSuQMKQ&usqp=CAU',
+    avatarUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_sIyYS38uLOr8A3s3kPW5PbgPR8JSuQMKQ&usqp=CAU',
     key: 'xyz',
-    name: 'X\'mas Young Zoo',
+    name: "X'mas Young Zoo",
     createdAt: '01/02/2021',
     updatedAt: '01/02/2021'
   }
@@ -40,7 +41,7 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   },
   {
     id: '2',
@@ -54,7 +55,7 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   },
   {
     id: '3',
@@ -68,7 +69,7 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   },
   {
     id: '4',
@@ -82,7 +83,7 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   },
   {
     id: '5',
@@ -96,7 +97,7 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   },
   {
     id: '6',
@@ -110,9 +111,9 @@ const dummyIssues: Issue[] = [
     assigneesId: ['assignee1', 'assignee2'],
     projectId: 'xyz-projectId',
     createdAt: '01/01/2021',
-    updatedAt: '01/01/2021',
+    updatedAt: '01/01/2021'
   }
-]; 
+];
 
 const dummyUsers: User[] = [
   {
@@ -125,22 +126,38 @@ const dummyUsers: User[] = [
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
   }
-]
+];
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-
-  constructor() { }
+  constructor() {}
 
   getProjectByKey(key: string): Observable<Project> {
-    const project = dummyProjects.find(proj => proj.key === key);
-    return of(project);
+    const project = dummyProjects.find((proj) => proj.key === key);
+    if (project) {
+      return of(project);
+    } else {
+      throw new Error(`Project with key ${key} not found`);
+    }
   }
 
   getIssuesByProjectId(id: string): Observable<Issue[]> {
-    const issues = dummyIssues.filter(issue => issue.projectId === id);
-    return of(issues);
+    const issues = dummyIssues.filter((issue) => issue.projectId === id);
+    if (issues) {
+      return of(issues);
+    } else {
+      throw new Error(`Issues not found`);
+    }
+  }
+
+  getProjectsByIds(ids: string[]): Observable<Project[]> {
+    const projects = dummyProjects.filter(project => ids.includes(project.id));
+    if (projects) {
+      return of(projects);
+    } else {
+      throw new Error(`Projects not found`);
+    }
   }
 }

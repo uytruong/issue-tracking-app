@@ -4,6 +4,7 @@ import * as fromAuthActions from './auth.actions';
 
 const initialState: AuthState = {
   user: null,
+  projects: [],
   status: AuthStatus.INIT,
   error: ''
 };

@@ -1,4 +1,14 @@
 <app-navbar></app-navbar>
-<div id="content">
-  <router-outlet></router-outlet>
-</div>
+<ng-container *ngIf="loading$ | async; else loaded">
+  <div class="backdrop"></div>
+  <div class="spin-container">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+</ng-container>
+<ng-template #loaded>
+  <ng-container *ngIf="user$ | async as user">
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+</ng-template>
