@@ -1,24 +1,24 @@
-<!-- <button routerLink="/project/abc">Project ABC</button>
-<button routerLink="/project/xyz">Project XYZ</button> -->
 <ng-container *ngIf="vm$ | async as vm">
-  <nz-table #projectTable [nzData]="vm.projects">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let project of projectTable.data">
-        <td>{{ project.id }}</td>
-        <td>{{ project.name }}</td>
-        <td>{{ project.category }}</td>
-        <td>{{ project.description }}</td>
-        <td><a [routerLink]="['/project', project.key]">Go to project</a></td>
-      </tr>
-    </tbody>
-  </nz-table>
+  <div class="mx-10">
+    <div class="mt-8 mb-6">
+      <p class="text-2xl font-extrabold">Projects</p>
+    </div>
+    <nz-table #projectTable [nzData]="vm.projects">
+      <thead>
+        <tr>
+          <th *ngFor="let header of projectsMetadata">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectTable.data">
+          <td>{{ project.id }}</td>
+          <td>{{ project.key }}</td>
+          <td>{{ project.name }}</td>
+          <td>{{ project.category }}</td>
+          <td>{{ project.description }}</td>
+          <td><a [routerLink]="['/project', project.key]">Go to project</a></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </ng-container>

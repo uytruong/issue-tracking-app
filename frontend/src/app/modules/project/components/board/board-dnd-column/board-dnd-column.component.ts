@@ -1,4 +1,9 @@
-import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDragStart,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { issueStageDisplay } from '@app/core/configs/issue';
 import { Issue, IssueStage } from '@app/data/model/issue';
@@ -9,30 +14,41 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-board-dnd-column',
   templateUrl: './board-dnd-column.component.html',
-  styleUrls: ['./board-dnd-column.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
- })
+  styleUrls: ['./board-dnd-column.component.scss']
+})
 export class BoardDndColumnComponent implements OnInit {
   @Input() stage: IssueStage;
   issues$: Observable<Issue[]>;
   stageDisplay = issueStageDisplay;
 
-  constructor(private projectStore: ProjectStore) { }
+  constructor(private projectStore: ProjectStore) {}
 
   ngOnInit(): void {
     this.issues$ = this.projectStore.issuesSortedByStage$(this.stage);
   }
 
   drop(event: CdkDragDrop<Issue[]>) {
+    console.log(event);
+    const movedIssue: Issue = { ...event.item.data };
+    let newIssues = [...event.container.data];
+    const previousIssues = [...event.previousContainer.data];
     if (event.previousContainer === event.container) {
-      this.issues$.pipe(tap(issue => console.log(issue)));
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log('[current] container data: ', this.issues$.pipe(tap(issue => console.log(issue))));
+      moveItemInArray(newIssues, event.previousIndex, event.currentIndex);
+      this.updateListPosition(newIssues);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      transferArrayItem(previousIssues, newIssues, event.previousIndex, event.currentIndex);
+      newIssues = newIssues.map((issue) =>
+        issue.id === movedIssue.id ? { ...issue, stage: event.container.id as IssueStage } : issue
+      );
+      this.updateListPosition(previousIssues);
+      this.updateListPosition(newIssues);
+    }
+  }
+
+  private updateListPosition(issues: Issue[]) {
+    for (let idx in issues) {
+      issues[idx].listPosition = parseInt(idx) + 1;
+      this.projectStore.updateIssue(issues[idx]);
     }
   }
 }

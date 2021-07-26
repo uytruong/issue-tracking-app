@@ -85,6 +85,15 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     };
   });
 
+  readonly updateIssue = this.updater((state: ProjectState, newIssue: Issue) => {
+    let cloneIssues = [...state.issues];
+    cloneIssues = cloneIssues.map((issue) => (issue.id === newIssue.id ? { ...newIssue } : issue));
+    return {
+      ...state,
+      issues: cloneIssues
+    };
+  });
+
   readonly updateError = this.updater((state: ProjectState, errorMsg: string) => {
     return {
       ...state,

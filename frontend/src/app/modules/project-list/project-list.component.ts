@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectConst } from '@app/core/constant/project-const';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
 import { Project } from '@app/data/model/project';
 import { User } from '@app/data/model/user';
@@ -21,6 +22,7 @@ interface ProjectsVM {
 export class ProjectListComponent implements OnInit {
   user$: Observable<User>;
   vm$: Observable<ProjectsVM>;
+  projectsMetadata: string[] = ProjectConst.ProjectMetadata;
 
   constructor(private store: Store, private projectListStore: ProjectListStore) {}
 

@@ -4,6 +4,7 @@
     <!-- <p>{{ issues | json }}</p> -->
     <div
       class="m-2 mt-0 h-full issue-list"
+      [id]="stage"
       cdkDropList
       [cdkDropListData]="issues"
       (cdkDropListDropped)="drop($event)"
