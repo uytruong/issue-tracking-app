@@ -22,8 +22,8 @@ const routes: Routes = [
       {
         path: 'projects',
         loadChildren: () =>
-          import('@modules/projects/projects.module').then(
-            (m) => m.ProjectsModule
+          import('@modules/project-list/project-list.module').then(
+            (m) => m.ProjectListModule
           ),
       },
     ],

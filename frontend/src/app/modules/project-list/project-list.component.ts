@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  selector: 'app-project-list',
+  templateUrl: './project-list.component.html',
+  styleUrls: ['./project-list.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectListComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {}
