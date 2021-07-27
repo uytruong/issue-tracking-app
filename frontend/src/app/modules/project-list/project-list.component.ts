@@ -27,10 +27,10 @@ export class ProjectListComponent implements OnInit {
   constructor(private store: Store, private projectListStore: ProjectListStore) {}
 
   ngOnInit(): void {
-    this.user$ = this.store.pipe(select(userSelector));
-    this.user$.subscribe((user) => {
-      this.projectListStore.getProjects(user.projectIds);
-    });
+    this.user$ = this.store.pipe(
+      select(userSelector),
+      tap(user => this.projectListStore.getProjects(user.projectIds))
+    );
     this.vm$ = this.projectListStore.vm$;
   }
 }

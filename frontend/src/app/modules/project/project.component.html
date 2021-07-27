@@ -4,7 +4,9 @@
     [expanded]="expanded"
     (manualToggle)="manualToggle()"
   ></app-sidebar-collapse>
-  <div id="project-content">
-    <router-outlet></router-outlet>
-  </div>
+  <ng-container *ngIf="project$ | async">
+    <div id="project-content">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
 </div>

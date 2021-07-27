@@ -1,24 +1,26 @@
-<ng-container *ngIf="vm$ | async as vm">
-  <div class="mx-10">
-    <div class="mt-8 mb-6">
-      <p class="text-2xl font-extrabold">Projects</p>
+<ng-container *ngIf="user$ | async">
+  <ng-container *ngIf="vm$ | async as vm">
+    <div class="mx-10">
+      <div class="mt-8 mb-6">
+        <p class="text-2xl font-extrabold">Projects</p>
+      </div>
+      <nz-table #projectTable [nzData]="vm.projects">
+        <thead>
+          <tr>
+            <th *ngFor="let header of projectsMetadata">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projectTable.data">
+            <td>{{ project.id }}</td>
+            <td>{{ project.key }}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.category }}</td>
+            <td>{{ project.description }}</td>
+            <td><a [routerLink]="['/project', project.key]">Go to project</a></td>
+          </tr>
+        </tbody>
+      </nz-table>
     </div>
-    <nz-table #projectTable [nzData]="vm.projects">
-      <thead>
-        <tr>
-          <th *ngFor="let header of projectsMetadata">{{ header }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let project of projectTable.data">
-          <td>{{ project.id }}</td>
-          <td>{{ project.key }}</td>
-          <td>{{ project.name }}</td>
-          <td>{{ project.category }}</td>
-          <td>{{ project.description }}</td>
-          <td><a [routerLink]="['/project', project.key]">Go to project</a></td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
+  </ng-container>
 </ng-container>

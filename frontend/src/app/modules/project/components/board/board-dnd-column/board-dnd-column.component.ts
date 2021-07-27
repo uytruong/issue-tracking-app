@@ -28,7 +28,6 @@ export class BoardDndColumnComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Issue[]>) {
-    console.log(event);
     const movedIssue: Issue = { ...event.item.data };
     let newIssues = [...event.container.data];
     const previousIssues = [...event.previousContainer.data];

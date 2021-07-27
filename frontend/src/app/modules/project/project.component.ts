@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProjectConst } from '@app/core/constant/project-const';
 import { Project } from '@app/data/model/project';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ProjectStore } from './project.store';
 
 @Component({
@@ -14,6 +15,7 @@ import { ProjectStore } from './project.store';
 export class ProjectComponent implements OnInit {
   expanded: boolean;
   projectKey: string;
+  project$: Observable<Project>;
 
   constructor(private route: ActivatedRoute, private projectStore: ProjectStore) {}
 
@@ -21,6 +23,9 @@ export class ProjectComponent implements OnInit {
     this.expanded = true;
     this.projectKey = this.route.snapshot.paramMap.get(ProjectConst.ProjectKey);
     this.projectStore.getProject(this.projectKey);
+    this.project$ = this.projectStore.project$.pipe(
+      tap((project) => this.projectStore.getIssues(project.id))
+    );
   }
 
   manualToggle() {

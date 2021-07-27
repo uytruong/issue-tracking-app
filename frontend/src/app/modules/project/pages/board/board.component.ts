@@ -19,9 +19,6 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.project$ = this.projectStore.project$.pipe(
       tap((project) => {
-        // Get issues by project id
-        this.projectStore.getIssues(project.id);
-
         // Init breadcrumb view model
         this.breadcrumb = [
           ...this.breadcrumb,
