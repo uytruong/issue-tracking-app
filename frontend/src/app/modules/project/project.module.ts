@@ -17,6 +17,7 @@ import { BoardDndColumnComponent } from './components/board/board-dnd-column/boa
 import { IssueCardComponent } from './components/issue/issue-card/issue-card.component';
 import { IssueDetailModalComponent } from './components/issue/issue-detail-modal/issue-detail-modal.component';
 import { ProjectStore } from './project.store';
+import { IssueTitleComponent } from './components/issue/issue-title/issue-title.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProjectStore } from './project.store';
     BoardDndComponent,
     BoardDndColumnComponent,
     IssueCardComponent,
-    IssueDetailModalComponent
+    IssueDetailModalComponent,
+    IssueTitleComponent
   ],
   imports: [
     CommonModule,

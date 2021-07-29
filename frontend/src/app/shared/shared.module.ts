@@ -10,11 +10,13 @@ import { DragCursorDirective } from './drag-cursor.directive';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     NzAvatarModule,
     NzToolTipModule,
     NzPopoverModule,
@@ -24,6 +26,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzModalModule
   ],
   exports: [
+    ReactiveFormsModule,
     NzAvatarModule,
     NzToolTipModule,
     NzPopoverModule,
