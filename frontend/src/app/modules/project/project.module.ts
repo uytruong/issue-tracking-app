@@ -15,6 +15,8 @@ import { ContentHeaderComponent } from './components/content-header/content-head
 import { BoardDndComponent } from './components/board/board-dnd/board-dnd.component';
 import { BoardDndColumnComponent } from './components/board/board-dnd-column/board-dnd-column.component';
 import { IssueCardComponent } from './components/issue/issue-card/issue-card.component';
+import { IssueDetailModalComponent } from './components/issue/issue-detail-modal/issue-detail-modal.component';
+import { ProjectStore } from './project.store';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { IssueCardComponent } from './components/issue/issue-card/issue-card.com
     ContentHeaderComponent,
     BoardDndComponent,
     BoardDndColumnComponent,
-    IssueCardComponent
+    IssueCardComponent,
+    IssueDetailModalComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { IssueCardComponent } from './components/issue/issue-card/issue-card.com
     SharedModule,
     NzBreadCrumbModule,
     DragDropModule
-  ]
+  ],
+  providers: [ProjectStore]
 })
 export class ProjectModule { }

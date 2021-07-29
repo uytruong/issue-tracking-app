@@ -10,7 +10,6 @@ import { ProjectStore } from './project.store';
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss'],
-  providers: [ProjectStore]
 })
 export class ProjectComponent implements OnInit {
   expanded: boolean;
@@ -24,7 +23,10 @@ export class ProjectComponent implements OnInit {
     this.projectKey = this.route.snapshot.paramMap.get(ProjectConst.ProjectKey);
     this.projectStore.getProject(this.projectKey);
     this.project$ = this.projectStore.project$.pipe(
-      tap((project) => this.projectStore.getIssues(project.id))
+      tap((project) => {
+        this.projectStore.getIssues(project.id);
+        this.projectStore.getUsers(project.id);
+      })
     );
   }
 

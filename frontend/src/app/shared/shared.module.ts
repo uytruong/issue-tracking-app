@@ -9,6 +9,7 @@ import { NZ_ICONS } from '@app/core/configs/icons';
 import { DragCursorDirective } from './drag-cursor.directive';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
@@ -19,7 +20,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     NzPopoverModule,
     NzIconModule.forChild(NZ_ICONS),
     NzSpinModule,
-    NzTableModule
+    NzTableModule,
+    NzModalModule
   ],
   exports: [
     NzAvatarModule,
@@ -29,7 +31,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     IconComponent,
     DragCursorDirective,
     NzSpinModule,
-    NzTableModule
+    NzTableModule,
+    NzModalModule
   ]
 })
 export class SharedModule {}

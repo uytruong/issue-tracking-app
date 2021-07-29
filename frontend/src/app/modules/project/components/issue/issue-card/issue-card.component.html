@@ -1,15 +1,30 @@
-<div class="card-wrap">
+<div class="card-wrap" (click)="onOpenIssueModal(issue.id)">
   <p class="mb-2">{{ issue.title }}</p>
   <div class="flex justify-between items-center">
     <div class="flex items-center space-x-1">
-      <div class="icon" [style.background-color]="typeIcon.icon.color">
-        <i nz-icon [nzType]="typeIcon.icon.name" [nzTheme]="typeIcon.icon.theme"></i>
-      </div>
+      <app-icon
+        [bgColor]="typeIcon.icon.color"
+        color="white"
+        [name]="typeIcon.icon.name"
+        [theme]="typeIcon.icon.theme"
+      ></app-icon>
       <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
     </div>
     <div class="flex items-center space-x-1">
-      <app-icon iconSize="20" [color]="priorityIcon.iconColor" name="caret-up" theme='fill'></app-icon>
-      <nz-avatar [nzSize]="26" nzIcon="user"></nz-avatar>
+      <ng-container *ngFor="let user of users$ | async">
+        <nz-avatar
+          *ngIf="issue.assigneesId.includes(user.id)"
+          [nzSize]="26"
+          nzIcon="user"
+          [nzSrc]="user.avatarUrl"
+        ></nz-avatar>
+      </ng-container>
+      <app-icon
+        iconSize="20"
+        [color]="priorityIcon.iconColor"
+        name="caret-up"
+        theme="fill"
+      ></app-icon>
     </div>
   </div>
 </div>

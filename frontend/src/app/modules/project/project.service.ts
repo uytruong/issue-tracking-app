@@ -38,7 +38,7 @@ const dummyIssues: Issue[] = [
     listPosition: 0,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId1', 'userId2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -52,7 +52,7 @@ const dummyIssues: Issue[] = [
     listPosition: 1,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId1', 'userId4'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -66,7 +66,7 @@ const dummyIssues: Issue[] = [
     listPosition: 0,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId3', 'userId2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -80,7 +80,7 @@ const dummyIssues: Issue[] = [
     listPosition: 1,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId2'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -94,7 +94,7 @@ const dummyIssues: Issue[] = [
     listPosition: 2,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId1'],
     projectId: 'abc-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -108,7 +108,7 @@ const dummyIssues: Issue[] = [
     listPosition: 0,
     description: '',
     reporterId: 'reporter1',
-    assigneesId: ['assignee1', 'assignee2'],
+    assigneesId: ['userId4'],
     projectId: 'xyz-projectId',
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
@@ -121,8 +121,48 @@ const dummyUsers: User[] = [
     username: 'uytruong',
     fullname: 'Uy Truong',
     email: 'uytruong97@gmail.com',
-    avatarUrl: 'abc.jpg',
+    avatarUrl: 'https://vcdn-vnexpress.vnecdn.net/2020/09/23/01-4451-1600828895.jpg',
     projectIds: ['abc-projectId', 'xyz-projectId'],
+    createdAt: '01/01/2021',
+    updatedAt: '01/01/2021'
+  },
+  {
+    id: 'userId2',
+    username: 'johnmayer',
+    fullname: 'John Mayer',
+    email: 'johnmayer@email.com',
+    avatarUrl: 'https://www.rollingstone.com/wp-content/uploads/2021/07/JOHN_MAYER_SHOT_04_04482-11.jpg?resize=1800,1200&w=1800',
+    projectIds: ['abc-projectId'],
+    createdAt: '01/01/2021',
+    updatedAt: '01/01/2021'
+  },
+  {
+    id: 'userId3',
+    username: 'johnfrusciante',
+    fullname: 'John Frusciante',
+    email: 'johnfrusciante@email.com',
+    avatarUrl: 'https://edm.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTczNzIwNDkyMTM2NDc0MTcw/lx465e8s568d2hxgxfqvag.jpg',
+    projectIds: ['abc-projectId'],
+    createdAt: '01/01/2021',
+    updatedAt: '01/01/2021'
+  },
+  {
+    id: 'userId4',
+    username: 'davidgilmour',
+    fullname: 'David Gilmour',
+    email: 'davidgilmour@email.com',
+    avatarUrl: 'https://cdn.uc.assets.prezly.com/d24ba9ed-fb25-42d4-b466-bb6b6f2779a7/-/crop/4000x3041/0,959/-/preview/-/preview/2048x2048/-/quality/best/-/format/auto/',
+    projectIds: ['abc-projectId'],
+    createdAt: '01/01/2021',
+    updatedAt: '01/01/2021'
+  },
+  {
+    id: 'userId5',
+    username: 'ichikanito',
+    fullname: 'Ichika Nito',
+    email: 'ichikanito@email.com',
+    avatarUrl: 'https://www.ibanez.com/common/product_artist_file/file/a_main_ichika.jpg',
+    projectIds: ['abc-projectId'],
     createdAt: '01/01/2021',
     updatedAt: '01/01/2021'
   }
@@ -158,6 +198,15 @@ export class ProjectService {
       return of(projects);
     } else {
       throw new Error(`Projects not found`);
+    }
+  }
+
+  getUsersByProjectId(id: string): Observable<User[]> {
+    const users = dummyUsers.filter(user => user.projectIds.includes(id));
+    if (users) {
+      return of(users);
+    } else {
+      throw new Error(`Users not found`);
     }
   }
 }

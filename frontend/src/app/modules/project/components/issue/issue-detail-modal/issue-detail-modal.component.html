@@ -1,0 +1,15 @@
+<div class="flex justify-between items-center">
+  <ng-container *ngIf="issue$ | async as issue">
+    <div class="flex items-center space-x-1">
+      <app-icon
+        [bgColor]="typeIcon.icon.color"
+        color="white"
+        [name]="typeIcon.icon.name"
+        [theme]="typeIcon.icon.theme"
+      ></app-icon>
+      <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
+    </div>
+  </ng-container>   
+  <app-icon class="btn" bgSize="32" iconSize="20" name="close" theme="outline"></app-icon>
+</div>
+<div>Modal body</div>

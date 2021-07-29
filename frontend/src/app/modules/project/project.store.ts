@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Issue, IssueStage } from '@app/data/model/issue';
 import { Project } from '@app/data/model/project';
+import { User } from '@app/data/model/user';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -17,6 +18,7 @@ export const enum StatusState {
 export interface ProjectState {
   project: Project;
   issues: Issue[];
+  users: User[];
   status: StatusState;
   error: string;
 }
@@ -24,6 +26,7 @@ export interface ProjectState {
 const initialState: ProjectState = {
   project: null,
   issues: [],
+  users: [],
   status: StatusState.INIT,
   error: ''
 };
@@ -45,6 +48,13 @@ export class ProjectStore extends ComponentStore<ProjectState> {
           .sort((a, b) => a.listPosition - b.listPosition);
       })
     );
+  readonly issueById$ = (id: string): Observable<Issue> =>
+    this.issues$.pipe(
+      map((issues: Issue[]) => {
+        return issues.find((issue) => issue.id === id);
+      })
+    );
+  readonly users$: Observable<User[]> = this.select((state) => state.users);
   readonly loading$: Observable<boolean> = this.select(
     (state) => state.status === StatusState.LOADING
   );
@@ -82,6 +92,13 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     return {
       ...state,
       issues: issues
+    };
+  });
+
+  readonly updateUsers = this.updater((state: ProjectState, users: User[]) => {
+    return {
+      ...state,
+      users: users
     };
   });
 
@@ -127,6 +144,21 @@ export class ProjectStore extends ComponentStore<ProjectState> {
           tapResponse(
             (issues) => {
               this.updateIssues(issues);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly getUsers = this.effect((projectId$: Observable<string>) => {
+    return projectId$.pipe(
+      switchMap((projectId) => {
+        return this.projectService.getUsersByProjectId(projectId).pipe(
+          tapResponse(
+            (users) => {
+              this.updateUsers(users);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )
