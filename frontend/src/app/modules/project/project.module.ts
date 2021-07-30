@@ -22,6 +22,8 @@ import { ProjectStore } from './project.store';
 import { IssueTitleComponent } from './components/issue/issue-title/issue-title.component';
 import { IssueDescriptionComponent } from './components/issue/issue-description/issue-description.component';
 import { FormsModule } from '@angular/forms';
+import { IssueStageComponent } from './components/issue/issue-stage/issue-stage.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     IssueCardComponent,
     IssueDetailModalComponent,
     IssueTitleComponent,
-    IssueDescriptionComponent
+    IssueDescriptionComponent,
+    IssueStageComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { FormsModule } from '@angular/forms';
     NzBreadCrumbModule,
     DragDropModule,
     HttpClientModule,
-    AngularEditorModule
+    AngularEditorModule,
+    NzSelectModule
   ],
   providers: [ProjectStore]
 })
