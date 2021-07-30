@@ -1,24 +1,44 @@
 <ng-container *ngIf="issue$ | async as issue">
-  <div class="flex justify-between items-center">
-    <div class="flex items-center space-x-1">
+  <div class="w-full h-full">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-1">
+        <app-icon
+          [bgColor]="typeIcon.icon.color"
+          color="white"
+          [name]="typeIcon.icon.name"
+          [theme]="typeIcon.icon.theme"
+        ></app-icon>
+        <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
+      </div>
       <app-icon
-        [bgColor]="typeIcon.icon.color"
-        color="white"
-        [name]="typeIcon.icon.name"
-        [theme]="typeIcon.icon.theme"
+        class="btn"
+        bgSize="32"
+        iconSize="20"
+        name="close"
+        theme="outline"
+        (click)="onCloseModal()"
       ></app-icon>
-      <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
     </div>
-    <app-icon
-      class="btn"
-      bgSize="32"
-      iconSize="20"
-      name="close"
-      theme="outline"
-      (click)="onCloseModal()"
-    ></app-icon>
-  </div>
-  <div>
-    <app-issue-title [issue]="issue"></app-issue-title>
+    <div class="flex flex-wrap w-full justify-center">
+      <div class="sm:w-full md:w-2/3">
+        <app-issue-title [issue]="issue"></app-issue-title>
+        <p class="font-bold">Description</p>
+        <div>
+          <app-issue-description
+            [issue]="issue"
+            [content]="issue.description"
+          ></app-issue-description>
+        </div>
+        <p class="font-bold">Comments</p>
+        <div>Comments textarea</div>
+      </div>
+      <div class="sm:w-full md:w-1/3">
+        <p>Right col</p>
+        <div>Issue stage</div>
+        <div>Assignees</div>
+        <div>Priority</div>
+        <div>Date</div>
+      </div>
+    </div>
   </div>
 </ng-container>

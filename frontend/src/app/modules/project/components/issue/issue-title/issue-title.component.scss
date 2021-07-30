@@ -1,0 +1,12 @@
+.input-box {
+  margin-left: -8px;
+  @apply w-full p-2 text-2xl font-bold outline-none overflow-hidden resize-none;
+}
+
+.input-box:hover {
+  @apply bg-secondary;
+}
+
+textarea:focus {
+  @apply border-primary border-2 rounded-md;
+}

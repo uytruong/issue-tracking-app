@@ -64,7 +64,7 @@ const dummyIssues: Issue[] = [
     type: IssueType.TASK,
     priority: IssuePriority.HIGH,
     listPosition: 0,
-    description: '',
+    description: '<div>Selected Task High</div><div>This is the description of this task edited with @kolkov/angular-editor.</div><div>I find it very cool :D</div>',
     reporterId: 'reporter1',
     assigneesId: ['userId3', 'userId2'],
     projectId: 'abc-projectId',

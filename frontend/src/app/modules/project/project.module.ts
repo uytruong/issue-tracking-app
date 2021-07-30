@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardComponent } from './pages/board/board.component';
@@ -18,6 +20,8 @@ import { IssueCardComponent } from './components/issue/issue-card/issue-card.com
 import { IssueDetailModalComponent } from './components/issue/issue-detail-modal/issue-detail-modal.component';
 import { ProjectStore } from './project.store';
 import { IssueTitleComponent } from './components/issue/issue-title/issue-title.component';
+import { IssueDescriptionComponent } from './components/issue/issue-description/issue-description.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,15 +36,19 @@ import { IssueTitleComponent } from './components/issue/issue-title/issue-title.
     BoardDndColumnComponent,
     IssueCardComponent,
     IssueDetailModalComponent,
-    IssueTitleComponent
+    IssueTitleComponent,
+    IssueDescriptionComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
+    FormsModule,
     SharedModule,
     NzBreadCrumbModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule,
+    AngularEditorModule
   ],
   providers: [ProjectStore]
 })
-export class ProjectModule { }
+export class ProjectModule {}

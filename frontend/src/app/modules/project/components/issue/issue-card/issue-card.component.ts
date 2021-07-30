@@ -6,7 +6,6 @@ import { IssueTypeIcon } from '@app/data/ui-model/issue-type-icon';
 import { ProjectStore } from '@app/modules/project/project.store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { IssueDetailModalComponent } from '../issue-detail-modal/issue-detail-modal.component';
 
 @Component({
@@ -35,7 +34,9 @@ export class IssueCardComponent implements OnInit {
         id: this.issue.id
       },
       nzClosable: false,
-      nzFooter: null 
+      nzFooter: null,
+      nzAutofocus: null,
+      nzWidth: 1040 
     });
   }
 }

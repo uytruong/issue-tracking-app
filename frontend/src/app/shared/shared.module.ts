@@ -11,6 +11,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
@@ -23,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzIconModule.forChild(NZ_ICONS),
     NzSpinModule,
     NzTableModule,
-    NzModalModule
+    NzModalModule,
+    TextFieldModule,
+    NzButtonModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -35,7 +39,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     DragCursorDirective,
     NzSpinModule,
     NzTableModule,
-    NzModalModule
+    NzModalModule,
+    TextFieldModule,
+    NzButtonModule
   ]
 })
 export class SharedModule {}
