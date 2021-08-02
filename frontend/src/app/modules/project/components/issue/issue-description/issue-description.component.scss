@@ -1,4 +1,9 @@
+.content-container {
+  margin-left: -8px;
+  @apply px-2;
+}
+
 .content-wrapper {
-    margin-left: -8px;
-    @apply p-2 hover:bg-secondary;
+  margin-left: -8px;
+  @apply p-2 hover:bg-secondary;
 }

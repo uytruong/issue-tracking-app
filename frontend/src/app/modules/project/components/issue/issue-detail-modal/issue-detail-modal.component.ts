@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Issue } from '@app/data/model/issue';
+import { User } from '@app/data/model/user';
 import { IssueTypeIcon } from '@app/data/ui-model/issue-type-icon';
 import { ProjectStore } from '@app/modules/project/project.store';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -13,6 +14,7 @@ import { tap } from 'rxjs/operators';
 })
 export class IssueDetailModalComponent implements OnInit {
   @Input() id: string;
+  @Input() users$: Observable<User[]>;
   issue$: Observable<Issue>;
   typeIcon: IssueTypeIcon;
 

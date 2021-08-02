@@ -31,7 +31,8 @@ export class IssueCardComponent implements OnInit {
     this.nzModalService.create({
       nzContent: IssueDetailModalComponent,
       nzComponentParams: {
-        id: this.issue.id
+        id: this.issue.id,
+        users$: this.users$
       },
       nzClosable: false,
       nzFooter: null,

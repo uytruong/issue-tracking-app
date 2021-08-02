@@ -1,0 +1,17 @@
+<div class="flex">
+  <div class="reporter-wrap" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+    <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="reporter?.avatarUrl"></nz-avatar>
+    <p>{{ reporter ? reporter.fullname : 'Choose Reporter' }}</p>
+  </div>
+</div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li *ngFor="let user of users" nz-menu-item (click)="onChooseReporter(user.id)">
+      <div class="user-option-wrap">
+        <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
+        <p>{{ user.fullname }}</p>
+      </div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

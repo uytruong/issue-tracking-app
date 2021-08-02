@@ -1,0 +1,27 @@
+<div class="flex">
+  <div class="priority-wrap" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+    <app-icon
+      iconSize="20"
+      [color]="priorityIcon.iconColor"
+      name="caret-up"
+      theme="fill"
+    ></app-icon>
+    <p>{{ priorityIcon.value }}</p>
+  </div>
+</div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li *ngFor="let priority of priorityIcons" nz-menu-item (click)="onChangePriority(priority.value)">
+      <div class="flex items-center space-x-2">
+        <app-icon
+          iconSize="20"
+          [color]="priority.iconColor"
+          name="caret-up"
+          theme="fill"
+        ></app-icon>
+        <p>{{ priority.value }}</p>
+      </div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

@@ -1,7 +1,7 @@
 .sidebar-wrap {
     transition: width 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
     overflow: hidden;
-    @apply h-full relative bg-secondaryLight;
+    @apply h-full relative bg-secondaryLightest;
 }
 
 .sidebar-content {

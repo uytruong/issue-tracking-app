@@ -37,7 +37,17 @@
           <app-issue-stage [issue]="issue"></app-issue-stage>
         </div>
         <p class="font-bold">Assignees</p>
+        <div>
+          <app-issue-assignee [issue]="issue" [users]="users$ | async"></app-issue-assignee>
+        </div>
+        <p class="font-bold">Reporter</p>
+        <div>
+          <app-issue-reporter [issue]="issue" [users]="users$ | async"></app-issue-reporter>
+        </div>
         <p class="font-bold">Priority</p>
+        <div>
+          <app-issue-priority [issue]="issue" [users]="users$ | async"></app-issue-priority>
+        </div>
       </div>
     </div>
   </div>

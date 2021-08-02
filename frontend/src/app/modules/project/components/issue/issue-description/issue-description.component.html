@@ -4,11 +4,13 @@
   [config]="editorConfig"
 ></angular-editor>
 <ng-template #rawContent>
-  <div
-    class="content-wrapper"
-    [innerHTML]="content ? content : 'Enter description here'"
-    (click)="onStartEdit()"
-  ></div>
+  <div class="content-container">
+    <div
+      class="content-wrapper"
+      [innerHTML]="content ? content : 'Enter description here'"
+      (click)="onStartEdit()"
+    ></div>
+  </div>
 </ng-template>
 <div *ngIf="isDisplay" class="mt-2 space-x-2">
   <button nz-button nzType="primary" (click)="onSaveEdit()">Save</button>
