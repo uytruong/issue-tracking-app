@@ -1,8 +1,10 @@
-<angular-editor
-  *ngIf="isDisplay; else rawContent"
-  [(ngModel)]="content"
-  [config]="editorConfig"
-></angular-editor>
+<div class="pr-2">
+  <angular-editor
+    *ngIf="isDisplay; else rawContent"
+    [(ngModel)]="content"
+    [config]="editorConfig"
+  ></angular-editor>
+</div>
 <ng-template #rawContent>
   <div class="content-container">
     <div

@@ -28,6 +28,7 @@ import { IssueAssigneeComponent } from './components/issue/issue-assignee/issue-
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IssueReporterComponent } from './components/issue/issue-reporter/issue-reporter.component';
 import { IssuePriorityComponent } from './components/issue/issue-priority/issue-priority.component';
+import { IssueCommentComponent } from './components/issue/issue-comment/issue-comment.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { IssuePriorityComponent } from './components/issue/issue-priority/issue-
     IssueStageComponent,
     IssueAssigneeComponent,
     IssueReporterComponent,
-    IssuePriorityComponent
+    IssuePriorityComponent,
+    IssueCommentComponent
   ],
   imports: [
     CommonModule,

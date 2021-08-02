@@ -1,5 +1,5 @@
 .assignee-wrap {
-  @apply flex flex-shrink-0 justify-center items-center p-1 bg-secondary rounded-sm mr-1 space-x-2;
+  @apply flex flex-shrink-0 justify-center items-center p-1 bg-secondaryLighter rounded-sm mr-1 space-x-2;
 }
 
 .user-option-wrap {
@@ -7,5 +7,5 @@
 }
 
 .btn {
-  @apply cursor-pointer hover:bg-secondaryLighter;
+  @apply cursor-pointer hover:bg-secondaryLightest;
 }

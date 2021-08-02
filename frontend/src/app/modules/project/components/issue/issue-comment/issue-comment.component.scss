@@ -1,0 +1,8 @@
+textarea {
+  @apply w-full p-2 border-secondaryLighter border-2 rounded-md outline-none;
+}
+
+textarea:focus,
+textarea:hover {
+  @apply border-primary border-2 rounded-md;
+}

@@ -20,9 +20,9 @@ export class IssuePriorityComponent implements OnInit {
   ngOnInit(): void {
     this.priorityIcon = new IssuePriorityIcon(this.issue.priority);
     this.priorityIcons = [
-      new IssuePriorityIcon(IssuePriority.LOW),
+      new IssuePriorityIcon(IssuePriority.HIGH),
       new IssuePriorityIcon(IssuePriority.MEDIUM),
-      new IssuePriorityIcon(IssuePriority.HIGH)
+      new IssuePriorityIcon(IssuePriority.LOW)
     ]
   }
 
