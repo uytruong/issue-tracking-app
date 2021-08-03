@@ -169,7 +169,7 @@ const dummyUsers: User[] = [
   }
 ];
 
-const dummyComment: IssueComment[] = [
+const dummyComments: IssueComment[] = [
   {
     id: 'commentId1',
     userId: 'userId1',
@@ -217,6 +217,15 @@ export class ProjectService {
     const users = dummyUsers.filter(user => user.projectIds.includes(id));
     if (users) {
       return of(users);
+    } else {
+      throw new Error(`Users not found`);
+    }
+  }
+
+  getCommentsByIssueId(id: string): Observable<IssueComment[]> {
+    const comments = dummyComments.filter(comment => comment.issueId === id);
+    if (comments) {
+      return of(comments);
     } else {
       throw new Error(`Users not found`);
     }

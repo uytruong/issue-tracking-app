@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IssueComment } from '@app/data/model/issue-comment.model';
 import { Issue, IssueStage } from '@app/data/model/issue.model';
 import { Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
@@ -19,6 +20,7 @@ export interface ProjectState {
   project: Project;
   issues: Issue[];
   users: User[];
+  comments: IssueComment[];
   status: StatusState;
   error: string;
 }
@@ -27,6 +29,7 @@ const initialState: ProjectState = {
   project: null,
   issues: [],
   users: [],
+  comments: [],
   status: StatusState.INIT,
   error: ''
 };
@@ -55,6 +58,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
       })
     );
   readonly users$: Observable<User[]> = this.select((state) => state.users);
+  readonly comments$: Observable<IssueComment[]> = this.select((state) => state.comments);
   readonly loading$: Observable<boolean> = this.select(
     (state) => state.status === StatusState.LOADING
   );
@@ -102,6 +106,13 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     };
   });
 
+  readonly updateComments = this.updater((state: ProjectState, comments: IssueComment[]) => {
+    return {
+      ...state,
+      comments: comments
+    }
+  });
+
   readonly updateIssue = this.updater((state: ProjectState, newIssue: Issue) => {
     let cloneIssues = [...state.issues];
     cloneIssues = cloneIssues.map((issue) => (issue.id === newIssue.id ? { ...newIssue } : issue));
@@ -109,6 +120,15 @@ export class ProjectStore extends ComponentStore<ProjectState> {
       ...state,
       issues: cloneIssues
     };
+  });
+
+  readonly addComment = this.updater((state: ProjectState, newComment: IssueComment) => {
+    const cloneComments = [...state.comments];
+    cloneComments.push(newComment);
+    return {
+      ...state,
+      comments: cloneComments
+    }
   });
 
   readonly updateError = this.updater((state: ProjectState, errorMsg: string) => {
@@ -159,6 +179,21 @@ export class ProjectStore extends ComponentStore<ProjectState> {
           tapResponse(
             (users) => {
               this.updateUsers(users);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly getComments = this.effect((issueId$: Observable<string>) => {
+    return issueId$.pipe(
+      switchMap((issueId) => {
+        return this.projectService.getCommentsByIssueId(issueId).pipe(
+          tapResponse(
+            (comments) => {
+              this.updateComments(comments);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

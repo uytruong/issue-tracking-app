@@ -2,10 +2,23 @@
   <div class="flex justify-start space-x-2">
     <nz-avatar class="mt-4" [nzSize]="26" nzIcon="user" [nzSrc]="currentUser.avatarUrl"></nz-avatar>
     <div class="flex-1 pr-2">
-      <textarea placeholder="Add a comment..." (click)="onStartEdit()"></textarea>
+      <textarea [(ngModel)]="content" placeholder="Add a comment..." (click)="onStartEdit()"></textarea>
       <div *ngIf="isDisplay" class="mt-2 space-x-2">
-        <button nz-button nzType="primary" (click)="onSaveEdit()">Save</button>
+        <button nz-button nzType="primary" (click)="onSaveEdit(currentUser.id)">Save</button>
         <button nz-button nzType="default" (click)="onCancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="commentsVM$ | async as comments">
+  <div *ngFor="let comment of comments">
+    <div class="flex justify-start space-x-2">
+      <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="comment.user.avatarUrl"></nz-avatar>
+      <div class="flex-1 pr-2">
+        <p>
+          <span class="font-medium">{{ comment.user.fullname }}</span> {{ comment.createdAt | date: 'short' }}
+        </p>
+        <p>{{ comment.content }}</p>
       </div>
     </div>
   </div>
