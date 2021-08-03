@@ -4,7 +4,7 @@ import {
   IssuePriority,
   IssueStage,
   IssueType,
-} from '@app/data/model/issue';
+} from '@app/data/model/issue.model';
 
 @Component({
   selector: 'app-board-dnd',

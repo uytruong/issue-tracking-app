@@ -1,5 +1,5 @@
-import { Project } from "@app/data/model/project";
-import { User } from "@app/data/model/user";
+import { Project } from "@app/data/model/project.model";
+import { User } from "@app/data/model/user.model";
 
 export const enum AuthStatus {
   INIT = 'INIT',

@@ -1,4 +1,4 @@
-import { IssuePriority, IssueStage, IssueType } from '@app/data/model/issue';
+import { IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
 import { Icon } from '@app/data/ui-model/icon';
 
 export const issueStageDisplay = {

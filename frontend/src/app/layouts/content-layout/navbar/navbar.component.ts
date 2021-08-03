@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
-import { User } from '@app/data/model/user';
+import { User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

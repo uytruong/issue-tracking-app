@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Issue, IssueStage } from '@app/data/model/issue';
-import { Project } from '@app/data/model/project';
-import { User } from '@app/data/model/user';
+import { Issue, IssueStage } from '@app/data/model/issue.model';
+import { Project } from '@app/data/model/project.model';
+import { User } from '@app/data/model/user.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';

@@ -7,7 +7,7 @@
 
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
-    <li *ngFor="let user of users" nz-menu-item (click)="onChooseReporter(user.id)">
+    <li *ngFor="let user of filterNonChosenReporter" nz-menu-item (click)="onChooseReporter(user.id)">
       <div class="user-option-wrap">
         <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
         <p>{{ user.fullname }}</p>

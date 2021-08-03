@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project, ProjectCategory } from '@app/data/model/project';
+import { Project, ProjectCategory } from '@app/data/model/project.model';
 import { Observable, of } from 'rxjs';
 
 const dummyProjects: Project[] = [

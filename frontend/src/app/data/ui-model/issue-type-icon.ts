@@ -1,5 +1,5 @@
 import { issueTypeIconData } from '@app/core/configs/issue';
-import { IssueType } from '../model/issue';
+import { IssueType } from '../model/issue.model';
 import { Icon } from './icon';
 
 export class IssueTypeIcon {

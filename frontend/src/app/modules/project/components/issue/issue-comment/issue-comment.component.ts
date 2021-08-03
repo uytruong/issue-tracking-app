@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
-import { Issue } from '@app/data/model/issue';
-import { User } from '@app/data/model/user';
+import { Issue } from '@app/data/model/issue.model';
+import { User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

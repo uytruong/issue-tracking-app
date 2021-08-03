@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue';
-import { Project, ProjectCategory } from '@app/data/model/project';
-import { User } from '@app/data/model/user';
+import { Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
+import { IssueComment } from '@app/data/model/issue-comment.model';
+import { Project, ProjectCategory } from '@app/data/model/project.model';
+import { User } from '@app/data/model/user.model';
 import { Observable, of } from 'rxjs';
 
 const dummyProjects: Project[] = [
@@ -12,8 +13,8 @@ const dummyProjects: Project[] = [
     avatarUrl: 'https://i.pinimg.com/originals/24/70/08/2470083b72ec71f8a6727a70562bb7cc.jpg',
     key: 'abc',
     name: 'Apple Ball Cat',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-03T08:00:00Z',
+    updatedAt: '2021-07-03T08:00:00Z'
   },
   {
     id: 'xyz-projectId',
@@ -23,8 +24,8 @@ const dummyProjects: Project[] = [
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_sIyYS38uLOr8A3s3kPW5PbgPR8JSuQMKQ&usqp=CAU',
     key: 'xyz',
     name: "X'mas Young Zoo",
-    createdAt: '01/02/2021',
-    updatedAt: '01/02/2021'
+    createdAt: '2021-07-03T09:00:00Z',
+    updatedAt: '2021-07-03T09:00:00Z'
   }
 ];
 
@@ -40,8 +41,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId1', 'userId2'],
     projectId: 'abc-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T08:00:00Z',
+    updatedAt: '2021-07-04T08:00:00Z'
   },
   {
     id: '2',
@@ -54,8 +55,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId1', 'userId4'],
     projectId: 'abc-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T08:01:00Z',
+    updatedAt: '2021-07-04T08:01:00Z'
   },
   {
     id: '3',
@@ -68,8 +69,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId3', 'userId2'],
     projectId: 'abc-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T08:02:00Z',
+    updatedAt: '2021-07-04T08:02:00Z'
   },
   {
     id: '4',
@@ -82,8 +83,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId2'],
     projectId: 'abc-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T08:03:00Z',
+    updatedAt: '2021-07-04T08:03:00Z'
   },
   {
     id: '5',
@@ -96,8 +97,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId1'],
     projectId: 'abc-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T08:04:00Z',
+    updatedAt: '2021-07-04T08:04:00Z'
   },
   {
     id: '6',
@@ -110,8 +111,8 @@ const dummyIssues: Issue[] = [
     reporterId: 'reporter1',
     assigneesId: ['userId4'],
     projectId: 'xyz-projectId',
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-07-04T09:00:00Z',
+    updatedAt: '2021-07-04T09:00:00Z'
   }
 ];
 
@@ -123,8 +124,8 @@ const dummyUsers: User[] = [
     email: 'uytruong97@gmail.com',
     avatarUrl: 'https://vcdn-vnexpress.vnecdn.net/2020/09/23/01-4451-1600828895.jpg',
     projectIds: ['abc-projectId', 'xyz-projectId'],
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-06-03T08:01:00Z',
+    updatedAt: '2021-06-03T08:01:00Z'
   },
   {
     id: 'userId2',
@@ -133,8 +134,8 @@ const dummyUsers: User[] = [
     email: 'johnmayer@email.com',
     avatarUrl: 'https://www.rollingstone.com/wp-content/uploads/2021/07/JOHN_MAYER_SHOT_04_04482-11.jpg?resize=1800,1200&w=1800',
     projectIds: ['abc-projectId'],
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-06-03T08:02:00Z',
+    updatedAt: '2021-06-03T08:02:00Z'
   },
   {
     id: 'userId3',
@@ -143,8 +144,8 @@ const dummyUsers: User[] = [
     email: 'johnfrusciante@email.com',
     avatarUrl: 'https://edm.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTczNzIwNDkyMTM2NDc0MTcw/lx465e8s568d2hxgxfqvag.jpg',
     projectIds: ['abc-projectId'],
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-06-03T08:03:00Z',
+    updatedAt: '2021-06-03T08:03:00Z'
   },
   {
     id: 'userId4',
@@ -153,8 +154,8 @@ const dummyUsers: User[] = [
     email: 'davidgilmour@email.com',
     avatarUrl: 'https://cdn.uc.assets.prezly.com/d24ba9ed-fb25-42d4-b466-bb6b6f2779a7/-/crop/4000x3041/0,959/-/preview/-/preview/2048x2048/-/quality/best/-/format/auto/',
     projectIds: ['abc-projectId'],
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-06-03T08:04:00Z',
+    updatedAt: '2021-06-03T08:04:00Z'
   },
   {
     id: 'userId5',
@@ -163,10 +164,21 @@ const dummyUsers: User[] = [
     email: 'ichikanito@email.com',
     avatarUrl: 'https://www.ibanez.com/common/product_artist_file/file/a_main_ichika.jpg',
     projectIds: ['abc-projectId'],
-    createdAt: '01/01/2021',
-    updatedAt: '01/01/2021'
+    createdAt: '2021-06-03T08:05:00Z',
+    updatedAt: '2021-06-03T08:05:00Z'
   }
 ];
+
+const dummyComment: IssueComment[] = [
+  {
+    id: 'commentId1',
+    userId: 'userId1',
+    issueId: '3',
+    content: 'This is the content of this comment. Good job!',
+    createdAt: '2021-08-03T08:00:00Z',
+    updatedAt: '2021-08-03T08:00:00Z'
+  },
+]
 
 @Injectable({
   providedIn: 'root'

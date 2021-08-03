@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Issue } from '@app/data/model/issue';
-import { User } from '@app/data/model/user';
+import { Issue } from '@app/data/model/issue.model';
+import { User } from '@app/data/model/user.model';
 import { ProjectStore } from '@app/modules/project/project.store';
 
 @Component({
@@ -17,6 +17,11 @@ export class IssueAssigneeComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignees = this.users.filter(user => this.issue.assigneesId.includes(user.id));
+  }
+
+  get filterNonAssignees() {
+    const filteredIds = this.assignees.map(assignee => assignee.id);
+    return this.users.filter(user => !filteredIds.includes(user.id))
   }
 
   onAddAssignee(id: string) {

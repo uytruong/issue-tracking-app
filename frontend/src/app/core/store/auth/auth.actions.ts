@@ -1,4 +1,4 @@
-import { User } from '@app/data/model/user';
+import { User } from '@app/data/model/user.model';
 import { ActionType, createAction, props } from '@ngrx/store';
 
 export const LOGIN = '@Auth/Login';

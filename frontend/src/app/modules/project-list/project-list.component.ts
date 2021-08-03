@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectConst } from '@app/core/constant/project-const';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
-import { Project } from '@app/data/model/project';
-import { User } from '@app/data/model/user';
+import { Project } from '@app/data/model/project.model';
+import { User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';

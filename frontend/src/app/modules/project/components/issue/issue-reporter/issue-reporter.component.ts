@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Issue } from '@app/data/model/issue';
-import { User } from '@app/data/model/user';
+import { Issue } from '@app/data/model/issue.model';
+import { User } from '@app/data/model/user.model';
 import { ProjectStore } from '@app/modules/project/project.store';
 
 @Component({
@@ -17,6 +17,10 @@ export class IssueReporterComponent implements OnInit {
 
   ngOnInit(): void {
     this.reporter = this.users.find((user) => user.id === this.issue.reporterId);
+  }
+
+  get filterNonChosenReporter() {
+    return this.users.filter(user => user.id !== this.reporter?.id);
   }
 
   onChooseReporter(id: string) {

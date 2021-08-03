@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { sidebarLinks } from '@app/core/configs/sidebar';
-import { Project } from '@app/data/model/project';
+import { Project } from '@app/data/model/project.model';
 import { NavLink } from '@app/data/ui-model/nav-link.model';
 import { Observable } from 'rxjs';
 import { ProjectStore } from '../../project.store';

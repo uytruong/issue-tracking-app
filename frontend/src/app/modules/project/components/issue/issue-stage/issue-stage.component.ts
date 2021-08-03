@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { issueStageDisplay, issueStageDisplayColor } from '@app/core/configs/issue';
-import { Issue } from '@app/data/model/issue';
-import { IssueStage } from '@app/data/model/issue';
+import { Issue } from '@app/data/model/issue.model';
+import { IssueStage } from '@app/data/model/issue.model';
 import { ProjectStore } from '@app/modules/project/project.store';
 import { Observable } from 'rxjs';
 

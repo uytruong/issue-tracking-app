@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Issue } from '@app/data/model/issue';
+import { Issue } from '@app/data/model/issue.model';
 import { ProjectStore } from '@app/modules/project/project.store';
 import { Subject } from 'rxjs';
 import { pairwise, startWith, takeUntil } from 'rxjs/operators';

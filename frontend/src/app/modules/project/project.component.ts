@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectConst } from '@app/core/constant/project-const';
-import { Project } from '@app/data/model/project';
+import { Project } from '@app/data/model/project.model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ProjectStore } from './project.store';

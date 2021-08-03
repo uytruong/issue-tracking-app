@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Issue } from '@app/data/model/issue';
-import { User } from '@app/data/model/user';
+import { Issue } from '@app/data/model/issue.model';
+import { User } from '@app/data/model/user.model';
 import { IssuePriorityIcon } from '@app/data/ui-model/issue-priority-icon';
 import { IssueTypeIcon } from '@app/data/ui-model/issue-type-icon';
 import { ProjectStore } from '@app/modules/project/project.store';
