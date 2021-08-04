@@ -29,7 +29,9 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IssueReporterComponent } from './components/issue/issue-reporter/issue-reporter.component';
 import { IssuePriorityComponent } from './components/issue/issue-priority/issue-priority.component';
 import { IssueCommentComponent } from './components/issue/issue-comment/issue-comment.component';
-
+import { IssueAddModalComponent } from './components/issue/issue-add-modal/issue-add-modal.component';
+import { IssueSelectTypeComponent } from './components/issue/issue-add-modal/issue-select-type/issue-select-type.component';
+import { IssueSelectPriorityComponent } from './components/issue/issue-add-modal/issue-select-priority/issue-select-priority.component';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -49,7 +51,10 @@ import { IssueCommentComponent } from './components/issue/issue-comment/issue-co
     IssueAssigneeComponent,
     IssueReporterComponent,
     IssuePriorityComponent,
-    IssueCommentComponent
+    IssueCommentComponent,
+    IssueAddModalComponent,
+    IssueSelectTypeComponent,
+    IssueSelectPriorityComponent
   ],
   imports: [
     CommonModule,

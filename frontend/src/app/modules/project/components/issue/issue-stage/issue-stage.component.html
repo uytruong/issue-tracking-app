@@ -1,9 +1,20 @@
-<nz-select [(ngModel)]="selectedStage" [nzCustomTemplate]="selectedTemplate" (ngModelChange)="onChangeSelection($event)">
+<nz-select
+  [(ngModel)]="selectedStage"
+  [nzCustomTemplate]="selectedTemplate"
+  (ngModelChange)="onChangeSelection($event)"
+>
   <nz-option
+    nzCustomContent
     *ngFor="let stage of stages"
     [nzLabel]="stage.label"
     [nzValue]="stage.value"
-  ></nz-option>
+  >
+  <div class="flex">
+    <div class="px-2 text-white" [style.background-color]="issueStageDisplayColor[stage.value]">
+      {{ stage.label }}
+    </div>
+  </div>
+  </nz-option>
 </nz-select>
 <ng-template #selectedTemplate let-selected>
   <div class="px-2 text-white" [style.background-color]="issueStageDisplayColor[selected.nzValue]">

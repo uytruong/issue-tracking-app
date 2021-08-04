@@ -1,0 +1,29 @@
+<nz-select [nzCustomTemplate]="selectedTemplate" [formControl]="control">
+  <nz-option
+    nzCustomContent
+    *ngFor="let type of types"
+    [nzLabel]="type.value | uppercase"
+    [nzValue]="type.value"
+  >
+    <div class="flex items-center space-x-1">
+      <app-icon
+        [bgColor]="type.icon.color"
+        color="white"
+        [name]="type.icon.name"
+        [theme]="type.icon.theme"
+      ></app-icon>
+      <span> {{ type.value | uppercase }} </span>
+    </div>
+  </nz-option>
+</nz-select>
+<ng-template #selectedTemplate let-selected>
+  <div class="flex items-center space-x-1">
+    <app-icon
+      [bgColor]="typeIcon(selected.nzValue).color"
+      color="white"
+      [name]="typeIcon(selected.nzValue).name"
+      [theme]="typeIcon(selected.nzValue).theme"
+    ></app-icon>
+    <span> {{ selected.nzValue | uppercase }} </span>
+  </div>
+</ng-template>

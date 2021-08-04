@@ -1,0 +1,20 @@
+<div class="w-full h-full">
+  <div class="flex items-center mb-2">
+    <p class="text-xl font-medium">Create Issue</p>
+  </div>
+  <form [nzLayout]="'vertical'" nz-form [formGroup]="addIssueForm">
+    <nz-form-item>
+      <nz-form-label class="font-bold">Type</nz-form-label>
+      <nz-form-control>
+        <app-issue-select-type [control]="formControls?.type"></app-issue-select-type>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label class="font-bold">Priority</nz-form-label>
+      <nz-form-control>
+        <app-issue-select-priority [control]="formControls?.priority"></app-issue-select-priority>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <pre>{{ addIssueForm.value | json }}</pre>
+</div>

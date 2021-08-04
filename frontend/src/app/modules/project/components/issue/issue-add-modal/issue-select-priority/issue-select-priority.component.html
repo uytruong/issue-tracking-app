@@ -1,0 +1,19 @@
+<nz-select [nzCustomTemplate]="selectedTemplate" [formControl]="control">
+  <nz-option
+    nzCustomContent
+    *ngFor="let priority of priorities"
+    [nzLabel]="priority.value | uppercase"
+    [nzValue]="priority.value"
+  >
+    <div class="flex items-center space-x-1">
+      <app-icon iconSize="20" [color]="priority.iconColor" name="caret-up" theme="fill"></app-icon>
+      <span> {{ priority.value | uppercase }} </span>
+    </div>
+  </nz-option>
+</nz-select>
+<ng-template #selectedTemplate let-selected>
+  <div class="flex items-center space-x-1">
+    <app-icon iconSize="20" [color]="priorityIcon(selected.nzValue).iconColor" name="caret-up" theme="fill"></app-icon>
+    <span> {{ selected.nzValue | uppercase }} </span>
+  </div>
+</ng-template>
