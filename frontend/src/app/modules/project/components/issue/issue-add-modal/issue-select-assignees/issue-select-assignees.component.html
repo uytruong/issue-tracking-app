@@ -1,0 +1,24 @@
+<nz-select
+  nzMode="multiple"
+  nzAllowClear
+  nzPlaceHolder="Please select assignees"
+  [nzCustomTemplate]="selectedTemplate"
+  [formControl]="control"
+>
+  <nz-option nzCustomContent *ngFor="let user of users" [nzValue]="user.id">
+    <div class="flex items-center space-x-2">
+      <nz-avatar [nzSize]="20" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
+      <p>{{ user.fullname }}</p>
+    </div>
+  </nz-option>
+</nz-select>
+<ng-template #selectedTemplate let-selected>
+  <div class="flex items-center space-x-2">
+    <nz-avatar
+      [nzSize]="20"
+      nzIcon="user"
+      [nzSrc]="getUser(selected.nzValue).avatarUrl"
+    ></nz-avatar>
+    <p>{{ getUser(selected.nzValue).fullname }}</p>
+  </div>
+</ng-template>

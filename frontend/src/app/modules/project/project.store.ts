@@ -122,6 +122,20 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     };
   });
 
+  readonly addIssue = this.updater((state: ProjectState, newIssue: Issue) => {
+    let cloneIssues = [...state.issues];
+    let filteredStageIssues = cloneIssues.filter(issue => issue.stage === newIssue.stage);
+    const newListPosition = filteredStageIssues.length + 1;
+    newIssue.listPosition = newListPosition; 
+    console.log('addIssue - newListPosition: ', newListPosition);
+    console.log('addIssue - newIssue: ', newIssue);
+    cloneIssues.push(newIssue);
+    return {
+      ...state,
+      issues: cloneIssues
+    }
+  });
+
   readonly addComment = this.updater((state: ProjectState, newComment: IssueComment) => {
     const cloneComments = [...state.comments];
     cloneComments.push(newComment);

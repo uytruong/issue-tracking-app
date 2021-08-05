@@ -14,7 +14,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
-
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
   imports: [
@@ -29,7 +31,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     NzModalModule,
     TextFieldModule,
     NzButtonModule,
-    NzFormModule
+    NzFormModule,
+    NzInputModule,
+    HttpClientModule,
+    AngularEditorModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -44,7 +49,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     NzModalModule,
     TextFieldModule,
     NzButtonModule,
-    NzFormModule
+    NzFormModule,
+    NzInputModule,
+    HttpClientModule,
+    AngularEditorModule
   ]
 })
 export class SharedModule {}

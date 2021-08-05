@@ -1,8 +1,10 @@
 <ng-container *ngIf="project$ | async as project">
-  <app-content-header
-    [breadcrumb]="breadcrumb"
-    [projectName]="project.name"
-  ></app-content-header>
+  <app-content-header [breadcrumb]="breadcrumb" [projectName]="project.name"></app-content-header>
+  <div class="flex ml-10 mb-4" *ngIf="currentuser$ | async as currentuser">
+    <button nz-button nzType="primary" (click)="onOpenAddIssueModal(project, currentuser)">
+      Create Issue
+    </button>
+  </div>
   <!-- Board Drag and Drop-->
   <app-board-dnd></app-board-dnd>
 </ng-container>

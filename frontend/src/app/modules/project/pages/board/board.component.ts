@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { Project } from '@app/data/model/project.model';
 import { ProjectStore } from '../../project.store';
 import { tap } from 'rxjs/operators';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { IssueAddModalComponent } from '../../components/issue/issue-add-modal/issue-add-modal.component';
+import { User } from '@app/data/model/user.model';
+import { select, Store } from '@ngrx/store';
+import { userSelector } from '@app/core/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-board',
@@ -13,8 +18,9 @@ import { tap } from 'rxjs/operators';
 export class BoardComponent implements OnInit {
   breadcrumb: NavLink[] = [new NavLink('Projects', null, '/projects')];
   project$: Observable<Project>;
+  currentuser$: Observable<User>;
 
-  constructor(private projectStore: ProjectStore) {}
+  constructor(private store: Store, private projectStore: ProjectStore, private nzModalService: NzModalService) {}
 
   ngOnInit(): void {
     this.project$ = this.projectStore.project$.pipe(
@@ -27,5 +33,20 @@ export class BoardComponent implements OnInit {
         ];
       })
     );
+    this.currentuser$ = this.store.pipe(select(userSelector));
+  }
+
+  onOpenAddIssueModal(currentProject: Project, currentUser: User) {
+    this.nzModalService.create({
+      nzContent: IssueAddModalComponent,
+      nzComponentParams: {
+        currentProject: currentProject,
+        currentUser: currentUser
+      },
+      nzClosable: false,
+      nzFooter: null,
+      nzAutofocus: null,
+      nzWidth: 720 
+    });
   }
 }

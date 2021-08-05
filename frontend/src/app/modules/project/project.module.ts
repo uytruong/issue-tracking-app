@@ -32,6 +32,8 @@ import { IssueCommentComponent } from './components/issue/issue-comment/issue-co
 import { IssueAddModalComponent } from './components/issue/issue-add-modal/issue-add-modal.component';
 import { IssueSelectTypeComponent } from './components/issue/issue-add-modal/issue-select-type/issue-select-type.component';
 import { IssueSelectPriorityComponent } from './components/issue/issue-add-modal/issue-select-priority/issue-select-priority.component';
+import { IssueSelectReporterComponent } from './components/issue/issue-add-modal/issue-select-reporter/issue-select-reporter.component';
+import { IssueSelectAssigneesComponent } from './components/issue/issue-add-modal/issue-select-assignees/issue-select-assignees.component';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -54,7 +56,9 @@ import { IssueSelectPriorityComponent } from './components/issue/issue-add-modal
     IssueCommentComponent,
     IssueAddModalComponent,
     IssueSelectTypeComponent,
-    IssueSelectPriorityComponent
+    IssueSelectPriorityComponent,
+    IssueSelectReporterComponent,
+    IssueSelectAssigneesComponent
   ],
   imports: [
     CommonModule,
@@ -63,8 +67,6 @@ import { IssueSelectPriorityComponent } from './components/issue/issue-add-modal
     SharedModule,
     NzBreadCrumbModule,
     DragDropModule,
-    HttpClientModule,
-    AngularEditorModule,
     NzSelectModule,
     NzDropDownModule
   ],
