@@ -1,0 +1,11 @@
+<div class="flex ml-10 mb-4 space-x-2">
+  <button nz-button nzType="primary" (click)="onOpenAddIssueModal(project, currentUser)">
+    Create Issue
+  </button>
+  <nz-input-group [style.width.px]="200" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="input search text" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+</div>

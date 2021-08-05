@@ -18,9 +18,9 @@ import { userSelector } from '@app/core/store/auth/auth.selectors';
 export class BoardComponent implements OnInit {
   breadcrumb: NavLink[] = [new NavLink('Projects', null, '/projects')];
   project$: Observable<Project>;
-  currentuser$: Observable<User>;
+  currentUser$: Observable<User>;
 
-  constructor(private store: Store, private projectStore: ProjectStore, private nzModalService: NzModalService) {}
+  constructor(private store: Store, private projectStore: ProjectStore) {}
 
   ngOnInit(): void {
     this.project$ = this.projectStore.project$.pipe(
@@ -33,20 +33,6 @@ export class BoardComponent implements OnInit {
         ];
       })
     );
-    this.currentuser$ = this.store.pipe(select(userSelector));
-  }
-
-  onOpenAddIssueModal(currentProject: Project, currentUser: User) {
-    this.nzModalService.create({
-      nzContent: IssueAddModalComponent,
-      nzComponentParams: {
-        currentProject: currentProject,
-        currentUser: currentUser
-      },
-      nzClosable: false,
-      nzFooter: null,
-      nzAutofocus: null,
-      nzWidth: 720 
-    });
+    this.currentUser$ = this.store.pipe(select(userSelector));
   }
 }

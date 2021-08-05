@@ -126,9 +126,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     let cloneIssues = [...state.issues];
     let filteredStageIssues = cloneIssues.filter(issue => issue.stage === newIssue.stage);
     const newListPosition = filteredStageIssues.length + 1;
-    newIssue.listPosition = newListPosition; 
-    console.log('addIssue - newListPosition: ', newListPosition);
-    console.log('addIssue - newIssue: ', newIssue);
+    newIssue.listPosition = newListPosition;
     cloneIssues.push(newIssue);
     return {
       ...state,

@@ -80,7 +80,6 @@ export class ProjectListStore extends ComponentStore<ProjectListState> {
         return this.projectListService.getProjectsByIds(ids).pipe(
           tapResponse(
             (projects) => {
-              console.log('projects: ', projects);
               this.updateStatus(StatusState.LOADED);
               this.updateProjects(projects);
             },

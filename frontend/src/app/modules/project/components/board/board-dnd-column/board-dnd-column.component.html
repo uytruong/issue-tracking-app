@@ -1,7 +1,6 @@
 <ng-container *ngIf="issues$ | async as issues">
   <div class="column-wrap">
     <p class="p-4">{{ stageDisplay[stage] }}</p>
-    <!-- <p>{{ issues | json }}</p> -->
     <div
       class="m-2 mt-0 h-full issue-list"
       [id]="stage"

@@ -48,7 +48,6 @@ export class IssueAddModalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.addIssueForm);
     const formValue = this.addIssueForm.getRawValue();
     const now = new Date();
     const newIssue: Issue = {
@@ -59,8 +58,9 @@ export class IssueAddModalComponent implements OnInit {
       createdAt: now.toISOString(),
       updatedAt: now.toISOString()
     }
-    console.log(newIssue);
     this.projectStore.addIssue(newIssue);
+
+    this.onCloseModal();
   }
 
   onCloseModal() {
