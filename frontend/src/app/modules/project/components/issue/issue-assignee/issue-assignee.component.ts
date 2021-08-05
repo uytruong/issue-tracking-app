@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Issue } from '@app/data/model/issue.model';
 import { User } from '@app/data/model/user.model';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 
 @Component({
   selector: 'app-issue-assignee',

@@ -4,7 +4,7 @@ import { ProjectConst } from '@app/core/constant/project-const';
 import { Project } from '@app/data/model/project.model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ProjectStore } from './project.store';
+import { ProjectStore } from './store/project.store';
 
 @Component({
   selector: 'app-project',

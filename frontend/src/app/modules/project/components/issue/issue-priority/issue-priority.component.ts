@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Issue, IssuePriority } from '@app/data/model/issue.model';
 import { User } from '@app/data/model/user.model';
 import { IssuePriorityIcon } from '@app/data/ui-model/issue-priority-icon';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 
 @Component({
   selector: 'app-issue-priority',

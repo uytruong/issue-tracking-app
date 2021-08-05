@@ -3,7 +3,7 @@ import { Project } from '@app/data/model/project.model';
 import { NavLink } from '@app/data/ui-model/nav-link.model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ProjectStore } from '../../project.store';
+import { ProjectStore } from '../../store/project.store';
 
 @Component({
   selector: 'app-settings',

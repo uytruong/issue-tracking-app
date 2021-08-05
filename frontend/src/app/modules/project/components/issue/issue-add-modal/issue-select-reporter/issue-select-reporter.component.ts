@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { User } from '@app/data/model/user.model';
-import { ProjectStore } from '@app/modules/project/project.store';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-issue-select-reporter',

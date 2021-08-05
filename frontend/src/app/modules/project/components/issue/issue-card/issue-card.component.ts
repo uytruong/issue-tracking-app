@@ -3,7 +3,7 @@ import { Issue } from '@app/data/model/issue.model';
 import { User } from '@app/data/model/user.model';
 import { IssuePriorityIcon } from '@app/data/ui-model/issue-priority-icon';
 import { IssueTypeIcon } from '@app/data/ui-model/issue-type-icon';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
 import { IssueDetailModalComponent } from '../issue-detail-modal/issue-detail-modal.component';

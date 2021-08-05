@@ -18,7 +18,7 @@ import { BoardDndComponent } from './components/board/board-dnd/board-dnd.compon
 import { BoardDndColumnComponent } from './components/board/board-dnd-column/board-dnd-column.component';
 import { IssueCardComponent } from './components/issue/issue-card/issue-card.component';
 import { IssueDetailModalComponent } from './components/issue/issue-detail-modal/issue-detail-modal.component';
-import { ProjectStore } from './project.store';
+import { ProjectStore } from './store/project.store';
 import { IssueTitleComponent } from './components/issue/issue-title/issue-title.component';
 import { IssueDescriptionComponent } from './components/issue/issue-description/issue-description.component';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +34,7 @@ import { IssueSelectTypeComponent } from './components/issue/issue-add-modal/iss
 import { IssueSelectPriorityComponent } from './components/issue/issue-add-modal/issue-select-priority/issue-select-priority.component';
 import { IssueSelectReporterComponent } from './components/issue/issue-add-modal/issue-select-reporter/issue-select-reporter.component';
 import { IssueSelectAssigneesComponent } from './components/issue/issue-add-modal/issue-select-assignees/issue-select-assignees.component';
+import { FilterStore } from './store/filter.store';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -70,6 +71,6 @@ import { IssueSelectAssigneesComponent } from './components/issue/issue-add-moda
     NzSelectModule,
     NzDropDownModule
   ],
-  providers: [ProjectStore]
+  providers: [ProjectStore, FilterStore]
 })
 export class ProjectModule {}

@@ -7,7 +7,7 @@ import {
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { issueStageDisplay } from '@app/core/configs/issue';
 import { Issue, IssueStage } from '@app/data/model/issue.model';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

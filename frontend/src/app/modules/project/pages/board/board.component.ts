@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavLink } from '@app/data/ui-model/nav-link.model';
 import { Observable } from 'rxjs';
 import { Project } from '@app/data/model/project.model';
-import { ProjectStore } from '../../project.store';
+import { ProjectStore } from '../../store/project.store';
 import { tap } from 'rxjs/operators';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { IssueAddModalComponent } from '../../components/issue/issue-add-modal/issue-add-modal.component';

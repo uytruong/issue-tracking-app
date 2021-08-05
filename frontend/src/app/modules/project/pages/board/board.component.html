@@ -4,6 +4,12 @@
     <button nz-button nzType="primary" (click)="onOpenAddIssueModal(project, currentuser)">
       Create Issue
     </button>
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="input search text" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
   </div>
   <!-- Board Drag and Drop-->
   <app-board-dnd></app-board-dnd>

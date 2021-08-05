@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { editorConfig } from '@app/core/configs/text-editor';
 import { Issue } from '@app/data/model/issue.model';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({

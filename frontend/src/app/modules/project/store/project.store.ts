@@ -7,7 +7,7 @@ import { User } from '@app/data/model/user.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ProjectService } from './project.service';
+import { ProjectService } from '../project.service';
 
 export const enum StatusState {
   INIT = 'INIT',

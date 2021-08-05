@@ -3,7 +3,7 @@ import { userSelector } from '@app/core/store/auth/auth.selectors';
 import { IssueComment } from '@app/data/model/issue-comment.model';
 import { Issue } from '@app/data/model/issue.model';
 import { User } from '@app/data/model/user.model';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { concatMap, map, mergeMap, tap } from 'rxjs/operators';

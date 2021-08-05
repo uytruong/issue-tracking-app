@@ -6,7 +6,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { editorConfig } from '@app/core/configs/text-editor';
 import { User } from '@app/data/model/user.model';
 import { Observable } from 'rxjs';
-import { ProjectStore } from '@app/modules/project/project.store';
+import { ProjectStore } from '@app/modules/project/store/project.store';
 import { Project } from '@app/data/model/project.model';
 
 @Component({
