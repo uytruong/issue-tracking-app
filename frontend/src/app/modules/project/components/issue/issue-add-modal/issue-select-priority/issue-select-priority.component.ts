@@ -10,6 +10,7 @@ import { IssuePriorityIcon } from '@app/data/ui-model/issue-priority-icon';
 })
 export class IssueSelectPriorityComponent implements OnInit {
   @Input() control: FormControl;
+  @Input() isMultipleSelect: boolean = false;
   priorities: IssuePriorityIcon[];
 
   constructor() { }

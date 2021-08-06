@@ -1,0 +1,19 @@
+<div class="dropdown" nz-dropdown nzTrigger="click" [nzDropdownMenu]="priorityMenu">
+  <span>Priority</span> <i nz-icon nzType="down"></i>
+</div>
+<nz-dropdown-menu #priorityMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li class="flex" *ngFor="let checkbox of checkboxes" nz-menu-item>
+      <div nz-checkbox [(ngModel)]="checkbox.checked" (ngModelChange)="updatePriority()"></div>
+      <div class="flex items-center space-x-1">
+        <app-icon
+          iconSize="16"
+          [color]="checkbox.icon.iconColor"
+          name="caret-up"
+          theme="fill"
+        ></app-icon>
+        <span class="text-sm"> {{ checkbox.icon.value | uppercase }} </span>
+      </div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

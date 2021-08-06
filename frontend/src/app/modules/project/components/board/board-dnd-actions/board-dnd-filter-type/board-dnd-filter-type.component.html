@@ -1,0 +1,19 @@
+<div class="dropdown" nz-dropdown nzTrigger="click" [nzDropdownMenu]="typeMenu">
+  <span>Type</span> <i nz-icon nzType="down"></i>
+</div>
+<nz-dropdown-menu #typeMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li class="flex space-x-1" *ngFor="let checkbox of checkboxes" nz-menu-item>
+      <div nz-checkbox [(ngModel)]="checkbox.checked" (ngModelChange)="updateType()"></div>
+      <div class="flex items-center space-x-1">
+        <app-icon
+          [bgColor]="checkbox.typeIcon.icon.color"
+          color="white"
+          [name]="checkbox.typeIcon.icon.name"
+          [theme]="checkbox.typeIcon.icon.theme"
+        ></app-icon>
+        <span class="text-sm"> {{ checkbox.typeIcon.value | uppercase }} </span>
+      </div>
+    </li>
+  </ul>
+</nz-dropdown-menu>

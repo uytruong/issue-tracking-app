@@ -1,0 +1,8 @@
+.btn {
+  @apply p-1 rounded-full cursor-pointer hover:bg-secondary border-2 border-transparent;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.active {
+  @apply bg-secondary border-primary;
+}

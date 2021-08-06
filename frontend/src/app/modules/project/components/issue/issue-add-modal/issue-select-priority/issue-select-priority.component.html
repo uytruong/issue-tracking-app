@@ -1,11 +1,11 @@
-<nz-select [nzCustomTemplate]="selectedTemplate" [formControl]="control">
+<nz-select [nzMode]="isMultipleSelect ? 'multiple' : 'default'" nzPlaceHolder="Priority select" [nzDropdownMatchSelectWidth]="false" [nzCustomTemplate]="selectedTemplate" [formControl]="control">
   <nz-option
     nzCustomContent
     *ngFor="let priority of priorities"
     [nzLabel]="priority.value | uppercase"
     [nzValue]="priority.value"
   >
-    <div class="flex items-center space-x-1">
+    <div nz-checkbox class="flex items-center space-x-1">
       <app-icon iconSize="20" [color]="priority.iconColor" name="caret-up" theme="fill"></app-icon>
       <span> {{ priority.value | uppercase }} </span>
     </div>

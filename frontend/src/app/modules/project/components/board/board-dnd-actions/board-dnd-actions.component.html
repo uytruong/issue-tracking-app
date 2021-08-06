@@ -1,11 +1,23 @@
-<div class="flex ml-10 mb-4 space-x-2">
+<div class="flex items-center ml-10 mb-4 space-x-2">
   <button nz-button nzType="primary" (click)="onOpenAddIssueModal(project, currentUser)">
     Create Issue
   </button>
-  <nz-input-group [style.width.px]="200" [nzSuffix]="suffixIconSearch">
-    <input type="text" nz-input placeholder="input search text" />
+  <nz-input-group [style.width.px]="140" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Filter issues" [formControl]="searchControl" />
   </nz-input-group>
-  <ng-template #suffixIconSearch>
-    <i nz-icon nzType="search"></i>
-  </ng-template>
+  <div class="flex">
+    <div class="btn" [class.active]="isSelected(user.id)" *ngFor="let user of users$ | async">
+      <nz-avatar
+        [nzSize]="30"
+        nzIcon="user"
+        [nzSrc]="user.avatarUrl"
+        (click)="toggleUserId(user.id)"
+      ></nz-avatar>
+    </div>
+  </div>
+  <app-board-dnd-filter-priority [control]="prioritiesControl"></app-board-dnd-filter-priority>
+  <app-board-dnd-filter-type [control]="typesControl"></app-board-dnd-filter-type>
 </div>
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search"></i>
+</ng-template>

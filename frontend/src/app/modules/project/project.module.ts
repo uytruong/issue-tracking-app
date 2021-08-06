@@ -36,6 +36,8 @@ import { IssueSelectReporterComponent } from './components/issue/issue-add-modal
 import { IssueSelectAssigneesComponent } from './components/issue/issue-add-modal/issue-select-assignees/issue-select-assignees.component';
 import { FilterStore } from './store/filter.store';
 import { BoardDndActionsComponent } from './components/board/board-dnd-actions/board-dnd-actions.component';
+import { BoardDndFilterPriorityComponent } from './components/board/board-dnd-actions/board-dnd-filter-priority/board-dnd-filter-priority.component';
+import { BoardDndFilterTypeComponent } from './components/board/board-dnd-actions/board-dnd-filter-type/board-dnd-filter-type.component';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -61,7 +63,9 @@ import { BoardDndActionsComponent } from './components/board/board-dnd-actions/b
     IssueSelectPriorityComponent,
     IssueSelectReporterComponent,
     IssueSelectAssigneesComponent,
-    BoardDndActionsComponent
+    BoardDndActionsComponent,
+    BoardDndFilterPriorityComponent,
+    BoardDndFilterTypeComponent
   ],
   imports: [
     CommonModule,

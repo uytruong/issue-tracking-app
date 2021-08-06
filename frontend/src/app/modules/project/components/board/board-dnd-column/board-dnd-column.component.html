@@ -1,6 +1,9 @@
-<ng-container *ngIf="issues$ | async as issues">
+<ng-container *ngIf="filteredIssues as issues">
   <div class="column-wrap">
-    <p class="p-4">{{ stageDisplay[stage] }}</p>
+    <p class="p-4 space-x-2">
+      <span>{{ stageDisplay[stage] }}</span>
+      <span>{{ issues.length }} {{ issues.length > 1 ? 'issues' : 'issue' }}</span>
+    </p>
     <div
       class="m-2 mt-0 h-full issue-list"
       [id]="stage"

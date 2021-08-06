@@ -17,6 +17,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
   imports: [
@@ -34,7 +36,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NzFormModule,
     NzInputModule,
     HttpClientModule,
-    AngularEditorModule
+    AngularEditorModule,
+    NzCheckboxModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -52,7 +55,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NzFormModule,
     NzInputModule,
     HttpClientModule,
-    AngularEditorModule
+    AngularEditorModule,
+    NzCheckboxModule
   ]
 })
 export class SharedModule {}
