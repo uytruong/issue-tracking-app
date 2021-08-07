@@ -21,7 +21,10 @@ export const editorConfig: AngularEditorConfig = {
     { class: 'calibri', name: 'Calibri' },
     { class: 'comic-sans-ms', name: 'Comic Sans MS' }
   ],
-  sanitize: true,
+  sanitize: false,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: [['bold', 'italic'], ['fontSize']]
+  toolbarHiddenButtons: [
+    ['subscript', 'superscript', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+    ['fontSize']
+  ]
 };
