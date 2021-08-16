@@ -23,6 +23,10 @@ export class UserService {
     return await this.model.findOne(filter).exec();
   }
 
+  async findMany(filter = {}): Promise<UserDocument[]> {
+    return await this.model.find(filter).exec();
+  }
+
   async findById(id: string): Promise<UserDocument> {
     return await this.model.findById(id).exec();
   }

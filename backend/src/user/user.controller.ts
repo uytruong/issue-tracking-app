@@ -5,9 +5,11 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Logger,
   Param,
   Post,
-  Put
+  Put,
+  Query
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './models/user.model';
@@ -17,13 +19,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { map } from 'lodash';
 import { UserDto } from './dto/user.dto';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
+  private readonly logger = new Logger(UserController.name);
+
   constructor(private userService: UserService) {}
 
   @Get()
-  async findAll(): Promise<UserDto[]> {
-    const users = await this.userService.findAll();
+  async findUsers(@Query('projectId') projectId: string): Promise<UserDto[]> {
+    const users = await this.userService.findMany({ projectIds: projectId });
+    if (users.length === 0) {
+      throw new HttpException(`Users Not found`, HttpStatus.NOT_FOUND);
+    }
     const usersJSON = map(users, (user) => user.toJSON());
     return this.userService.mapArray(usersJSON);
   }
@@ -38,16 +45,8 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    const { username, password } = createUserDto;
-
-    if (!username) {
-      throw new HttpException('Username is required', HttpStatus.BAD_REQUEST);
-    }
-
-    if (!password) {
-      throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
-    }
+  async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
+    const { username, password, fullname, email, projectIds, avatarUrl } = createUserDto;
 
     let existingUser = null;
     try {
@@ -64,10 +63,14 @@ export class UserController {
     newUser.username = username;
     const salt = await genSalt(10);
     newUser.password = await hash(password, salt);
+    newUser.fullname = fullname;
+    newUser.projectIds = projectIds;
+    newUser.email = email;
+    newUser.avatarUrl = avatarUrl;
 
     try {
-      const result = await this.userService.create(newUser);
-      return result;
+      const newUserRes = await this.userService.create(newUser);
+      return this.userService.map(newUserRes.toJSON());
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -14,13 +14,21 @@ export class User extends BaseModel {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ required: true })
+  @AutoMap()
+  fullname: string;
+
+  @Prop()
+  @AutoMap()
+  email: string;
+
   @Prop()
   @AutoMap()
   avatarUrl: string;
 
   @Prop([String])
   @AutoMap()
-  projectId: string[];
+  projectIds: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

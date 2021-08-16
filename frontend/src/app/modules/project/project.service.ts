@@ -4,6 +4,9 @@ import { IssueComment } from '@app/data/model/issue-comment.model';
 import { Project, ProjectCategory } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '@env';
+import { filter, map } from 'rxjs/operators';
 
 const dummyProjects: Project[] = [
   {
@@ -38,8 +41,8 @@ const dummyIssues: Issue[] = [
     priority: IssuePriority.LOW,
     listPosition: 0,
     description: '',
-    reporterId: 'reporter1',
-    assigneesId: ['userId1', 'userId2'],
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a19e3fbf0ab3761e8760e', '611a1b68fbf0ab3761e87615'],
     projectId: 'abc-projectId',
     createdAt: '2021-07-04T08:00:00Z',
     updatedAt: '2021-07-04T08:00:00Z'
@@ -52,8 +55,8 @@ const dummyIssues: Issue[] = [
     priority: IssuePriority.MEDIUM,
     listPosition: 1,
     description: '',
-    reporterId: 'reporter1',
-    assigneesId: ['userId1', 'userId4'],
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a19e3fbf0ab3761e8760e', '611a1b92fbf0ab3761e8761b'],
     projectId: 'abc-projectId',
     createdAt: '2021-07-04T08:01:00Z',
     updatedAt: '2021-07-04T08:01:00Z'
@@ -65,9 +68,10 @@ const dummyIssues: Issue[] = [
     type: IssueType.TASK,
     priority: IssuePriority.HIGH,
     listPosition: 0,
-    description: '<div>Selected Task High</div><div>This is the description of this task edited with @kolkov/angular-editor.</div><div>I find it very cool :D</div>',
-    reporterId: 'reporter1',
-    assigneesId: ['userId3', 'userId2'],
+    description:
+      '<div>Selected Task High</div><div>This is the description of this task edited with @kolkov/angular-editor.</div><div>I find it very cool :D</div>',
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a1b87fbf0ab3761e87618', '611a1b68fbf0ab3761e87615'],
     projectId: 'abc-projectId',
     createdAt: '2021-07-04T08:02:00Z',
     updatedAt: '2021-07-04T08:02:00Z'
@@ -80,8 +84,8 @@ const dummyIssues: Issue[] = [
     priority: IssuePriority.HIGH,
     listPosition: 1,
     description: '',
-    reporterId: 'reporter1',
-    assigneesId: ['userId2'],
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a1b68fbf0ab3761e87615'],
     projectId: 'abc-projectId',
     createdAt: '2021-07-04T08:03:00Z',
     updatedAt: '2021-07-04T08:03:00Z'
@@ -94,8 +98,8 @@ const dummyIssues: Issue[] = [
     priority: IssuePriority.HIGH,
     listPosition: 2,
     description: '',
-    reporterId: 'reporter1',
-    assigneesId: ['userId1'],
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a19e3fbf0ab3761e8760e'],
     projectId: 'abc-projectId',
     createdAt: '2021-07-04T08:04:00Z',
     updatedAt: '2021-07-04T08:04:00Z'
@@ -108,83 +112,34 @@ const dummyIssues: Issue[] = [
     priority: IssuePriority.LOW,
     listPosition: 0,
     description: '',
-    reporterId: 'reporter1',
-    assigneesId: ['userId4'],
+    reporterId: '611a19e3fbf0ab3761e8760e',
+    assigneesId: ['611a1b92fbf0ab3761e8761b'],
     projectId: 'xyz-projectId',
     createdAt: '2021-07-04T09:00:00Z',
     updatedAt: '2021-07-04T09:00:00Z'
   }
 ];
 
-const dummyUsers: User[] = [
-  {
-    id: 'userId1',
-    username: 'uytruong',
-    fullname: 'Uy Truong',
-    email: 'uytruong97@gmail.com',
-    avatarUrl: 'https://vcdn-vnexpress.vnecdn.net/2020/09/23/01-4451-1600828895.jpg',
-    projectIds: ['abc-projectId', 'xyz-projectId'],
-    createdAt: '2021-06-03T08:01:00Z',
-    updatedAt: '2021-06-03T08:01:00Z'
-  },
-  {
-    id: 'userId2',
-    username: 'johnmayer',
-    fullname: 'John Mayer',
-    email: 'johnmayer@email.com',
-    avatarUrl: 'https://www.rollingstone.com/wp-content/uploads/2021/07/JOHN_MAYER_SHOT_04_04482-11.jpg?resize=1800,1200&w=1800',
-    projectIds: ['abc-projectId'],
-    createdAt: '2021-06-03T08:02:00Z',
-    updatedAt: '2021-06-03T08:02:00Z'
-  },
-  {
-    id: 'userId3',
-    username: 'johnfrusciante',
-    fullname: 'John Frusciante',
-    email: 'johnfrusciante@email.com',
-    avatarUrl: 'https://edm.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTczNzIwNDkyMTM2NDc0MTcw/lx465e8s568d2hxgxfqvag.jpg',
-    projectIds: ['abc-projectId'],
-    createdAt: '2021-06-03T08:03:00Z',
-    updatedAt: '2021-06-03T08:03:00Z'
-  },
-  {
-    id: 'userId4',
-    username: 'davidgilmour',
-    fullname: 'David Gilmour',
-    email: 'davidgilmour@email.com',
-    avatarUrl: 'https://cdn.uc.assets.prezly.com/d24ba9ed-fb25-42d4-b466-bb6b6f2779a7/-/crop/4000x3041/0,959/-/preview/-/preview/2048x2048/-/quality/best/-/format/auto/',
-    projectIds: ['abc-projectId'],
-    createdAt: '2021-06-03T08:04:00Z',
-    updatedAt: '2021-06-03T08:04:00Z'
-  },
-  {
-    id: 'userId5',
-    username: 'ichikanito',
-    fullname: 'Ichika Nito',
-    email: 'ichikanito@email.com',
-    avatarUrl: 'https://www.ibanez.com/common/product_artist_file/file/a_main_ichika.jpg',
-    projectIds: ['abc-projectId'],
-    createdAt: '2021-06-03T08:05:00Z',
-    updatedAt: '2021-06-03T08:05:00Z'
-  }
-];
-
 const dummyComments: IssueComment[] = [
   {
     id: 'commentId1',
-    userId: 'userId1',
+    userId: '611a19e3fbf0ab3761e8760e',
     issueId: '3',
     content: 'This is the content of this comment. Good job!',
     createdAt: '2021-08-03T08:00:00Z',
     updatedAt: '2021-08-03T08:00:00Z'
-  },
-]
+  }
+];
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-  constructor() {}
+  private userAPIUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.userAPIUrl = environment.apiUrl + '/users';
+  }
 
   getProjectByKey(key: string): Observable<Project> {
     const project = dummyProjects.find((proj) => proj.key === key);
@@ -205,7 +160,7 @@ export class ProjectService {
   }
 
   getProjectsByIds(ids: string[]): Observable<Project[]> {
-    const projects = dummyProjects.filter(project => ids.includes(project.id));
+    const projects = dummyProjects.filter((project) => ids.includes(project.id));
     if (projects) {
       return of(projects);
     } else {
@@ -214,16 +169,15 @@ export class ProjectService {
   }
 
   getUsersByProjectId(id: string): Observable<User[]> {
-    const users = dummyUsers.filter(user => user.projectIds.includes(id));
-    if (users) {
-      return of(users);
-    } else {
-      throw new Error(`Users not found`);
-    }
+    const options = id ? { params: new HttpParams().set('projectId', id) } : {};
+
+    return this.http
+      .get<User[]>(this.userAPIUrl, options)
+      .pipe(map((users) => users.filter((user) => user.projectIds.includes(id))));
   }
 
   getCommentsByIssueId(id: string): Observable<IssueComment[]> {
-    const comments = dummyComments.filter(comment => comment.issueId === id);
+    const comments = dummyComments.filter((comment) => comment.issueId === id);
     if (comments) {
       return of(comments);
     } else {

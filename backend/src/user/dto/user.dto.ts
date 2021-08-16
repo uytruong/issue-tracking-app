@@ -6,8 +6,14 @@ export class UserDto extends BaseDto {
   username: string;
 
   @AutoMap()
-  avatarUrl?: string;
+  fullname: string;
 
   @AutoMap()
-  projectId: string[];
+  projectIds: string[];
+
+  @AutoMap()
+  email: string;
+
+  @AutoMap()
+  avatarUrl?: string;
 }
