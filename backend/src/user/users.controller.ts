@@ -13,35 +13,35 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './models/user.model';
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import { genSalt, hash } from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { map } from 'lodash';
 import { UserDto } from './dto/user.dto';
 
 @Controller('users')
-export class UserController {
-  private readonly logger = new Logger(UserController.name);
+export class UsersController {
+  private readonly logger = new Logger(UsersController.name);
 
-  constructor(private userService: UserService) {}
+  constructor(private usersService: UsersService) {}
 
   @Get()
   async findUsers(@Query('projectId') projectId: string): Promise<UserDto[]> {
-    const users = await this.userService.findMany({ projectIds: projectId });
+    const users = await this.usersService.findMany({ projectIds: projectId });
     if (users.length === 0) {
       throw new HttpException(`Users Not found`, HttpStatus.NOT_FOUND);
     }
     const usersJSON = map(users, (user) => user.toJSON());
-    return this.userService.mapArray(usersJSON);
+    return this.usersService.mapArray(usersJSON);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserDto> {
-    const user = await this.userService.findById(id);
+    const user = await this.usersService.findById(id);
     if (!user) {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
     }
-    return this.userService.map(user.toJSON());
+    return this.usersService.map(user.toJSON());
   }
 
   @Post()
@@ -50,7 +50,7 @@ export class UserController {
 
     let existingUser = null;
     try {
-      existingUser = await this.userService.findOne({ username });
+      existingUser = await this.usersService.findOne({ username });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -69,8 +69,8 @@ export class UserController {
     newUser.avatarUrl = avatarUrl;
 
     try {
-      const newUserRes = await this.userService.create(newUser);
-      return this.userService.map(newUserRes.toJSON());
+      const newUserRes = await this.usersService.create(newUser);
+      return this.usersService.map(newUserRes.toJSON());
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -83,7 +83,7 @@ export class UserController {
       throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
     }
 
-    const exist = await this.userService.findById(id);
+    const exist = await this.usersService.findById(id);
 
     if (!exist) {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
@@ -98,8 +98,8 @@ export class UserController {
     }
 
     try {
-      const updated = await this.userService.update(id, exist);
-      return this.userService.map(updated.toJSON());
+      const updated = await this.usersService.update(id, exist);
+      return this.usersService.map(updated.toJSON());
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -108,8 +108,8 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<UserDto> {
     try {
-      const deleted = await this.userService.delete(id);
-      return this.userService.map(deleted.toJSON());
+      const deleted = await this.usersService.delete(id);
+      return this.usersService.map(deleted.toJSON());
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

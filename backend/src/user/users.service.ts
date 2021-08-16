@@ -7,7 +7,7 @@ import { Mapper } from '@automapper/types';
 import { UserDto } from './dto/user.dto';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly model: Model<UserDocument>,
     @InjectMapper() private mapper: Mapper

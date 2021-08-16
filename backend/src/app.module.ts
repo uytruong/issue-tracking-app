@@ -5,19 +5,21 @@ import { AppService } from './app.service';
 import { Config } from './shared/config/config.enum';
 import { ConfigService } from './shared/config/config.service';
 import { SharedModule } from './shared/shared.module';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './user/users.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
     SharedModule,
     MongooseModule.forRoot(ConfigService.dbConnectionString),
-    UserModule,
+    UsersModule,
     AutomapperModule.forRoot({
       options: [{ name: 'mapper', pluginInitializer: classes }],
       singular: true
-    })
+    }),
+    ProjectsModule
   ],
   controllers: [AppController],
   providers: [AppService]
