@@ -158,9 +158,9 @@ export class ProjectStore extends ComponentStore<ProjectState> {
         this.updateStatus(StatusState.LOADING);
         return this.projectService.getProjectByKey(key).pipe(
           tapResponse(
-            (project) => {
+            (projects) => {
               this.updateStatus(StatusState.LOADED);
-              this.updateProject(project);
+              this.updateProject(projects[0]);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

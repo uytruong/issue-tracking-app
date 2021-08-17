@@ -20,7 +20,7 @@ export interface ProjectListState {
 }
 
 const initialState: ProjectListState = {
-  projects: [null],
+  projects: [],
   status: StatusState.INIT,
   error: ''
 };

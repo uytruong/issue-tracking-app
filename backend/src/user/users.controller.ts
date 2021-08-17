@@ -78,7 +78,7 @@ export class UsersController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    const { username, avatarUrl } = updateUserDto;
+    const { username, avatarUrl, projectIds } = updateUserDto;
     if (!id || !updateUserDto) {
       throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
     }
@@ -95,6 +95,10 @@ export class UsersController {
 
     if (avatarUrl) {
       exist.avatarUrl = avatarUrl;
+    }
+
+    if (projectIds) {
+      exist.projectIds = projectIds;
     }
 
     try {

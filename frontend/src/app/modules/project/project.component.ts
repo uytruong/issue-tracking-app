@@ -24,8 +24,10 @@ export class ProjectComponent implements OnInit {
     this.projectStore.getProject(this.projectKey);
     this.project$ = this.projectStore.project$.pipe(
       tap((project) => {
-        this.projectStore.getIssues(project.id);
-        this.projectStore.getUsers(project.id);
+        if (project !== null) {
+          this.projectStore.getIssues(project.id);
+          this.projectStore.getUsers(project.id);
+        }
       })
     );
   }

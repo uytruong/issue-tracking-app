@@ -12,7 +12,7 @@ export class AuthService {
       fullname: 'Uy Truong',
       email: 'uytruong97@gmail.com',
       avatarUrl: 'https://vcdn-vnexpress.vnecdn.net/2020/09/23/01-4451-1600828895.jpg',
-      projectIds: ['abc-projectId', 'xyz-projectId'],
+      projectIds: ['611a704a059957025ce6563e', '611a76626c3d510831176ddb'],
       createdAt: '01/01/2021',
       updatedAt: '01/01/2021'
     }

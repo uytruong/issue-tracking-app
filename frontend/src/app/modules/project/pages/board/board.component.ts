@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { Project } from '@app/data/model/project.model';
 import { ProjectStore } from '../../store/project.store';
 import { tap } from 'rxjs/operators';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { IssueAddModalComponent } from '../../components/issue/issue-add-modal/issue-add-modal.component';
 import { User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
@@ -16,7 +14,7 @@ import { userSelector } from '@app/core/store/auth/auth.selectors';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  breadcrumb: NavLink[] = [new NavLink('Projects', null, '/projects')];
+  breadcrumb: NavLink[] = [];
   project$: Observable<Project>;
   currentUser$: Observable<User>;
 
@@ -27,7 +25,7 @@ export class BoardComponent implements OnInit {
       tap((project) => {
         // Init breadcrumb view model
         this.breadcrumb = [
-          ...this.breadcrumb,
+          new NavLink('Projects', null, '/projects'),
           new NavLink(project.name, null, '../'),
           new NavLink('Kanban Board', null, './')
         ];
