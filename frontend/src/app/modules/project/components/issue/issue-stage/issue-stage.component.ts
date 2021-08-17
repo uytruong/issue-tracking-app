@@ -45,6 +45,6 @@ export class IssueStageComponent implements OnInit {
       newPosition = issues.length + 1;
     });
     subscription.unsubscribe();
-    this.projectStore.updateIssue({ ...this.issue, stage: stage, listPosition: newPosition });
+    this.projectStore.postIssue({ ...this.issue, stage: stage, listPosition: newPosition });
   }
 }

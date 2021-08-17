@@ -110,7 +110,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     return {
       ...state,
       comments: comments
-    }
+    };
   });
 
   readonly updateIssue = this.updater((state: ProjectState, newIssue: Issue) => {
@@ -124,14 +124,14 @@ export class ProjectStore extends ComponentStore<ProjectState> {
 
   readonly addIssue = this.updater((state: ProjectState, newIssue: Issue) => {
     let cloneIssues = [...state.issues];
-    let filteredStageIssues = cloneIssues.filter(issue => issue.stage === newIssue.stage);
+    let filteredStageIssues = cloneIssues.filter((issue) => issue.stage === newIssue.stage);
     const newListPosition = filteredStageIssues.length + 1;
     newIssue.listPosition = newListPosition;
     cloneIssues.push(newIssue);
     return {
       ...state,
       issues: cloneIssues
-    }
+    };
   });
 
   readonly addComment = this.updater((state: ProjectState, newComment: IssueComment) => {
@@ -140,7 +140,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     return {
       ...state,
       comments: cloneComments
-    }
+    };
   });
 
   readonly updateError = this.updater((state: ProjectState, errorMsg: string) => {
@@ -176,6 +176,21 @@ export class ProjectStore extends ComponentStore<ProjectState> {
           tapResponse(
             (issues) => {
               this.updateIssues(issues);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postIssue = this.effect((updateIssue$: Observable<Issue>) => {
+    return updateIssue$.pipe(
+      switchMap((issue) => {
+        return this.projectService.updateIssue(issue).pipe(
+          tapResponse(
+            (issue) => {
+              this.updateIssue(issue);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

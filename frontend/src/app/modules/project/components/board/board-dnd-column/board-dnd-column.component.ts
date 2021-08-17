@@ -54,6 +54,7 @@ export class BoardDndColumnComponent implements OnInit, OnDestroy {
     for (let idx in issues) {
       issues[idx].listPosition = parseInt(idx) + 1;
       this.projectStore.updateIssue(issues[idx]);
+      this.projectStore.postIssue(issues[idx]);
     }
   }
 

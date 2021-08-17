@@ -25,6 +25,6 @@ export class IssueReporterComponent implements OnInit {
 
   onChooseReporter(id: string) {
     this.reporter = this.users.find((user) => user.id === id);
-    this.projectStore.updateIssue({ ...this.issue, reporterId: id });
+    this.projectStore.postIssue({ ...this.issue, reporterId: id });
   }
 }

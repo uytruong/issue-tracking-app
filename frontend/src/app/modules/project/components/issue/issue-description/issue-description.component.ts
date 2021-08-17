@@ -25,7 +25,7 @@ export class IssueDescriptionComponent implements OnInit {
   }
 
   onSaveEdit() {
-    this.projectStore.updateIssue({ ...this.issue, description: this.content });
+    this.projectStore.postIssue({ ...this.issue, description: this.content });
     this.isDisplay = false;
   }
 
