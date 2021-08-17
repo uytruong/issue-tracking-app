@@ -5,10 +5,11 @@ import { AppService } from './app.service';
 import { Config } from './shared/config/config.enum';
 import { ConfigService } from './shared/config/config.service';
 import { SharedModule } from './shared/shared.module';
-import { UsersModule } from './user/users.module';
+import { UsersModule } from './users/users.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { ProjectsModule } from './projects/projects.module';
+import { IssuesModule } from './issues/issues.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ProjectsModule } from './projects/projects.module';
       options: [{ name: 'mapper', pluginInitializer: classes }],
       singular: true
     }),
-    ProjectsModule
+    ProjectsModule,
+    IssuesModule
   ],
   controllers: [AppController],
   providers: [AppService]
