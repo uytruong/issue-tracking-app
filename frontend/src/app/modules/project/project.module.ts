@@ -38,6 +38,7 @@ import { FilterStore } from './store/filter.store';
 import { BoardDndActionsComponent } from './components/board/board-dnd-actions/board-dnd-actions.component';
 import { BoardDndFilterPriorityComponent } from './components/board/board-dnd-actions/board-dnd-filter-priority/board-dnd-filter-priority.component';
 import { BoardDndFilterTypeComponent } from './components/board/board-dnd-actions/board-dnd-filter-type/board-dnd-filter-type.component';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -75,7 +76,8 @@ import { BoardDndFilterTypeComponent } from './components/board/board-dnd-action
     NzBreadCrumbModule,
     DragDropModule,
     NzSelectModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzMessageModule
   ],
   providers: [ProjectStore, FilterStore]
 })

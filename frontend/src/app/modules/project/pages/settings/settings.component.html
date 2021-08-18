@@ -1,3 +1,40 @@
 <ng-container *ngIf="project$ | async as project">
   <app-content-header [breadcrumb]="breadcrumb" [projectName]="project.name"></app-content-header>
+  <div class="px-10 mb-4">
+    <form [nzLayout]="'vertical'" nz-form [formGroup]="projectSettingsForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label class="font-bold">Name</nz-form-label>
+        <nz-form-control nzErrorTip="Should not be blank">
+          <input nz-input type="text" formControlName="name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="font-bold">Key</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" formControlName="key"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="font-bold">Description</nz-form-label>
+        <nz-form-control>
+          <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="font-bold">Category</nz-form-label>
+        <nz-select formControlName="category">
+          <nz-option
+            *ngFor="let category of categories"
+            [nzLabel]="category | uppercase"
+            [nzValue]="category"
+          ></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <div class="flex justify-end space-x-2">
+        <button nz-button nzType="primary" type="submit" [disabled]="!projectSettingsForm.valid || !projectSettingsForm.dirty">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
 </ng-container>

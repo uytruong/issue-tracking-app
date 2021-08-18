@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CreateIssuePayload, Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
 import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
-import { Project } from '@app/data/model/project.model';
+import { Project, UpdateProjectPayload } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -28,6 +28,10 @@ export class ProjectService {
   getProjectByKey(key: string): Observable<Project[]> {
     const options = key ? { params: new HttpParams().set('key', key) } : {};
     return this.http.get<Project[]>(projectApiUrl, options);
+  }
+
+  updateProject(project: UpdateProjectPayload): Observable<Project> {
+    return this.http.put<Project>(`${projectApiUrl}/${project.id}`, project);
   }
 
   getIssuesByProjectId(id: string): Observable<Issue[]> {

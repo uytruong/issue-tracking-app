@@ -9,6 +9,13 @@ export interface Project {
   updatedAt: string;
 }
 
+export interface UpdateProjectPayload {
+  id: string;
+  name: string;
+  description: string;
+  category: ProjectCategory;
+}
+
 export const enum ProjectCategory {
   SOFTWARE = 'Software',
   BUSINESS = 'Business'

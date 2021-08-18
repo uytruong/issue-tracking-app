@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
-import { CreateIssuePayload, Issue, IssueStage } from '@app/data/model/issue.model';
-import { Project } from '@app/data/model/project.model';
+import { CreateIssuePayload, Issue } from '@app/data/model/issue.model';
+import { Project, UpdateProjectPayload } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
@@ -81,7 +81,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
   readonly updateStatus = this.updater((state: ProjectState, status: StatusState) => {
     return {
       ...state,
-      loading: status
+      status: status
     };
   });
 
@@ -133,7 +133,7 @@ export class ProjectStore extends ComponentStore<ProjectState> {
 
   readonly deleteIssue = this.updater((state: ProjectState, deletedIssue: Issue) => {
     let cloneIssues = [...state.issues];
-    cloneIssues = cloneIssues.filter(issue => issue.id !== deletedIssue.id);
+    cloneIssues = cloneIssues.filter((issue) => issue.id !== deletedIssue.id);
     return {
       ...state,
       issues: cloneIssues
@@ -167,6 +167,23 @@ export class ProjectStore extends ComponentStore<ProjectState> {
             (projects) => {
               this.updateStatus(StatusState.LOADED);
               this.updateProject(projects[0]);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postUpdateProject = this.effect((project$: Observable<UpdateProjectPayload>) => {
+    return project$.pipe(
+      switchMap((project) => {
+        this.updateStatus(StatusState.LOADING);
+        return this.projectService.updateProject(project).pipe(
+          tapResponse(
+            (project) => {
+              this.updateStatus(StatusState.LOADED);
+              this.updateProject(project);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )
@@ -277,6 +294,6 @@ export class ProjectStore extends ComponentStore<ProjectState> {
           )
         );
       })
-    )
+    );
   });
 }
