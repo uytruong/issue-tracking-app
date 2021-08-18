@@ -28,7 +28,7 @@ export class IssuePriorityComponent implements OnInit {
 
   onChangePriority(value: IssuePriority) {
     this.priorityIcon = new IssuePriorityIcon(value);
-    this.projectStore.postIssue({ ...this.issue, priority: value })
+    this.projectStore.postUpdateIssue({ ...this.issue, priority: value })
   }
 
 }

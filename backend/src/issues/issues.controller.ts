@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -15,6 +16,7 @@ import { IssuesService } from './issues.service';
 import { Issue } from './models/issue.model';
 import { map } from 'lodash';
 import { UpdateIssueDto } from './dto/update-issue.dto';
+import { CreateIssueDto } from './dto/create-issue.dto';
 
 @Controller('issues')
 export class IssuesController {
@@ -81,18 +83,9 @@ export class IssuesController {
   }
 
   @Post()
-  async create(@Body() issueDto: IssueDto): Promise<IssueDto> {
-    const {
-      title,
-      stage,
-      type,
-      priority,
-      listPosition,
-      description,
-      reporterId,
-      assigneesId,
-      projectId
-    } = issueDto;
+  async create(@Body() createIssueDto: CreateIssueDto): Promise<IssueDto> {
+    const { title, stage, type, priority, description, reporterId, assigneesId, projectId } =
+      createIssueDto;
 
     let existingIssue = null;
     try {
@@ -110,12 +103,20 @@ export class IssuesController {
     newIssue.stage = stage;
     newIssue.type = type;
     newIssue.priority = priority;
-    newIssue.listPosition = listPosition;
     newIssue.description = description;
     newIssue.reporterId = reporterId;
     newIssue.assigneesId = assigneesId;
     newIssue.projectId = projectId;
 
+    let filteredStageIssues = [];
+    try {
+      filteredStageIssues = await this.issuesService.findAll({ projectId, stage });
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    newIssue.listPosition = filteredStageIssues.length + 1;
+
+    this.logger.debug(`new issue: ${JSON.stringify(newIssue)}`);
     try {
       const newIssueRes = await this.issuesService.create(newIssue);
       return this.issuesService.map(newIssueRes.toJSON());
@@ -124,8 +125,13 @@ export class IssuesController {
     }
   }
 
-  @Get('reset')
-  async resetCounter() {
-    this.issuesService.resetCounter();
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<IssueDto> {
+    try {
+      const deleted = await this.issuesService.delete(id);
+      return this.issuesService.map(deleted.toJSON());
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

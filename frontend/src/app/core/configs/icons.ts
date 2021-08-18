@@ -15,7 +15,8 @@ import {
   CaretUpFill,
   LoadingOutline,
   CloseOutline,
-  DownOutline
+  DownOutline,
+  DeleteOutline
 } from '@ant-design/icons-angular/icons';
 
 export const NZ_ICONS: IconDefinition[] = [
@@ -34,5 +35,6 @@ export const NZ_ICONS: IconDefinition[] = [
   CaretUpFill,
   LoadingOutline,
   CloseOutline,
-  DownOutline
+  DownOutline,
+  DeleteOutline
 ];

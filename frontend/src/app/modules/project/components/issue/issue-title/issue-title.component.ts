@@ -23,7 +23,7 @@ export class IssueTitleComponent implements OnInit, OnDestroy {
       .pipe(startWith(''), pairwise(), takeUntil(this.destroy$))
       .subscribe(([prev, next]: [string, string]) => {
         if (prev !== next) {
-          this.projectStore.postIssue({ ...this.issue, title: next });
+          this.projectStore.postUpdateIssue({ ...this.issue, title: next });
         }
       });
   }

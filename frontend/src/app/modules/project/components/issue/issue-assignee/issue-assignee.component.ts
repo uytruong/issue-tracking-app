@@ -28,7 +28,7 @@ export class IssueAssigneeComponent implements OnInit {
     const newAssigneesId = [...this.issue.assigneesId];
     newAssigneesId.push(id); 
     this.assignees.push(this.users.find(user => user.id === id));
-    this.projectStore.postIssue({ ...this.issue, assigneesId: newAssigneesId })
+    this.projectStore.postUpdateIssue({ ...this.issue, assigneesId: newAssigneesId })
   }
 
   onRemoveAssignee(id: string) {
@@ -36,6 +36,6 @@ export class IssueAssigneeComponent implements OnInit {
     newAssigneesId = newAssigneesId.filter(assigneeId => assigneeId !== id); 
     const removedUser = this.users.find(user => user.id === id);
     this.assignees = this.assignees.filter(assignee => assignee.id !== removedUser.id);
-    this.projectStore.postIssue({ ...this.issue, assigneesId: newAssigneesId })
+    this.projectStore.postUpdateIssue({ ...this.issue, assigneesId: newAssigneesId })
   }
 }

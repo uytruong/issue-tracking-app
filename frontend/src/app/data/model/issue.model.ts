@@ -13,6 +13,17 @@ export interface Issue {
   updatedAt: string;
 }
 
+export interface CreateIssuePayload {
+  title: string;
+  stage: IssueStage;
+  type: IssueType;
+  priority: IssuePriority;
+  description: string;
+  reporterId: string;
+  assigneesId: string[];
+  projectId: string;
+}
+
 export const enum IssueStage {
   BACKLOG = 'Backlog',
   SELECTED = 'Selected',

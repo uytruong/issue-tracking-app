@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
-import { Issue, IssueStage } from '@app/data/model/issue.model';
+import { CreateIssuePayload, Issue, IssueStage } from '@app/data/model/issue.model';
 import { Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
@@ -124,10 +124,16 @@ export class ProjectStore extends ComponentStore<ProjectState> {
 
   readonly addIssue = this.updater((state: ProjectState, newIssue: Issue) => {
     let cloneIssues = [...state.issues];
-    let filteredStageIssues = cloneIssues.filter((issue) => issue.stage === newIssue.stage);
-    const newListPosition = filteredStageIssues.length + 1;
-    newIssue.listPosition = newListPosition;
     cloneIssues.push(newIssue);
+    return {
+      ...state,
+      issues: cloneIssues
+    };
+  });
+
+  readonly deleteIssue = this.updater((state: ProjectState, deletedIssue: Issue) => {
+    let cloneIssues = [...state.issues];
+    cloneIssues = cloneIssues.filter(issue => issue.id !== deletedIssue.id);
     return {
       ...state,
       issues: cloneIssues
@@ -184,13 +190,43 @@ export class ProjectStore extends ComponentStore<ProjectState> {
     );
   });
 
-  readonly postIssue = this.effect((updateIssue$: Observable<Issue>) => {
+  readonly postAddIssue = this.effect((newIssue$: Observable<CreateIssuePayload>) => {
+    return newIssue$.pipe(
+      switchMap((issue) => {
+        return this.projectService.createIssue(issue).pipe(
+          tapResponse(
+            (issue) => {
+              this.addIssue(issue);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postUpdateIssue = this.effect((updateIssue$: Observable<Issue>) => {
     return updateIssue$.pipe(
       switchMap((issue) => {
         return this.projectService.updateIssue(issue).pipe(
           tapResponse(
             (issue) => {
               this.updateIssue(issue);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postDeleteIssue = this.effect((issueId$: Observable<string>) => {
+    return issueId$.pipe(
+      switchMap((issueId) => {
+        return this.projectService.deleteIssue(issueId).pipe(
+          tapResponse(
+            (deletedIssue) => {
+              this.deleteIssue(deletedIssue);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

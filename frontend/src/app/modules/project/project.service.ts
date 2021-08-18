@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
+import { CreateIssuePayload, Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
 import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
 import { Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
@@ -35,8 +35,16 @@ export class ProjectService {
     return this.http.get<Issue[]>(issueApiUrl, options);
   }
 
+  createIssue(newIssue: CreateIssuePayload): Observable<Issue> {
+    return this.http.post<Issue>(issueApiUrl, newIssue);
+  }
+
   updateIssue(issue: Issue): Observable<Issue> {
     return this.http.put<Issue>(`${issueApiUrl}/${issue.id}`, issue);
+  }
+
+  deleteIssue(id: string): Observable<Issue> {
+    return this.http.delete<Issue>(`${issueApiUrl}/${id}`);
   }
 
   getUsersByProjectId(id: string): Observable<User[]> {
@@ -45,7 +53,6 @@ export class ProjectService {
   }
 
   getCommentsByIssueId(id: string): Observable<IssueComment[]> {
-    console.log('getCommentsByIssueId - id: ', id);
     const options = id ? { params: new HttpParams().set('issueId', id) } : {};
     return this.http.get<IssueComment[]>(commentApiUrl, options);
   }

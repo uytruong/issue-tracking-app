@@ -10,14 +10,24 @@
         ></app-icon>
         <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
       </div>
-      <app-icon
-        class="btn"
-        bgSize="32"
-        iconSize="20"
-        name="close"
-        theme="outline"
-        (click)="onCloseModal()"
-      ></app-icon>
+      <div class="flex items-center space-x-1">
+        <app-icon
+          class="btn"
+          bgSize="32"
+          iconSize="20"
+          name="delete"
+          theme="outline"
+          (click)="onShowConfirm()"
+        ></app-icon>
+        <app-icon
+          class="btn"
+          bgSize="32"
+          iconSize="20"
+          name="close"
+          theme="outline"
+          (click)="onCloseModal()"
+        ></app-icon>
+      </div>
     </div>
     <div class="flex flex-wrap w-full justify-center">
       <div class="sm:w-full md:w-2/3">

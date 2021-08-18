@@ -17,14 +17,10 @@ import { CoreModule } from './core/core.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthLayoutComponent,
-    ContentLayoutComponent,
-    NavbarComponent
-  ],
+  declarations: [AppComponent, AuthLayoutComponent, ContentLayoutComponent, NavbarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,7 +33,7 @@ import { environment } from '../environments/environment';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

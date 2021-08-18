@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { Issue, IssuePriority, IssueStage, IssueType } from '@data/model/issue.model';
+import { CreateIssuePayload, IssuePriority, IssueStage, IssueType } from '@data/model/issue.model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { editorConfig } from '@app/core/configs/text-editor';
 import { User } from '@app/data/model/user.model';
@@ -49,16 +49,12 @@ export class IssueAddModalComponent implements OnInit {
 
   onSubmit() {
     const formValue = this.addIssueForm.getRawValue();
-    const now = new Date();
-    const newIssue: Issue = {
+    const newIssue: CreateIssuePayload = {
       ...formValue,
-      id: now.getTime().toString(),
       stage: IssueStage.BACKLOG,
-      projectId: this.currentProject.id,
-      createdAt: now.toISOString(),
-      updatedAt: now.toISOString()
+      projectId: this.currentProject.id
     }
-    this.projectStore.addIssue(newIssue);
+    this.projectStore.postAddIssue(newIssue);
 
     this.onCloseModal();
   }
