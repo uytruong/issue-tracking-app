@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Issue, IssuePriority, IssueStage, IssueType } from '@app/data/model/issue.model';
-import { IssueComment } from '@app/data/model/issue-comment.model';
+import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
 import { Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { issueApiUrl, projectApiUrl, userApiUrl } from '@app/core/configs/api-url';
+import { commentApiUrl, issueApiUrl, projectApiUrl, userApiUrl } from '@app/core/configs/api-url';
+import { Comment } from '@angular/compiler';
 
 const dummyComments: IssueComment[] = [
   {
@@ -44,11 +45,12 @@ export class ProjectService {
   }
 
   getCommentsByIssueId(id: string): Observable<IssueComment[]> {
-    const comments = dummyComments.filter((comment) => comment.issueId === id);
-    if (comments) {
-      return of(comments);
-    } else {
-      throw new Error(`Users not found`);
-    }
+    console.log('getCommentsByIssueId - id: ', id);
+    const options = id ? { params: new HttpParams().set('issueId', id) } : {};
+    return this.http.get<IssueComment[]>(commentApiUrl, options);
+  }
+
+  postComment(newComment: IssueCommentPayload): Observable<IssueComment> {
+    return this.http.post<IssueComment>(commentApiUrl, newComment);
   }
 }

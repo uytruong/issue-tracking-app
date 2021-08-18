@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
-import { IssueComment } from '@app/data/model/issue-comment.model';
+import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
 import { Issue } from '@app/data/model/issue.model';
 import { User } from '@app/data/model/user.model';
 import { ProjectStore } from '@app/modules/project/store/project.store';
@@ -52,15 +52,12 @@ export class IssueCommentComponent implements OnInit {
   }
 
   onSaveEdit(userId: string) {
-    const now = new Date();
-    this.projectStore.addComment({
-      id: now.getTime().toString(),
+    const newComment: IssueCommentPayload = {
       issueId: this.issue.id,
       userId: userId,
-      content: this.content,
-      createdAt: now.toISOString(),
-      updatedAt: now.toISOString()
-    });
+      content: this.content
+    };
+    this.projectStore.postComment(newComment);
     this.onCancelEdit();
   }
 

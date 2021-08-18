@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IssueComment } from '@app/data/model/issue-comment.model';
+import { IssueComment, IssueCommentPayload } from '@app/data/model/issue-comment.model';
 import { Issue, IssueStage } from '@app/data/model/issue.model';
 import { Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
@@ -227,5 +227,20 @@ export class ProjectStore extends ComponentStore<ProjectState> {
         );
       })
     );
+  });
+
+  readonly postComment = this.effect((comment$: Observable<IssueCommentPayload>) => {
+    return comment$.pipe(
+      switchMap((comment) => {
+        return this.projectService.postComment(comment).pipe(
+          tapResponse(
+            (comment) => {
+              this.addComment(comment);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    )
   });
 }

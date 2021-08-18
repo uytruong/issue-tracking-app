@@ -10,6 +10,7 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { ProjectsModule } from './projects/projects.module';
 import { IssuesModule } from './issues/issues.module';
+import { IssueCommentsModule } from './comments/issue-comments.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { IssuesModule } from './issues/issues.module';
       singular: true
     }),
     ProjectsModule,
-    IssuesModule
+    IssuesModule,
+    IssueCommentsModule
   ],
   controllers: [AppController],
   providers: [AppService]
