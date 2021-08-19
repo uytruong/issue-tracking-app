@@ -11,6 +11,7 @@ import { classes } from '@automapper/classes';
 import { ProjectsModule } from './projects/projects.module';
 import { IssuesModule } from './issues/issues.module';
 import { IssueCommentsModule } from './comments/issue-comments.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { IssueCommentsModule } from './comments/issue-comments.module';
     }),
     ProjectsModule,
     IssuesModule,
-    IssueCommentsModule
+    IssueCommentsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]
