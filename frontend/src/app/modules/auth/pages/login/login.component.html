@@ -1,0 +1,28 @@
+<p class="text-center pb-4 text-2xl font-normal">Sign In</p>
+<form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input formControlName="username" placeholder="Username" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="flex justify-between mb-2">
+    <div>
+      <label nz-checkbox formControlName="remember">
+        <span>Remember me</span>
+      </label>
+    </div>
+  </div>
+  <button class="bg-primaryDark hover:bg-primary w-full" nz-button [nzType]="'primary'">LOGIN</button>
+</form>
+<p class="mt-8 text-center">
+  Don't have an account? <span class="font-medium"><a [routerLink]="['../register']">Sign up</a></span>
+</p>

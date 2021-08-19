@@ -1,0 +1,38 @@
+<p class="text-center text-2xl font-normal">Sign Up</p>
+<form nz-form [nzLayout]="'vertical'" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <nz-form-item>
+    <nz-form-label nzFor="username">Username</nz-form-label>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <input type="text" nz-input formControlName="username" id="username" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="fullname">Full Name</nz-form-label>
+    <nz-form-control nzErrorTip="Please input your full name!">
+      <input type="text" nz-input formControlName="fullname" id="fullname" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="email">E-mail</nz-form-label>
+    <nz-form-control nzErrorTip="Your E-mail is not valid!">
+      <input nz-input formControlName="email" id="email" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="password">Password</nz-form-label>
+    <nz-form-control nzErrorTip="Please input your password!">
+      <input nz-input type="password" formControlName="password" id="password"  />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="confirmPassword">Confirm Password</nz-form-label>
+    <nz-form-control nzErrorTip="Please confirm your password!">
+      <input nz-input type="password" formControlName="confirmPassword" id="confirmPassword"  />
+    </nz-form-control>
+  </nz-form-item>
+  <button class="bg-primaryDark hover:bg-primary w-full" nz-button [nzType]="'primary'">REGISTER</button>
+</form>
+<p class="mt-2 text-center">
+  Already have an account?
+  <span class="font-medium"><a [routerLink]="['../login']">Sign in</a></span>
+</p>
