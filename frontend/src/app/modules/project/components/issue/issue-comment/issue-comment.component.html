@@ -3,7 +3,7 @@
     <nz-avatar class="mt-4" [nzSize]="26" nzIcon="user" [nzSrc]="currentUser.avatarUrl"></nz-avatar>
     <div class="flex-1 pr-2">
       <textarea [(ngModel)]="content" placeholder="Add a comment..." (click)="onStartEdit()"></textarea>
-      <div *ngIf="isDisplay" class="mt-2 space-x-2">
+      <div *ngIf="isDisplay" class="space-x-2">
         <button nz-button nzType="primary" (click)="onSaveEdit(currentUser.id)">Save</button>
         <button nz-button nzType="default" (click)="onCancelEdit()">Cancel</button>
       </div>
