@@ -17,7 +17,9 @@ import {
   CloseOutline,
   DownOutline,
   DeleteOutline,
-  LockOutline
+  LockOutline,
+  EyeOutline,
+  EyeInvisibleOutline
 } from '@ant-design/icons-angular/icons';
 
 export const NZ_ICONS: IconDefinition[] = [
@@ -38,5 +40,7 @@ export const NZ_ICONS: IconDefinition[] = [
   CloseOutline,
   DownOutline,
   DeleteOutline,
-  LockOutline
+  LockOutline,
+  EyeOutline,
+  EyeInvisibleOutline
 ];

@@ -6,6 +6,7 @@
   "scripts": {
     "install-dependencies": "npm i && cd frontend && npm i",
     "start:front": "cd frontend && npm start",
+    "start:back": "cd backend && npm start",
     "build:front": "cd frontend && npm run build",
     "test:front": "cd frontend && npm run test",
     "start": "npm run start:front",
