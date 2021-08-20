@@ -15,13 +15,11 @@ export class ContentLayoutComponent implements OnInit {
   user$: Observable<User>;
   loading$: Observable<boolean>;
 
-  constructor(private store: Store) { 
-    this.store.dispatch(login({username: 'uytruong', password: '123456'}));
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    // this.store.dispatch(autoLogin());
     this.user$ = this.store.pipe(select(userSelector));
     this.loading$ = this.store.pipe(select(loadingSelector));
   }
-
-  ngOnInit(): void {
-  }
-
 }

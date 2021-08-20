@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-      <div class="item">
+      <div class="item" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
         <div class="itemIcon">
           <nz-avatar [nzSize]="26" nzIcon="user" [nzSrc]="(user$ | async)?.avatarUrl"></nz-avatar>
         </div>
@@ -35,3 +35,9 @@
     </ng-template>
   </nav>
 </header>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="onLogout()">Logout</li>
+  </ul>
+</nz-dropdown-menu>

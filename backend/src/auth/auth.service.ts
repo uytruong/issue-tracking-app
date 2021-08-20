@@ -6,6 +6,7 @@ import { JwtPayload } from './jwt-payload.model';
 import { ConfigService } from 'src/shared/config/config.service';
 import { Config } from 'src/shared/config/config.enum';
 import { UserDto } from 'src/users/dto/user.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,9 +27,11 @@ export class AuthService {
 
   async login(user: UserDto) {
     const payload: JwtPayload = { sub: user.id, name: user.username };
-    return {
+    const loginResponse: LoginResponseDto = {
       access_token: this.jwtService.sign(payload),
-      expires_in: this.configService.get(Config.JWT_EXPIRES_IN).toString()
+      expires_in: this.configService.get(Config.JWT_EXPIRES_IN).toString(),
+      user: user
     };
+    return loginResponse;
   }
 }

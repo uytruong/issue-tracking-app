@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { HttpClientModule } from '@angular/common/http';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { BoardComponent } from './pages/board/board.component';
@@ -25,7 +23,6 @@ import { FormsModule } from '@angular/forms';
 import { IssueStageComponent } from './components/issue/issue-stage/issue-stage.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { IssueAssigneeComponent } from './components/issue/issue-assignee/issue-assignee.component';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IssueReporterComponent } from './components/issue/issue-reporter/issue-reporter.component';
 import { IssuePriorityComponent } from './components/issue/issue-priority/issue-priority.component';
 import { IssueCommentComponent } from './components/issue/issue-comment/issue-comment.component';
@@ -76,7 +73,6 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzBreadCrumbModule,
     DragDropModule,
     NzSelectModule,
-    NzDropDownModule,
     NzMessageModule
   ],
   providers: [ProjectStore, FilterStore]

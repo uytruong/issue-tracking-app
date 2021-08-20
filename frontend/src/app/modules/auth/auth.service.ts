@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { loginUrl } from '@app/core/configs/api-url';
+import { Login } from '@app/data/model/login.model';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -18,15 +21,18 @@ export class AuthService {
     }
   ];
 
-  login(username: string, password: string) {
-    const authenticatedUser = this.dummyUsers.find(
-      (user) => user.username === username && user.password === password
-    );
-    delete authenticatedUser['password'];
-    if (authenticatedUser) {
-      return of(authenticatedUser).pipe(delay(2000));
-    } else {
-      throw new Error('Authenticate Failed');
-    }
+  constructor(private http: HttpClient) {}
+
+  login(username: string, password: string): Observable<Login> {
+    // const authenticatedUser = this.dummyUsers.find(
+    //   (user) => user.username === username && user.password === password
+    // );
+    // delete authenticatedUser['password'];
+    // if (authenticatedUser) {
+    //   return of(authenticatedUser).pipe(delay(2000));
+    // } else {
+    //   throw new Error('Authenticate Failed');
+    // }
+    return this.http.post<Login>(loginUrl, { username, password });
   }
 }
