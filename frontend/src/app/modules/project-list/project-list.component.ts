@@ -29,7 +29,7 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.store.pipe(
       select(userSelector),
-      tap(user => this.projectListStore.getProjects(user.projectIds))
+      tap(user => this.projectListStore.getProjects(user?.projectIds))
     );
     this.vm$ = this.projectListStore.vm$;
   }

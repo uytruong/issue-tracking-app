@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     const formValue = this.loginForm.getRawValue();
-    console.log(formValue);
     this.store.dispatch(login({username: formValue.username, password: formValue.password}));
   }
 }
