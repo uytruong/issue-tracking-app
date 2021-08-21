@@ -27,9 +27,6 @@ export class IssuesController {
   @Get()
   async findIssues(@Query('projectId') projectId: string): Promise<IssueDto[]> {
     const issues = await this.issuesService.findAll({ projectId });
-    if (issues.length === 0) {
-      throw new HttpException(`Issues Not found`, HttpStatus.NOT_FOUND);
-    }
     const issuesJson = map(issues, (issue) => issue.toJSON());
     return this.issuesService.mapArray(issuesJson);
   }

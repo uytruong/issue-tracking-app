@@ -21,7 +21,6 @@ import { IssueTitleComponent } from './components/issue/issue-title/issue-title.
 import { IssueDescriptionComponent } from './components/issue/issue-description/issue-description.component';
 import { FormsModule } from '@angular/forms';
 import { IssueStageComponent } from './components/issue/issue-stage/issue-stage.component';
-import { NzSelectModule } from 'ng-zorro-antd/select';
 import { IssueAssigneeComponent } from './components/issue/issue-assignee/issue-assignee.component';
 import { IssueReporterComponent } from './components/issue/issue-reporter/issue-reporter.component';
 import { IssuePriorityComponent } from './components/issue/issue-priority/issue-priority.component';
@@ -72,7 +71,6 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     SharedModule,
     NzBreadCrumbModule,
     DragDropModule,
-    NzSelectModule,
     NzMessageModule
   ],
   providers: [ProjectStore, FilterStore]

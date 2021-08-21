@@ -15,12 +15,15 @@ import { ProjectsService } from './projects.service';
 import { map } from 'lodash';
 import { Project } from './models/project.model';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UsersService } from 'src/users/users.service';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectResponseDto } from './dto/create-project-response.dto';
 
 @Controller('projects')
 export class ProjectsController {
   private readonly logger = new Logger(ProjectsController.name);
 
-  constructor(private projectsService: ProjectsService) {}
+  constructor(private projectsService: ProjectsService, private usersService: UsersService) {}
 
   @Get()
   async findProjects(
@@ -47,8 +50,19 @@ export class ProjectsController {
   }
 
   @Post()
-  async create(@Body() projectDto: ProjectDto): Promise<ProjectDto> {
-    const { category, key, name, description, avatarUrl } = projectDto;
+  async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectResponseDto> {
+    const { userId, category, key, name, description, avatarUrl } = createProjectDto;
+    this.logger.debug(`payload: ${JSON.stringify(createProjectDto)}`);
+
+    let user = null;
+    try {
+      user = await this.usersService.findById(userId);
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    if (!user) {
+      throw new HttpException(`User Not Found`, HttpStatus.NOT_FOUND);
+    }
 
     let existingProject = null;
     try {
@@ -56,7 +70,6 @@ export class ProjectsController {
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
     if (existingProject) {
       throw new HttpException(`Project with key ${key} exists`, HttpStatus.BAD_REQUEST);
     }
@@ -69,8 +82,14 @@ export class ProjectsController {
     newProject.avatarUrl = avatarUrl;
 
     try {
-      const newProjRes = await this.projectsService.create(newProject);
-      return this.projectsService.map(newProjRes.toJSON());
+      const newProjResult = await this.projectsService.create(newProject);
+      const newProjectResponse = this.projectsService.map(newProjResult.toJSON());
+
+      user.projectIds.push(newProjectResponse.id);
+      const updatedUser = await this.usersService.update(user.id, user);
+      const userResponse = await this.usersService.map(updatedUser.toJSON());
+
+      return { project: newProjectResponse, user: userResponse };
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

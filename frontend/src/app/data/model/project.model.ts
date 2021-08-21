@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface Project {
   id: string;
   name: string;
@@ -7,6 +9,19 @@ export interface Project {
   avatarUrl: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CreateProjectPayload {
+  userId: string;
+  name: string;
+  key: string;
+  description: string;
+  category: ProjectCategory;
+}
+
+export interface CreateProjectResponse {
+  project: Project;
+  user: User;
 }
 
 export interface UpdateProjectPayload {

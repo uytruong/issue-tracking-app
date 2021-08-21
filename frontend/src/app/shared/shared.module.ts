@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [IconComponent, DragCursorDirective],
@@ -39,7 +40,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     HttpClientModule,
     AngularEditorModule,
     NzCheckboxModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzSelectModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -59,7 +61,9 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     HttpClientModule,
     AngularEditorModule,
     NzCheckboxModule,
-    NzDropDownModule
+    NzDropDownModule,
+
+    NzSelectModule
   ]
 })
 export class SharedModule {}

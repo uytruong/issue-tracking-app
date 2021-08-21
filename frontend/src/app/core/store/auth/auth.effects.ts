@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserConst } from '@app/core/constant/user-const';
 import { JwtToken } from '@app/data/model/jwt-token.model';
 import { User } from '@app/data/model/user.model';
 import { AuthService } from '@app/modules/auth/auth.service';
@@ -27,7 +28,7 @@ export class AuthEffects {
           expirationDate: new Date(new Date().getTime() + +loginPayload.expires_in * 1000),
           user: loginPayload.user
         };
-        localStorage.setItem('userToken', JSON.stringify(token));
+        localStorage.setItem(UserConst.UserToken, JSON.stringify(token));
         this.authService.setLogoutTimer(token.expiresIn);
         return fromAuthActions.loginSuccess({ user: loginPayload.user, redirect: true });
       }),
@@ -44,7 +45,7 @@ export class AuthEffects {
           expiresIn: string,
           expirationDate: string;
           user: User,
-        } = JSON.parse(localStorage.getItem('userToken'));
+        } = JSON.parse(localStorage.getItem(UserConst.UserToken));
         if (!userTokenData) {
           return fromAuthActions.loginFailed({ error: 'Token expires' });
         }
@@ -73,7 +74,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(fromAuthActions.logout),
         tap(() => {
-          localStorage.removeItem('userToken');
+          localStorage.removeItem(UserConst.UserToken);
           this.authService.clearLogoutTimer();
           this.router.navigate(['/auth']);
         })

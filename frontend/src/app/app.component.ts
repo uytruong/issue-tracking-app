@@ -8,7 +8,7 @@ import { autoLogin } from './core/store/auth/auth.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'Issue Tracking';
 
   constructor(private store: Store) {}
 

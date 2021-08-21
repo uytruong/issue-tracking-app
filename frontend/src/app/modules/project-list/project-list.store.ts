@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Project } from '@app/data/model/project.model';
+import { CreateProjectPayload, Project } from '@app/data/model/project.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -72,6 +72,15 @@ export class ProjectListStore extends ComponentStore<ProjectListState> {
     };
   });
 
+  readonly addProject = this.updater((state: ProjectListState, newProject: Project) => {
+    let cloneProjects = [...state.projects];
+    cloneProjects.push(newProject);
+    return {
+      ...state,
+      projects: cloneProjects
+    };
+  });
+
   // Effects
   readonly getProjects = this.effect((ids$: Observable<string[]>) => {
     return ids$.pipe(
@@ -82,6 +91,23 @@ export class ProjectListStore extends ComponentStore<ProjectListState> {
             (projects) => {
               this.updateStatus(StatusState.LOADED);
               this.updateProjects(projects);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postCreateProject = this.effect((payload$: Observable<CreateProjectPayload>) => {
+    return payload$.pipe(
+      switchMap((payload: CreateProjectPayload) => {
+        return this.projectListService.createProject(payload).pipe(
+          tapResponse(
+            (response) => {
+              console.log(response);
+              this.addProject(response.project);
+              this.projectListService.updateUserToken(response.user);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

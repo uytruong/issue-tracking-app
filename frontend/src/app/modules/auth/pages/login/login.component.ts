@@ -14,6 +14,10 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
     this.loginForm = this.formBuilder.group({
       username: [
         '',
@@ -41,6 +45,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     const formValue = this.loginForm.getRawValue();
-    this.store.dispatch(login({username: formValue.username, password: formValue.password}));
+    this.store.dispatch(login({ username: formValue.username, password: formValue.password }));
   }
 }
