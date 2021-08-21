@@ -15,16 +15,12 @@ export class UsersService {
     this.mapper.createMap(User, UserDto);
   }
 
-  async findAll(): Promise<UserDocument[]> {
-    return await this.model.find().exec();
+  async findAll(filter = {}): Promise<UserDocument[]> {
+    return await this.model.find(filter).exec();
   }
 
   async findOne(filter = {}): Promise<UserDocument> {
     return await this.model.findOne(filter).exec();
-  }
-
-  async findMany(filter = {}): Promise<UserDocument[]> {
-    return await this.model.find(filter).exec();
   }
 
   async findById(id: string): Promise<UserDocument> {

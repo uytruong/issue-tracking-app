@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateProjectPayload, Project } from '@app/data/model/project.model';
+import { CreateProjectPayload, DeleteProjectPayload, Project } from '@app/data/model/project.model';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -81,6 +81,15 @@ export class ProjectListStore extends ComponentStore<ProjectListState> {
     };
   });
 
+  readonly deleteProject = this.updater((state: ProjectListState, deletedProject: Project) => {
+    let cloneProjects = [...state.projects];
+    cloneProjects = cloneProjects.filter((project) => project.id !== deletedProject.id);
+    return {
+      ...state,
+      projects: cloneProjects
+    };
+  });
+
   // Effects
   readonly getProjects = this.effect((ids$: Observable<string[]>) => {
     return ids$.pipe(
@@ -105,9 +114,24 @@ export class ProjectListStore extends ComponentStore<ProjectListState> {
         return this.projectListService.createProject(payload).pipe(
           tapResponse(
             (response) => {
-              console.log(response);
               this.addProject(response.project);
               this.projectListService.updateUserToken(response.user);
+            },
+            (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
+          )
+        );
+      })
+    );
+  });
+
+  readonly postDeleteProject = this.effect((payload$: Observable<DeleteProjectPayload>) => {
+    return payload$.pipe(
+      switchMap((payload: DeleteProjectPayload) => {
+        return this.projectListService.deleteProject(payload).pipe(
+          tapResponse(
+            (deletedProject) => {
+              this.deleteProject(deletedProject.project);
+              this.projectListService.updateUserToken(deletedProject.user);
             },
             (errorRes: HttpErrorResponse) => this.updateError(errorRes.message)
           )

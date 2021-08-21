@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserConst } from '@app/core/constant/user-const';
@@ -20,19 +21,24 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromAuthActions.login),
-      switchMap((action) => this.authService.login(action.username, action.password)),
-      map((loginPayload) => {
-        const token: JwtToken = {
-          token: loginPayload.access_token,
-          expiresIn: +loginPayload.expires_in * 1000,
-          expirationDate: new Date(new Date().getTime() + +loginPayload.expires_in * 1000),
-          user: loginPayload.user
-        };
-        localStorage.setItem(UserConst.UserToken, JSON.stringify(token));
-        this.authService.setLogoutTimer(token.expiresIn);
-        return fromAuthActions.loginSuccess({ user: loginPayload.user, redirect: true });
-      }),
-      catchError((e: Error) => of(fromAuthActions.loginFailed({ error: e.message })))
+      switchMap((action) =>
+        this.authService.login(action.username, action.password).pipe(
+          map((loginPayload) => {
+            const token: JwtToken = {
+              token: loginPayload.access_token,
+              expiresIn: +loginPayload.expires_in * 1000,
+              expirationDate: new Date(new Date().getTime() + +loginPayload.expires_in * 1000),
+              user: loginPayload.user
+            };
+            localStorage.setItem(UserConst.UserToken, JSON.stringify(token));
+            this.authService.setLogoutTimer(token.expiresIn);
+            return fromAuthActions.loginSuccess({ user: loginPayload.user, redirect: true });
+          }),
+          catchError((e: HttpErrorResponse) =>
+            of(fromAuthActions.loginFailed({ error: e.error.message }))
+          )
+        )
+      )
     )
   );
 
@@ -41,13 +47,13 @@ export class AuthEffects {
       ofType(fromAuthActions.autoLogin),
       map(() => {
         const userTokenData: {
-          token: string,
-          expiresIn: string,
+          token: string;
+          expiresIn: string;
           expirationDate: string;
-          user: User,
+          user: User;
         } = JSON.parse(localStorage.getItem(UserConst.UserToken));
         if (!userTokenData) {
-          return fromAuthActions.loginFailed({ error: 'Token expires' });
+          return { type: 'DUMMY ' };
         }
         const expirationDuration = new Date(userTokenData.expirationDate).getTime() - Date.now();
         this.authService.setLogoutTimer(expirationDuration);

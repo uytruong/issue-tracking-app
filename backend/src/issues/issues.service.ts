@@ -41,6 +41,10 @@ export class IssuesService {
     return await this.model.findByIdAndDelete(id).exec();
   }
 
+  async deleteMany(filter = {}) {
+    return await this.model.deleteMany(filter).exec();
+  }
+
   map(issue: Issue) {
     return this.mapper.map(issue, IssueDto, Issue);
   }

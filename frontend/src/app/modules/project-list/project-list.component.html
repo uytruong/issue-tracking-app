@@ -8,8 +8,14 @@
             <button nz-button nzType="primary" (click)="onOpenCreateModal()">Create Project</button>
           </div>
           <div>
-    
-            <nz-table nzShowPagination nzShowSizeChanger [nzPageSize]="5" [nzPageSizeOptions]="[5,10,15]" #projectTable [nzData]="vm.projects">
+            <nz-table
+              nzShowPagination
+              nzShowSizeChanger
+              [nzPageSize]="5"
+              [nzPageSizeOptions]="[5, 10, 15]"
+              #projectTable
+              [nzData]="vm.projects"
+            >
               <thead>
                 <tr>
                   <th *ngFor="let header of projectsMetadata">{{ header }}</th>
@@ -22,7 +28,18 @@
                   <td>{{ project.name }}</td>
                   <td>{{ project.category }}</td>
                   <td>{{ project.description }}</td>
-                  <td><a [routerLink]="['/project', project.key]">Go to project</a></td>
+                  <td>
+                    <a [routerLink]="['/project', project.key]">Go to project</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a
+                      class="text-red-600"
+                      nz-popconfirm
+                      nzPopconfirmTitle="Are you sure to delete this project?"
+                      nzPopconfirmPlacement="bottom"
+                      (nzOnConfirm)="onDeleteProject(project.id)"
+                      >Delete</a
+                    >
+                  </td>
                 </tr>
               </tbody>
             </nz-table>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectConst } from '@app/core/constant/project-const';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
-import { Project } from '@app/data/model/project.model';
+import { DeleteProjectPayload, Project } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
-import { skipWhile, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { ProjectCreateModalComponent } from './components/project-create-modal/project-create-modal.component';
 import { ProjectListStore } from './project-list.store';
 
@@ -56,5 +56,13 @@ export class ProjectListComponent implements OnInit {
       nzAutofocus: null,
       nzWidth: 720
     });
+  }
+
+  onDeleteProject(id: string) {
+    const payload: DeleteProjectPayload = {
+      projectId: id,
+      userId: this.currentUser.id
+    };
+    this.projectListStore.postDeleteProject(payload);
   }
 }

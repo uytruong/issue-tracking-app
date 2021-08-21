@@ -27,7 +27,7 @@ export class UsersController {
 
   @Get()
   async findUsers(@Query('projectId') projectId: string): Promise<UserDto[]> {
-    const users = await this.usersService.findMany({ projectIds: projectId });
+    const users = await this.usersService.findAll({ projectIds: projectId });
     if (users.length === 0) {
       throw new HttpException(`Users Not found`, HttpStatus.NOT_FOUND);
     }

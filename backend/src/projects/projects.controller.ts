@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -18,12 +19,17 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UsersService } from 'src/users/users.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateProjectResponseDto } from './dto/create-project-response.dto';
+import { IssuesService } from 'src/issues/issues.service';
 
 @Controller('projects')
 export class ProjectsController {
   private readonly logger = new Logger(ProjectsController.name);
 
-  constructor(private projectsService: ProjectsService, private usersService: UsersService) {}
+  constructor(
+    private projectsService: ProjectsService,
+    private usersService: UsersService,
+    private issuesService: IssuesService
+  ) {}
 
   @Get()
   async findProjects(
@@ -52,8 +58,6 @@ export class ProjectsController {
   @Post()
   async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectResponseDto> {
     const { userId, category, key, name, description, avatarUrl } = createProjectDto;
-    this.logger.debug(`payload: ${JSON.stringify(createProjectDto)}`);
-
     let user = null;
     try {
       user = await this.usersService.findById(userId);
@@ -131,6 +135,38 @@ export class ProjectsController {
     try {
       const updated = await this.projectsService.update(id, exist);
       return this.projectsService.map(updated.toJSON());
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Delete(':id')
+  async delete(
+    @Param('id') id: string,
+    @Query('userId') userId: string
+  ): Promise<CreateProjectResponseDto> {
+    try {
+      const deleted = await this.projectsService.delete(id);
+
+      const projectUsers = await this.usersService.findAll({ projectIds: id });
+      this.logger.debug(`projectUsers: ${JSON.stringify(projectUsers)}`);
+      projectUsers.forEach((user) => {
+        user.projectIds = user.projectIds.filter((projectId) => projectId !== id);
+        this.usersService.update(user.id, user);
+      });
+
+      const existingUser = await this.usersService.findById(userId);
+      if (!existingUser) {
+        throw new HttpException(`User Not Found`, HttpStatus.NOT_FOUND);
+      }
+
+      const deleteIssueResult = await this.issuesService.deleteMany({ projectId: id });
+      this.logger.debug(`deleteIssueResult: ${JSON.stringify(deleteIssueResult)}`);
+
+      const deletedProjectResponse = this.projectsService.map(deleted.toJSON());
+      const userResponse = this.usersService.map(existingUser.toJSON());
+
+      return { project: deletedProjectResponse, user: userResponse };
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -19,7 +19,17 @@ export interface CreateProjectPayload {
   category: ProjectCategory;
 }
 
+export interface DeleteProjectPayload {
+  projectId: string;
+  userId: string;
+}
+
 export interface CreateProjectResponse {
+  project: Project;
+  user: User;
+}
+
+export interface DeleteProjectResponse {
   project: Project;
   user: User;
 }

@@ -1,20 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { login } from '@app/core/store/auth/auth.actions';
-import { Store } from '@ngrx/store';
+import { errorSelector } from '@app/core/store/auth/auth.selectors';
+import { select, Store } from '@ngrx/store';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
+  private destroy$ = new Subject<void>()
 
-  constructor(private formBuilder: FormBuilder, private store: Store) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.store.pipe(select(errorSelector), takeUntil(this.destroy$)).subscribe(
+      (error) => {
+        if (error) {
+          this.message.create('error', error);
+        }
+      }
+    );
   }
 
   initForm() {
@@ -46,5 +62,10 @@ export class LoginComponent implements OnInit {
     }
     const formValue = this.loginForm.getRawValue();
     this.store.dispatch(login({ username: formValue.username, password: formValue.password }));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

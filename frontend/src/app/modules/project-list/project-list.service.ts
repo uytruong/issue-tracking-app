@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { projectApiUrl } from '@app/core/configs/api-url';
 import { UserConst } from '@app/core/constant/user-const';
 import {
   CreateProjectPayload,
   CreateProjectResponse,
+  DeleteProjectPayload,
   Project
 } from '@app/data/model/project.model';
 import { User } from '@app/data/model/user.model';
@@ -23,8 +24,12 @@ export class ProjectListService {
   }
 
   createProject(payload: CreateProjectPayload): Observable<CreateProjectResponse> {
-    console.log('createProject: ', payload);
     return this.http.post<CreateProjectResponse>(projectApiUrl, payload);
+  }
+
+  deleteProject(payload: DeleteProjectPayload): Observable<CreateProjectResponse> {
+    const options = { params: new HttpParams().set('userId', payload.userId) }
+    return this.http.delete<CreateProjectResponse>(`${projectApiUrl}/${payload.projectId}`, options);
   }
 
   updateUserToken(user: User) {
