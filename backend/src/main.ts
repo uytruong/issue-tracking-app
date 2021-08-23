@@ -7,7 +7,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: ['log', 'error', 'warn', 'debug'] });
   app.setGlobalPrefix('api', { exclude: ['auth/login', 'auth/test'] });
 
-  // Config swagger
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Issue Tracking')
     .setDescription('API Documentation')
