@@ -1,6 +1,8 @@
 import { Prop, SchemaOptions } from '@nestjs/mongoose';
 import { AutoMap } from '@automapper/classes';
+import { Document } from 'mongoose';
 
+export declare type ModelDocument<T> = T & Document;
 export abstract class BaseModel {
   @Prop({ required: true })
   @AutoMap()
