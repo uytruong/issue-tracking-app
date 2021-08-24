@@ -11,7 +11,7 @@
         <span> {{ issue.type | uppercase }}-{{ issue.id }} </span>
       </div>
       <div class="flex items-center space-x-1">
-        <app-icon
+        <app-icon *ngIf="isAdmin(currentUser$ | async)"
           class="btn"
           bgSize="32"
           iconSize="20"

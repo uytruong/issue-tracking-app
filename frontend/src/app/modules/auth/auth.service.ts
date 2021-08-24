@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { loginUrl } from '@app/core/configs/api-url';
+import { UserConst } from '@app/core/constant/user-const';
 import { logout } from '@app/core/store/auth/auth.actions';
 import { Login } from '@app/data/model/login.model';
 import { Store } from '@ngrx/store';
@@ -28,5 +29,10 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
+  }
+
+  getAuthorizationToken() {
+    const userTokenData = JSON.parse(localStorage.getItem(UserConst.UserToken));
+    return userTokenData?.token;
   }
 }

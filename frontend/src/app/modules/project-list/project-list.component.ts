@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectConst } from '@app/core/constant/project-const';
+import { UserConst } from '@app/core/constant/user-const';
 import { userSelector } from '@app/core/store/auth/auth.selectors';
 import { DeleteProjectPayload, Project } from '@app/data/model/project.model';
-import { User } from '@app/data/model/user.model';
+import { Role, User } from '@app/data/model/user.model';
 import { select, Store } from '@ngrx/store';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -29,7 +31,8 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private store: Store,
     private projectListStore: ProjectListStore,
-    private nzModalService: NzModalService
+    private nzModalService: NzModalService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -59,10 +62,14 @@ export class ProjectListComponent implements OnInit {
   }
 
   onDeleteProject(id: string) {
-    const payload: DeleteProjectPayload = {
-      projectId: id,
-      userId: this.currentUser.id
-    };
-    this.projectListStore.postDeleteProject(payload);
+    if (this.currentUser.role === Role.ADMIN) {
+      const payload: DeleteProjectPayload = {
+        projectId: id,
+        userId: this.currentUser.id
+      };
+      this.projectListStore.postDeleteProject(payload);
+    } else {
+      this.message.error("User don't have permission")
+    }
   }
 }

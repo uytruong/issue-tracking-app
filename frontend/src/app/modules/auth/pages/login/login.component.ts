@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.pipe(select(errorSelector), takeUntil(this.destroy$)).subscribe(
       (error) => {
         if (error) {
-          this.message.create('error', error);
+          this.message.error(error);
         }
       }
     );
