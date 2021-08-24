@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    console.log(`${this.configService.get(Config.JWT_SECRET)}`);
+    console.log(`${process.env.JWT_SECRET}`);
     const user = await this.usersService.findOne({ username });
     if (!user) {
       throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
