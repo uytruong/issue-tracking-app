@@ -8,7 +8,7 @@ import { Config } from 'src/shared/config/config.enum';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
       ignoreExpiration: false,
       secretOrKey: configService.get(Config.JWT_SECRET)
     });
