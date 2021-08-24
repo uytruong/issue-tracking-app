@@ -9,7 +9,8 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
 import { ProjectDto } from './dto/project.dto';
 import { ProjectsService } from './projects.service';
@@ -20,6 +21,10 @@ import { UsersService } from 'src/users/users.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateProjectResponseDto } from './dto/create-project-response.dto';
 import { IssuesService } from 'src/issues/issues.service';
+import { RolesGuard } from 'src/shared/guards/roles.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { Roles } from 'src/shared/decorators/roles.decorator';
+import { Role } from 'src/users/models/role.enum';
 
 @Controller('projects')
 export class ProjectsController {
@@ -31,6 +36,7 @@ export class ProjectsController {
     private issuesService: IssuesService
   ) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findProjects(
     @Query('ids') encodedIds?: string,
@@ -55,6 +61,8 @@ export class ProjectsController {
     return this.projectsService.mapArray(projectsJSON);
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
   @Post()
   async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectResponseDto> {
     const { userId, category, key, name, description, avatarUrl } = createProjectDto;
@@ -99,6 +107,8 @@ export class ProjectsController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -140,6 +150,8 @@ export class ProjectsController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
   @Delete(':id')
   async delete(
     @Param('id') id: string,

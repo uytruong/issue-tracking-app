@@ -5,6 +5,7 @@ import { IssuesController } from './issues.controller';
 import { IssuesService } from './issues.service';
 import { Issue, IssueSchema } from './models/issue.model';
 import * as AutoIncrementFactory from 'mongoose-sequence';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import * as AutoIncrementFactory from 'mongoose-sequence';
         },
         inject: [getConnectionToken()]
       }
-    ])
+    ]),
+    SharedModule
   ],
   controllers: [IssuesController],
   providers: [IssuesService],

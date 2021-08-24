@@ -9,7 +9,8 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
 import { IssueDto } from './dto/issue.dto';
 import { IssuesService } from './issues.service';
@@ -17,6 +18,10 @@ import { Issue } from './models/issue.model';
 import { map } from 'lodash';
 import { UpdateIssueDto } from './dto/update-issue.dto';
 import { CreateIssueDto } from './dto/create-issue.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/shared/guards/roles.guard';
+import { Roles } from 'src/shared/decorators/roles.decorator';
+import { Role } from 'src/users/models/role.enum';
 
 @Controller('issues')
 export class IssuesController {
@@ -24,6 +29,7 @@ export class IssuesController {
 
   constructor(private issuesService: IssuesService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findIssues(@Query('projectId') projectId: string): Promise<IssueDto[]> {
     const issues = await this.issuesService.findAll({ projectId });
@@ -31,6 +37,7 @@ export class IssuesController {
     return this.issuesService.mapArray(issuesJson);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateIssueDto: UpdateIssueDto): Promise<IssueDto> {
     const { title, stage, type, priority, listPosition, description, reporterId, assigneesId } =
@@ -79,6 +86,7 @@ export class IssuesController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() createIssueDto: CreateIssueDto): Promise<IssueDto> {
     const { title, stage, type, priority, description, reporterId, assigneesId, projectId } =
@@ -122,6 +130,8 @@ export class IssuesController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<IssueDto> {
     try {

@@ -14,6 +14,9 @@ export class CreateUserDto extends BaseDto {
   @ArrayNotEmpty({ message: 'Project Id is required' })
   readonly projectIds: string[];
 
+  @ArrayNotEmpty({ message: 'Role is required' })
+  readonly role: string;
+
   readonly email?: string;
 
   readonly avatarUrl?: string;
