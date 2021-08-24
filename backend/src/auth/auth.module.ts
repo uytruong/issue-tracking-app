@@ -16,10 +16,14 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     PassportModule,
     JwtModule.registerAsync({
       imports: [SharedModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get(Config.JWT_SECRET),
-        signOptions: { expiresIn: configService.get(Config.JWT_EXPIRES_IN) }
-      }),
+      useFactory: async (configService: ConfigService) => {
+        console.log(configService.get(Config.JWT_SECRET));
+        console.log(configService.get(Config.JWT_EXPIRES_IN));
+        return {
+          secret: configService.get(Config.JWT_SECRET),
+          signOptions: { expiresIn: configService.get(Config.JWT_EXPIRES_IN) }
+        };
+      },
       inject: [ConfigService]
     })
   ],
