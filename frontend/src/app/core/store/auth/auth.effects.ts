@@ -9,6 +9,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as fromAuthActions from './auth.actions';
+import parse from 'parse-duration';
 
 @Injectable()
 export class AuthEffects {
@@ -26,8 +27,8 @@ export class AuthEffects {
           map((loginPayload) => {
             const token: JwtToken = {
               token: loginPayload.access_token,
-              expiresIn: +loginPayload.expires_in * 1000,
-              expirationDate: new Date(new Date().getTime() + +loginPayload.expires_in * 1000),
+              expiresIn: parse(loginPayload.expires_in),
+              expirationDate: new Date(new Date().getTime() + parse(loginPayload.expires_in)),
               user: loginPayload.user
             };
             localStorage.setItem(UserConst.UserToken, JSON.stringify(token));
