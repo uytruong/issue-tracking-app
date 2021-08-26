@@ -7,6 +7,10 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
+import { register } from '@app/core/store/auth/auth.actions';
+import { errorSelector, successSelector } from '@app/core/store/auth/auth.selectors';
+import { select, Store } from '@ngrx/store';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
@@ -19,7 +23,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   private destroy$ = new Subject();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -38,16 +46,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i)
+          Validators.minLength(6),
+          Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/i)
         ]
       ],
       confirmPassword: [
         '',
         [
           Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i),
+          Validators.minLength(6),
+          Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/i),
           this.confirmPasswordValidator()
         ]
       ]
@@ -57,10 +65,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.registerForm.controls['confirmPassword'].updateValueAndValidity();
       });
+
+    this.store.pipe(select(errorSelector), takeUntil(this.destroy$)).subscribe((error) => {
+      if (error) {
+        this.message.error(error);
+      }
+    });
+    this.store.pipe(select(successSelector), takeUntil(this.destroy$)).subscribe((success) => {
+      if (success) {
+        this.message.success(success);
+        this.registerForm.reset();
+      }
+    });
   }
 
   onSubmit() {
-    console.log(this.registerForm);
+    if (!this.registerForm.valid) {
+      return;
+    }
+    const formValue = this.registerForm.getRawValue();
+    let { confirmPassword, ...payload } = formValue;
+    this.store.dispatch(register({ registerPayload: payload }));
   }
 
   private confirmPasswordValidator(): ValidatorFn {

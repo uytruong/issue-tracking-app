@@ -12,5 +12,6 @@ export interface AuthState {
   user: User;
   projects: Project[];
   status: AuthStatus,
+  success?: string,
   error?: string  
 }

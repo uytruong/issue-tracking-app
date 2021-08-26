@@ -6,6 +6,7 @@ const initialState: AuthState = {
   user: null,
   projects: [],
   status: AuthStatus.INIT,
+  success: '',
   error: ''
 };
 
@@ -18,14 +19,36 @@ export const authReducer = createReducer(
       error: ''
     };
   }),
+  on(fromAuthActions.register, (state) => {
+    return {
+      ...state,
+      status: AuthStatus.LOADING,
+      error: ''
+    };
+  }),
   on(fromAuthActions.loginSuccess, (state, action) => {
     return {
       ...state,
       user: action.user,
+      success: action.success,
+      status: AuthStatus.SUCCESS
+    }
+  }),
+  on(fromAuthActions.registerSuccess, (state, action) => {
+    return {
+      ...state,
+      success: action.success,
       status: AuthStatus.SUCCESS
     }
   }),
   on(fromAuthActions.loginFailed, (state, action) => {
+    return {
+      ...state,
+      error: action.error,
+      status: AuthStatus.ERROR
+    }
+  }),
+  on(fromAuthActions.registerFailed, (state, action) => {
     return {
       ...state,
       error: action.error,

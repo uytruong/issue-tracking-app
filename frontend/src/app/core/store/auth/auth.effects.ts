@@ -33,10 +33,28 @@ export class AuthEffects {
             };
             localStorage.setItem(UserConst.UserToken, JSON.stringify(token));
             this.authService.setLogoutTimer(token.expiresIn);
-            return fromAuthActions.loginSuccess({ user: loginPayload.user, redirect: true });
+            return fromAuthActions.loginSuccess({ user: loginPayload.user, success: '', redirect: true });
           }),
           catchError((e: HttpErrorResponse) =>
             of(fromAuthActions.loginFailed({ error: e.error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromAuthActions.register),
+      switchMap((action) =>
+        this.authService.register(action.registerPayload).pipe(
+          map(() => {
+            return fromAuthActions.registerSuccess({
+              success: 'Register successfully! Please log in.'
+            });
+          }),
+          catchError((e: HttpErrorResponse) =>
+            of(fromAuthActions.registerFailed({ error: e.error.message }))
           )
         )
       )
@@ -58,7 +76,11 @@ export class AuthEffects {
         }
         const expirationDuration = new Date(userTokenData.expirationDate).getTime() - Date.now();
         this.authService.setLogoutTimer(expirationDuration);
-        return fromAuthActions.loginSuccess({ user: userTokenData.user, redirect: false });
+        return fromAuthActions.loginSuccess({
+          user: userTokenData.user,
+          success: 'Login successfully',
+          redirect: false
+        });
       })
     )
   );
