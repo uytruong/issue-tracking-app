@@ -1,0 +1,33 @@
+<nz-select
+  nzMode="multiple"
+  nzAllowClear
+  nzShowSearch
+  nzServerSearch
+  nzPlaceHolder="Please select users"
+  [nzCustomTemplate]="selectedTemplate"
+  [formControl]="control"
+  (nzOnSearch)="onSearch($event)"
+>
+  <ng-container *ngFor="let user of userOptionList$ | async">
+    <nz-option nzCustomContent *ngIf="!isLoading" [nzValue]="user">
+      <div class="flex items-center space-x-2">
+        <nz-avatar [nzSize]="20" nzIcon="user" [nzSrc]="user.avatarUrl"></nz-avatar>
+        <p>{{ user.fullname }}</p>
+      </div>
+    </nz-option>
+  </ng-container>
+  <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+    <i nz-icon nzType="loading" class="loading-icon"></i>
+    Loading Data...
+  </nz-option>
+</nz-select>
+<ng-template #selectedTemplate let-selected>
+  <div class="flex items-center space-x-2">
+    <nz-avatar
+      [nzSize]="20"
+      nzIcon="user"
+      [nzSrc]="selected.nzValue.avatarUrl"
+    ></nz-avatar>
+    <p>{{ selected.nzValue.fullname }}</p>
+  </div>
+</ng-template>

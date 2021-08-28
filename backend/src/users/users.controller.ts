@@ -28,11 +28,19 @@ export class UsersController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  async findUsers(@Query('projectId') projectId: string): Promise<UserDto[]> {
+  async findUsers(
+    @Query('projectId') projectId: string,
+    @Query('username') username: string
+  ): Promise<UserDto[]> {
     let filter = {};
 
     if (projectId) {
       filter = { ...filter, projectIds: projectId };
+    }
+
+    if (username) {
+      const regex = new RegExp(username, 'i');
+      filter = { ...filter, username: { $regex: regex } };
     }
 
     const users = await this.usersService.findAll(filter);

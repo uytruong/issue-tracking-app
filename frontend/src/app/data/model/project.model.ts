@@ -12,7 +12,7 @@ export interface Project {
 }
 
 export interface CreateProjectPayload {
-  userId: string;
+  userIds: string;
   name: string;
   key: string;
   description: string;

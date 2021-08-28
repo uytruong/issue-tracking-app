@@ -1,5 +1,5 @@
 export class CreateProjectDto {
-  userId: string;
+  userIds: string[];
   category: string;
   name: string;
   key: string;
