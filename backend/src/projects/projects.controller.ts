@@ -54,7 +54,7 @@ export class ProjectsController {
       filter['key'] = key;
     }
 
-    let projects;
+    let projects = [];
     if (!isEmpty(filter)) {
       projects = await this.projectsService.findAll(filter);
     }
