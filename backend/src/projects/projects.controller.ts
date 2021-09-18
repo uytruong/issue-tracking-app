@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ProjectDto } from './dto/project.dto';
 import { ProjectsService } from './projects.service';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 import { Project } from './models/project.model';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UsersService } from 'src/users/users.service';
@@ -54,7 +54,10 @@ export class ProjectsController {
       filter['key'] = key;
     }
 
-    const projects = await this.projectsService.findAll(filter);
+    let projects;
+    if (!isEmpty(filter)) {
+      projects = await this.projectsService.findAll(filter);
+    }
     if (projects.length === 0) {
       throw new HttpException(`Projects Not found`, HttpStatus.NOT_FOUND);
     }
