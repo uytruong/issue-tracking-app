@@ -38,4 +38,9 @@ export class AuthService {
     };
     return loginResponse;
   }
+
+  validatePassword(password: string): boolean {
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/i;
+    return regex.test(password);
+  }
 }

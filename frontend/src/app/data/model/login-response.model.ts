@@ -1,6 +1,6 @@
 import { User } from './user.model';
 
-export interface Login {
+export interface LoginResponse {
   access_token: string;
   expires_in: string;
   user: User;

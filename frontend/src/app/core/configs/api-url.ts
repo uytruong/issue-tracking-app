@@ -5,3 +5,4 @@ export const projectApiUrl = environment.apiUrl + '/projects';
 export const issueApiUrl = environment.apiUrl + '/issues';
 export const commentApiUrl = environment.apiUrl + '/comments';
 export const loginUrl = environment.host + '/auth/login';
+export const registerUrl = environment.host + '/auth/register';

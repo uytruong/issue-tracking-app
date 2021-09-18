@@ -7,15 +7,11 @@ import {
   HttpStatus,
   Logger,
   Param,
-  Post,
   Put,
   Query,
   UseGuards
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './models/user.model';
 import { UsersService } from './users.service';
-import { genSalt, hash } from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { map } from 'lodash';
 import { UserDto } from './dto/user.dto';
@@ -32,8 +28,22 @@ export class UsersController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  async findUsers(@Query('projectId') projectId: string): Promise<UserDto[]> {
-    const users = await this.usersService.findAll({ projectIds: projectId });
+  async findUsers(
+    @Query('projectId') projectId: string,
+    @Query('username') username: string
+  ): Promise<UserDto[]> {
+    let filter = {};
+
+    if (projectId) {
+      filter = { ...filter, projectIds: projectId };
+    }
+
+    if (username) {
+      const regex = new RegExp(username, 'i');
+      filter = { ...filter, username: { $regex: regex } };
+    }
+
+    const users = await this.usersService.findAll(filter);
     if (users.length === 0) {
       throw new HttpException(`Users Not found`, HttpStatus.NOT_FOUND);
     }
@@ -49,39 +59,6 @@ export class UsersController {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
     }
     return this.usersService.map(user.toJSON());
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-    const { username, password, fullname, email, projectIds, avatarUrl } = createUserDto;
-
-    let existingUser = null;
-    try {
-      existingUser = await this.usersService.findOne({ username });
-    } catch (e) {
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    if (existingUser) {
-      throw new HttpException(`${username} exists`, HttpStatus.BAD_REQUEST);
-    }
-
-    const newUser = new User();
-    newUser.username = username;
-    const salt = await genSalt(10);
-    newUser.password = await hash(password, salt);
-    newUser.fullname = fullname;
-    newUser.projectIds = projectIds;
-    newUser.email = email;
-    newUser.avatarUrl = avatarUrl;
-
-    try {
-      const newUserRes = await this.usersService.create(newUser);
-      return this.usersService.map(newUserRes.toJSON());
-    } catch (e) {
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
   }
 
   @UseGuards(AuthGuard('jwt'))

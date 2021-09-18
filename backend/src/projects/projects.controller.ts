@@ -10,6 +10,7 @@ import {
   Post,
   Put,
   Query,
+  Request,
   UseGuards
 } from '@nestjs/common';
 import { ProjectDto } from './dto/project.dto';
@@ -64,16 +65,19 @@ export class ProjectsController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.Admin)
   @Post()
-  async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectResponseDto> {
-    const { userId, category, key, name, description, avatarUrl } = createProjectDto;
-    let user = null;
+  async create(
+    @Request() req,
+    @Body() createProjectDto: CreateProjectDto
+  ): Promise<CreateProjectResponseDto> {
+    const { userIds, category, key, name, description, avatarUrl } = createProjectDto;
+
+    const creator = req.user;
+    userIds.push(creator.userId);
+    let users = null;
     try {
-      user = await this.usersService.findById(userId);
+      users = await this.usersService.findAll({ _id: { $in: userIds } });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    if (!user) {
-      throw new HttpException(`User Not Found`, HttpStatus.NOT_FOUND);
     }
 
     let existingProject = null;
@@ -97,11 +101,16 @@ export class ProjectsController {
       const newProjResult = await this.projectsService.create(newProject);
       const newProjectResponse = this.projectsService.map(newProjResult.toJSON());
 
-      user.projectIds.push(newProjectResponse.id);
-      const updatedUser = await this.usersService.update(user.id, user);
-      const userResponse = await this.usersService.map(updatedUser.toJSON());
+      let creatorResponse;
+      for (const user of users) {
+        user.projectIds.push(newProjectResponse.id);
+        const updatedCreator = await this.usersService.update(user.id, user);
+        if (user.id === creator.userId) {
+          creatorResponse = this.usersService.map(updatedCreator.toJSON());
+        }
+      }
 
-      return { project: newProjectResponse, user: userResponse };
+      return { project: newProjectResponse, user: creatorResponse };
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -153,10 +162,8 @@ export class ProjectsController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.Admin)
   @Delete(':id')
-  async delete(
-    @Param('id') id: string,
-    @Query('userId') userId: string
-  ): Promise<CreateProjectResponseDto> {
+  async delete(@Param('id') id: string, @Request() req): Promise<CreateProjectResponseDto> {
+    const creator = req.user;
     try {
       const deleted = await this.projectsService.delete(id);
 
@@ -167,7 +174,7 @@ export class ProjectsController {
         this.usersService.update(user.id, user);
       });
 
-      const existingUser = await this.usersService.findById(userId);
+      const existingUser = await this.usersService.findById(creator.userId);
       if (!existingUser) {
         throw new HttpException(`User Not Found`, HttpStatus.NOT_FOUND);
       }

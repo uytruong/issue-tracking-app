@@ -8,9 +8,10 @@ import { ProjectCreateModalComponent } from './components/project-create-modal/p
 import { ProjectListStore } from './project-list.store';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { ProjectSelectUsersComponent } from './components/project-select-users/project-select-users.component';
 
 @NgModule({
-  declarations: [ProjectListComponent, ProjectCreateModalComponent],
+  declarations: [ProjectListComponent, ProjectCreateModalComponent, ProjectSelectUsersComponent],
   imports: [CommonModule, ProjectListRoutingModule, SharedModule, NzDividerModule, NzPopconfirmModule],
   providers: [ProjectListStore]
 })

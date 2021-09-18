@@ -36,6 +36,12 @@
         ></nz-option>
       </nz-select>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-label class="font-bold">Users</nz-form-label>
+      <nz-form-control>
+        <app-project-select-users [control]="formControls.users"></app-project-select-users>
+      </nz-form-control>
+    </nz-form-item>
 
     <div class="flex justify-end space-x-2">
       <button nz-button nzType="primary" type="submit" [disabled]="!createProjectForm.valid">

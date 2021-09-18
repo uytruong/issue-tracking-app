@@ -23,11 +23,19 @@ export class ProjectCreateModalComponent implements OnInit {
     theme: 'fill'
   };
 
-  constructor(private nzModalRef: NzModalRef, private formBuilder: FormBuilder, private projectListStore: ProjectListStore) {}
+  constructor(
+    private nzModalRef: NzModalRef,
+    private formBuilder: FormBuilder,
+    private projectListStore: ProjectListStore
+  ) {}
 
   ngOnInit(): void {
     this.categories = [ProjectCategory.SOFTWARE, ProjectCategory.BUSINESS];
     this.initForm();
+  }
+
+  get formControls() {
+    return this.createProjectForm?.controls;
   }
 
   initForm() {
@@ -51,7 +59,8 @@ export class ProjectCreateModalComponent implements OnInit {
         ]
       ],
       description: '',
-      category: ProjectCategory.SOFTWARE
+      category: ProjectCategory.SOFTWARE,
+      users: [[], Validators.required]
     });
   }
 
@@ -62,8 +71,9 @@ export class ProjectCreateModalComponent implements OnInit {
     const formValue = this.createProjectForm.getRawValue();
     const payload: CreateProjectPayload = {
       ...formValue,
-      userId: this.user.id
-    }
+      userIds: formValue.users.map(user => user.id)
+    };
+
     this.projectListStore.postCreateProject(payload);
     this.onCloseModal();
   }
