@@ -1,5 +1,13 @@
 <ng-container *ngIf="project$ | async as project">
-  <app-content-header [breadcrumb]="breadcrumb" [projectName]="project.name"></app-content-header>
-  <app-board-dnd-actions [project]="project" [currentUser]="currentUser$ | async" ></app-board-dnd-actions>
-  <app-board-dnd></app-board-dnd>
+  <div class="board-content">
+    <div>
+      <app-content-header [breadcrumb]="breadcrumb" [projectName]="project.name"></app-content-header>
+    </div>
+    <div>
+      <app-board-dnd-actions [project]="project" [currentUser]="currentUser$ | async" ></app-board-dnd-actions>
+    </div>
+    <div>
+      <app-board-dnd></app-board-dnd>
+    </div>
+  </div>
 </ng-container>

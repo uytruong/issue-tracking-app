@@ -1,4 +1,4 @@
 export class ProjectConst {
   static readonly ProjectKey: string = 'projectKey';
-  static readonly ProjectMetadata: string[] = ['Id', 'Key', 'Name', 'Category', 'Description', 'Action'];
+  static readonly ProjectMetadata: string[] = ['Key', 'Name', 'Category', 'Description', 'Action'];
 }
