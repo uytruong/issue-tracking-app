@@ -1,6 +1,5 @@
-<div class="flex-1 flex h-full mx-10 space-x-2" cdkDropListGroup>
-  <app-board-dnd-column
-    *ngFor="let stage of stages"
-    [stage]="stage"
-  ></app-board-dnd-column>
+<div class="board-dnd-container" cdkDropListGroup>
+  <div *ngFor="let stage of stages">
+    <app-board-dnd-column [stage]="stage"></app-board-dnd-column>
+  </div>
 </div>
